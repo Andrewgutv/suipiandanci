@@ -1,0 +1,7 @@
+[
+  {
+    "type": "module-android",
+    "name": "WordLockModule",
+    "class": "com.wordlocks.WordLockModule"
+  }
+]

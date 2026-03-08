@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">碎片单词</string>
+    <string name="channel_name">单词卡片</string>
+    <string name="channel_description">在锁屏显示单词卡片</string>
+    <string name="notification_title">碎片单词</string>
+    <string name="notification_content">点击查看详情</string>
+    <string name="action_known">认识</string>
+    <string name="action_unknown">不认识</string>
+    <string name="action_add_notebook">加入生词本</string>
+    <string name="action_next">下一个</string>
+    <string name="notebook">生词本</string>
+    <string name="settings">设置</string>
+    <string name="refresh_interval">刷新间隔</string>
+    <string name="enable_notification">开启单词通知</string>
+    <string name="delete">删除</string>
+    <string name="clear_all">清空</string>
+    <string name="confirm_clear">确认清空所有生词？</string>
+    <string name="no_words">暂无生词</string>
+    <string name="word_added">已加入生词本</string>
+    <string name="empty_notebook">生词本为空</string>
+    <string name="service_running">单词服务运行中</string>
+    <string name="service_stopped">单词服务已停止</string>
+    <string name="navigation_drawer_open">打开生词列表</string>
+    <string name="navigation_drawer_close">关闭生词列表</string>
+</resources>

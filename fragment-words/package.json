@@ -1,0 +1,22 @@
+{
+  "name": "fragment-words",
+  "version": "1.0.0",
+  "description": "碎片单词 - 轻量级无压力英语学习App",
+  "main": "main.js",
+  "scripts": {
+    "dev:h5": "uni build --watch --platform h5",
+    "build:h5": "uni build --platform h5",
+    "dev:mp-weixin": "uni build --watch --platform mp-weixin",
+    "build:mp-weixin": "uni build --platform mp-weixin",
+    "dev:app-android": "uni build --watch --platform app-android",
+    "build:app-android": "uni build --platform app-android"
+  },
+  "keywords": [
+    "uni-app",
+    "education",
+    "english",
+    "learning"
+  ],
+  "author": "",
+  "license": "MIT"
+}

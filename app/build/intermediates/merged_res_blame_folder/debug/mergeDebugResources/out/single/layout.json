@@ -1,0 +1,22 @@
+[
+    {
+        "merged": "com.fragmentwords.app-mergeDebugResources-41:/layout/activity_notebook.xml",
+        "source": "com.fragmentwords.app-main-44:/layout/activity_notebook.xml"
+    },
+    {
+        "merged": "com.fragmentwords.app-mergeDebugResources-41:/layout/nav_header_notebook.xml",
+        "source": "com.fragmentwords.app-main-44:/layout/nav_header_notebook.xml"
+    },
+    {
+        "merged": "com.fragmentwords.app-mergeDebugResources-41:/layout/activity_main.xml",
+        "source": "com.fragmentwords.app-main-44:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.fragmentwords.app-mergeDebugResources-41:/layout/activity_library_select.xml",
+        "source": "com.fragmentwords.app-main-44:/layout/activity_library_select.xml"
+    },
+    {
+        "merged": "com.fragmentwords.app-mergeDebugResources-41:/layout/item_library_select.xml",
+        "source": "com.fragmentwords.app-main-44:/layout/item_library_select.xml"
+    }
+]

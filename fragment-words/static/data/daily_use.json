@@ -1,0 +1,220 @@
+{
+  "meta": {
+    "name": "Daily Use",
+    "description": "日常常用词",
+    "version": "1.0",
+    "count": 30
+  },
+  "words": [
+    {
+      "word": "ambience",
+      "phonetic": "/ˈæmbiəns/",
+      "translation": "n. 气氛，氛围，情调",
+      "example": "The restaurant has a pleasant ambience.",
+      "difficulty": 3
+    },
+    {
+      "word": "eloquent",
+      "phonetic": "/ˈeləkwənt/",
+      "translation": "adj. 雄辩的，有口才的",
+      "example": "She gave an eloquent speech.",
+      "difficulty": 3
+    },
+    {
+      "word": "serendipity",
+      "phonetic": "/ˌserənˈdɪpəti/",
+      "translation": "n. 意外发现珍奇事物的运气",
+      "example": "Finding this book was pure serendipity.",
+      "difficulty": 4
+    },
+    {
+      "word": "ephemeral",
+      "phonetic": "/ɪˈfemərəl/",
+      "translation": "adj. 短暂的，瞬息的",
+      "example": "Fame is often ephemeral.",
+      "difficulty": 3
+    },
+    {
+      "word": "resilient",
+      "phonetic": "/rɪˈzɪliənt/",
+      "translation": "adj. 有弹性的，有复原力的",
+      "example": "Children are often more resilient than adults.",
+      "difficulty": 3
+    },
+    {
+      "word": "nostalgia",
+      "phonetic": "/nɒˈstældʒə/",
+      "translation": "n. 怀旧，乡愁",
+      "example": "He felt nostalgia for his college days.",
+      "difficulty": 2
+    },
+    {
+      "word": "authentic",
+      "phonetic": "/ɔːˈθentɪk/",
+      "translation": "adj. 真实的，可信的",
+      "example": "This is an authentic antique.",
+      "difficulty": 2
+    },
+    {
+      "word": "meticulous",
+      "phonetic": "/məˈtɪkjələs/",
+      "translation": "adj. 一丝不苟的，精确的",
+      "example": "She is meticulous about her work.",
+      "difficulty": 3
+    },
+    {
+      "word": "pragmatic",
+      "phonetic": "/præɡˈmætɪk/",
+      "translation": "adj. 务实的，实用主义的",
+      "example": "We need a pragmatic solution.",
+      "difficulty": 2
+    },
+    {
+      "word": "vibrant",
+      "phonetic": "/ˈvaɪbrənt/",
+      "translation": "adj. 充满活力的，鲜艳的",
+      "example": "The city has a vibrant culture.",
+      "difficulty": 2
+    },
+    {
+      "word": "coherent",
+      "phonetic": "/kəʊˈhɪərənt/",
+      "translation": "adj. 连贯的，条理清楚的",
+      "example": "His argument was coherent and logical.",
+      "difficulty": 2
+    },
+    {
+      "word": "empathy",
+      "phonetic": "/ˈempəθi/",
+      "translation": "n. 同理心，共鸣",
+      "example": "She showed great empathy for others.",
+      "difficulty": 2
+    },
+    {
+      "word": "inevitable",
+      "phonetic": "/ɪnˈevɪtəbl/",
+      "translation": "adj. 不可避免的",
+      "example": "Change is inevitable.",
+      "difficulty": 2
+    },
+    {
+      "word": "profound",
+      "phonetic": "/prəˈfaʊnd/",
+      "translation": "adj. 深刻的，深奥的",
+      "example": "The book had a profound impact on me.",
+      "difficulty": 2
+    },
+    {
+      "word": "subtle",
+      "phonetic": "/ˈsʌtl/",
+      "translation": "adj. 微妙的，精细的",
+      "example": "There was a subtle change in his attitude.",
+      "difficulty": 2
+    },
+    {
+      "word": "versatile",
+      "phonetic": "/ˈvɜːsətaɪl/",
+      "translation": "adj. 多才多艺的，多功能的",
+      "example": "She is a versatile athlete.",
+      "difficulty": 2
+    },
+    {
+      "word": "adversity",
+      "phonetic": "/ədˈvɜːsəti/",
+      "translation": "n. 逆境，不幸",
+      "example": "He overcame many adversities in life.",
+      "difficulty": 3
+    },
+    {
+      "word": "contemplate",
+      "phonetic": "/ˈkɒntəmpleɪt/",
+      "translation": "v. 沉思，注视",
+      "example": "She contemplated the beautiful sunset.",
+      "difficulty": 3
+    },
+    {
+      "word": "diligent",
+      "phonetic": "/ˈdɪlɪdʒənt/",
+      "translation": "adj. 勤奋的，用功的",
+      "example": "He is a diligent student.",
+      "difficulty": 2
+    },
+    {
+      "word": "gratitude",
+      "phonetic": "/ˈɡrætɪtjuːd/",
+      "translation": "n. 感激之情",
+      "example": "I express my gratitude for your help.",
+      "difficulty": 2
+    },
+    {
+      "word": "harmony",
+      "phonetic": "/ˈhɑːməni/",
+      "translation": "n. 和谐，融洽",
+      "example": "Living in harmony with nature.",
+      "difficulty": 2
+    },
+    {
+      "word": "integrity",
+      "phonetic": "/ɪnˈteɡrəti/",
+      "translation": "n. 正直，诚实",
+      "example": "He is known for his integrity.",
+      "difficulty": 2
+    },
+    {
+      "word": "judgment",
+      "phonetic": "/ˈdʒʌdʒmənt/",
+      "translation": "n. 判断，判断力",
+      "example": "Trust your judgment.",
+      "difficulty": 2
+    },
+    {
+      "word": "kinetic",
+      "phonetic": "/kɪˈnetɪk/",
+      "translation": "adj. 运动的，动力学的",
+      "example": "Kinetic energy is the energy of motion.",
+      "difficulty": 3
+    },
+    {
+      "word": "lucid",
+      "phonetic": "/ˈluːsɪd/",
+      "translation": "adj. 清晰的，神志清醒的",
+      "example": "She gave a lucid explanation.",
+      "difficulty": 3
+    },
+    {
+      "word": "modest",
+      "phonetic": "/ˈmɒdɪst/",
+      "translation": "adj. 谦虚的，适度的",
+      "example": "He is modest about his achievements.",
+      "difficulty": 2
+    },
+    {
+      "word": "novel",
+      "phonetic": "/ˈnɒvl/",
+      "translation": "adj. 新颖的，新奇的",
+      "example": "She came up with a novel idea.",
+      "difficulty": 2
+    },
+    {
+      "word": "optimistic",
+      "phonetic": "/ˌɒptɪˈmɪstɪk/",
+      "translation": "adj. 乐观的",
+      "example": "She is optimistic about the future.",
+      "difficulty": 2
+    },
+    {
+      "word": "perseverance",
+      "phonetic": "/ˌpɜːsɪˈvɪərəns/",
+      "translation": "n. 毅力，坚持不懈",
+      "example": "Success requires perseverance.",
+      "difficulty": 3
+    },
+    {
+      "word": "quintessential",
+      "phonetic": "/ˌkwɪntɪˈsenʃl/",
+      "translation": "adj. 典型的，精髓的",
+      "example": "This is the quintessential example.",
+      "difficulty": 4
+    }
+  ]
+}

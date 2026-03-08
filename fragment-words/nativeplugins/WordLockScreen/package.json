@@ -1,0 +1,59 @@
+{
+  "minPlatformVersion": 1060,
+  "name": "WordLockScreen",
+  "id": "WordLockScreen",
+  "version": "1.0.0",
+  "displayName": "单词锁屏显示",
+  "description": "在 Android 锁屏上显示单词卡片，类似音乐播放器的锁屏控制",
+  "platforms": {
+    "cloud": {
+      "tcb": "y",
+      "aliyun": "y"
+    },
+    "client": {
+      "App": {
+        "app-android": "y",
+        "app-ios": "n"
+      }
+    }
+  },
+  "repository": "",
+  "engines": {
+    "HBuilderX": "^3.6.0"
+  },
+  "dcloudext": {
+    "category": [
+      "前端组件",
+      "通用组件"
+    ]
+  },
+  "uni_modules": {
+    "dependencies": [],
+    "encrypt": [],
+    "platforms": {
+      "cloud": {
+        "tcb": "y",
+        "aliyun": "y"
+      },
+      "client": {
+        "App": {
+          "app-android": "y",
+          "app-ios": "n"
+        },
+        "H5-mobile": {
+          "Safari": "n",
+          "Android Browser": "n",
+          "微信浏览器(Android)": "n",
+          "QQ浏览器(Android)": "n"
+        },
+        "H5-pc": {
+          "Chrome": "n",
+          "IE": "n",
+          "Edge": "n",
+          "Firefox": "n",
+          "Safari": "n"
+        }
+      }
+    }
+  }
+}

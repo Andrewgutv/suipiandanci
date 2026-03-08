@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:fitsSystemWindows="true"
+    tools:openDrawer="end">
+
+    <!-- 主内容区域：单词详情 -->
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/primary"
+                app:title="生词本"
+                app:titleTextColor="@color/white"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <!-- 单词卡片 -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    app:cardBackgroundColor="@color/card_background"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="3dp"
+                    app:strokeColor="@color/border"
+                    app:strokeWidth="2dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="24dp"
+                        android:gravity="center">
+
+                        <!-- 装饰图标 -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="✿"
+                            android:textColor="@color/accent"
+                            android:textSize="18sp"
+                            android:layout_marginBottom="8dp" />
+
+                        <!-- 单词 -->
+                        <TextView
+                            android:id="@+id/tv_word"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Word"
+                            android:textSize="40sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/primary"
+                            android:gravity="center"
+                            android:layout_marginBottom="16dp" />
+
+                        <!-- 音标和词性 -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center"
+                            android:layout_marginBottom="20dp">
+
+                            <TextView
+                                android:id="@+id/tv_phonetic"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="/wɜːrd/"
+                                android:textSize="18sp"
+                                android:textColor="@color/text_secondary"
+                                android:layout_marginEnd="16dp" />
+
+                            <TextView
+                                android:id="@+id/tv_part_of_speech"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="n."
+                                android:textSize="15sp"
+                                android:textColor="@color/white"
+                                android:paddingHorizontal="14dp"
+                                android:paddingVertical="6dp"
+                                android:background="@color/accent"
+                                android:layout_marginEnd="8dp" />
+
+                            <!-- 词库标签 -->
+                            <TextView
+                                android:id="@+id/tv_library"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="CET4"
+                                android:textSize="12sp"
+                                android:textColor="@color/white"
+                                android:paddingHorizontal="10dp"
+                                android:paddingVertical="4dp"
+                                android:background="@color/primary" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- 释义卡片 -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    app:cardBackgroundColor="@color/surface"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="2dp"
+                    app:strokeColor="@color/divider"
+                    app:strokeWidth="1dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="20dp">
+
+                        <!-- 装饰标题 -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="✎ 释义"
+                            android:textColor="@color/primary"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:layout_marginBottom="12dp" />
+
+                        <TextView
+                            android:id="@+id/tv_translation"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="单词，词语"
+                            android:textSize="18sp"
+                            android:textColor="@color/text_primary"
+                            android:lineSpacingExtra="4dp" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- 例句卡片 -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    app:cardBackgroundColor="@color/highlight_light"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="2dp"
+                    app:strokeColor="@color/border"
+                    app:strokeWidth="1dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="20dp">
+
+                        <!-- 装饰标题 -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="✐ 例句"
+                            android:textColor="@color/primary"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:layout_marginBottom="12dp" />
+
+                        <TextView
+                            android:id="@+id/tv_example"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="This is an example sentence."
+                            android:textSize="16sp"
+                            android:textColor="@color/text_primary"
+                            android:lineSpacingExtra="4dp" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <!-- 左侧侧边栏：生词列表 -->
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="280dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@color/surface"
+        android:fitsSystemWindows="true"
+        app:itemIconTint="@color/primary"
+        app:itemTextColor="@color/text_primary"
+        app:headerLayout="@layout/nav_header_notebook"
+        app:menu="@menu/activity_notebook_drawer" />
+
+</androidx.drawerlayout.widget.DrawerLayout>

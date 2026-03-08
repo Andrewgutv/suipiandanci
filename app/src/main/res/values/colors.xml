@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 温馨手账风格配色 -->
+    <!-- 主色调 - 温暖的棕色系 -->
+    <color name="primary">#FF8B7355</color>
+    <color name="primary_dark">#FF6B5344</color>
+    <color name="accent">#FFD4A574</color>
+
+    <!-- 背景色 - 温暖的米色、奶油色 -->
+    <color name="background">#FFF5F0E6</color>
+    <color name="surface">#FFFAF7F2</color>
+    <color name="card_background">#FFFEF9F0</color>
+
+    <!-- 文字颜色 - 柔和的深棕色 -->
+    <color name="text_primary">#FF4A3728</color>
+    <color name="text_secondary">#FF8B7355</color>
+    <color name="text_hint">#FFB89E7E</color>
+
+    <!-- 强调色 - 柔和的橙粉色 -->
+    <color name="highlight">#FFE8B89D</color>
+    <color name="highlight_light">#FFFFE4D6</color>
+
+    <!-- 功能色 -->
+    <color name="error">#FFD67C7C</color>
+    <color name="success">#FF8FB5A8</color>
+    <color name="warning">#FFE8C47C</color>
+
+    <!-- 边框和分割线 -->
+    <color name="border">#FFD9C4A8</color>
+    <color name="divider">#FFE8DBC8</color>
+
+    <!-- 基础色 -->
+    <color name="white">#FFFFFFFF</color>
+    <color name="black">#FF000000</color>
+    <color name="transparent">#00000000</color>
+
+    <!-- 旧配色保留（用于兼容） -->
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+
+    <!-- Launcher 图标背景色 -->
+    <color name="ic_launcher_background">#8B7355</color>
+</resources>
