@@ -1,0 +1,2369 @@
+[
+  {
+    "word": "background",
+    "phonetic": "/ˈbækɡraʊnd/",
+    "translation": "n. 背景",
+    "example": "Tell me about your background.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "bacteria",
+    "phonetic": "/bækˈtɪəriə/",
+    "translation": "n. 细菌",
+    "example": "Bacteria can cause disease.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "bad",
+    "phonetic": "/bæd/",
+    "translation": "adj. 坏的，有害的",
+    "example": "Smoking is bad for your health.",
+    "difficulty": 1,
+    "partOfSpeech": "adj.",
+    "library": "CET4"
+  },
+  {
+    "word": "badly",
+    "phonetic": "/ˈbædli/",
+    "translation": "adv. 坏地，严重地",
+    "example": "He was badly injured.",
+    "difficulty": 1,
+    "partOfSpeech": "adv.",
+    "library": "CET4"
+  },
+  {
+    "word": "bag",
+    "phonetic": "/bæɡ/",
+    "translation": "n. 包，袋子",
+    "example": "She carried a bag of groceries.",
+    "difficulty": 1,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "baggage",
+    "phonetic": "/ˈbæɡɪdʒ/",
+    "translation": "n. 行李",
+    "example": "How much baggage do you have?",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "balance",
+    "phonetic": "/ˈbæləns/",
+    "translation": "n. 平衡 v. 权衡",
+    "example": "You need to balance work and life.",
+    "difficulty": 2,
+    "partOfSpeech": "n./v.",
+    "library": "CET4"
+  },
+  {
+    "word": "balanced",
+    "phonetic": "/ˈbælənst/",
+    "translation": "adj. 平衡的",
+    "example": "A balanced diet is important.",
+    "difficulty": 2,
+    "partOfSpeech": "adj.",
+    "library": "CET4"
+  },
+  {
+    "word": "ball",
+    "phonetic": "/bɔːl/",
+    "translation": "n. 球，舞会",
+    "example": "Let's play ball.",
+    "difficulty": 1,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "balloon",
+    "phonetic": "/bəˈluːn/",
+    "translation": "n. 气球",
+    "example": "The balloon flew away.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "banana",
+    "phonetic": "/bəˈnɑːnə/",
+    "translation": "n. 香蕉",
+    "example": "Monkeys love bananas.",
+    "difficulty": 1,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "band",
+    "phonetic": "/bænd/",
+    "translation": "n. 乐队，带子 v. 绑扎",
+    "example": "The band played great music.",
+    "difficulty": 2,
+    "partOfSpeech": "n./v.",
+    "library": "CET4"
+  },
+  {
+    "word": "bank",
+    "phonetic": "/bæŋk/",
+    "translation": "n. 银行，岸 v. 存款",
+    "example": "I need to go to the bank.",
+    "difficulty": 1,
+    "partOfSpeech": "n./v.",
+    "library": "CET4"
+  },
+  {
+    "word": "bar",
+    "phonetic": "/bɑːr/",
+    "translation": "n. 条，棒，酒吧",
+    "example": "Let's meet at the bar.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "bare",
+    "phonetic": "/beər/",
+    "translation": "adj. 赤裸的，勉强的",
+    "example": "He walked on bare feet.",
+    "difficulty": 2,
+    "partOfSpeech": "adj.",
+    "library": "CET4"
+  },
+  {
+    "word": "bargain",
+    "phonetic": "/ˈbɑːɡɪn/",
+    "translation": "n. 便宜货 v. 讨价还价",
+    "example": "I got a real bargain at the sale.",
+    "difficulty": 3,
+    "partOfSpeech": "n./v.",
+    "library": "CET4"
+  },
+  {
+    "word": "barrier",
+    "phonetic": "/ˈbæriər/",
+    "translation": "n. 障碍，屏障",
+    "example": "Language can be a barrier.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "base",
+    "phonetic": "/beɪs/",
+    "translation": "n. 基础 adj. 卑鄙的",
+    "example": "This is the base of the statue.",
+    "difficulty": 2,
+    "partOfSpeech": "n./adj.",
+    "library": "CET4"
+  },
+  {
+    "word": "basic",
+    "phonetic": "/ˈbeɪsɪk/",
+    "translation": "adj. 基本的",
+    "example": "These are basic rights.",
+    "difficulty": 2,
+    "partOfSpeech": "adj.",
+    "library": "CET4"
+  },
+  {
+    "word": "basically",
+    "phonetic": "/ˈbeɪsɪkli/",
+    "translation": "adv. 基本上",
+    "example": "Basically, I agree with you.",
+    "difficulty": 2,
+    "partOfSpeech": "adv.",
+    "library": "CET4"
+  },
+  {
+    "word": "basis",
+    "phonetic": "/ˈbeɪsɪs/",
+    "translation": "n. 基础",
+    "example": "Trust is the basis of friendship.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "basket",
+    "phonetic": "/ˈbæskɪt/",
+    "translation": "n. 篮子",
+    "example": "She bought a basket of fruit.",
+    "difficulty": 1,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "basketball",
+    "phonetic": "/ˈbæskɪtbɔːl/",
+    "translation": "n. 篮球",
+    "example": "He plays basketball well.",
+    "difficulty": 1,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "bat",
+    "phonetic": "/bæt/",
+    "translation": "n. 蝙蝠，球棒",
+    "example": "The bat flew out of the cave.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "bath",
+    "phonetic": "/bɑːθ/",
+    "translation": "n. 沐浴 v. 给...洗澡",
+    "example": "I'm taking a bath.",
+    "difficulty": 1,
+    "partOfSpeech": "n./v.",
+    "library": "CET4"
+  },
+  {
+    "word": "bathroom",
+    "phonetic": "/ˈbɑːθruːm/",
+    "translation": "n. 浴室",
+    "example": "Where is the bathroom?",
+    "difficulty": 1,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "battery",
+    "phonetic": "/ˈbætri/",
+    "translation": "n. 电池",
+    "example": "The battery is dead.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "battle",
+    "phonetic": "/ˈbætl/",
+    "translation": "n./v. 战斗，斗争",
+    "example": "They won the battle.",
+    "difficulty": 2,
+    "partOfSpeech": "n./v.",
+    "library": "CET4"
+  },
+  {
+    "word": "bay",
+    "phonetic": "/beɪ/",
+    "translation": "n. 湾",
+    "example": "We sailed into the bay.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "be",
+    "phonetic": "/bi/",
+    "translation": "v. 是，存在",
+    "example": "I want to be a teacher.",
+    "difficulty": 1,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "beach",
+    "phonetic": "/biːtʃ/",
+    "translation": "n. 海滩",
+    "example": "Let's go to the beach.",
+    "difficulty": 1,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "bean",
+    "phonetic": "/biːn/",
+    "translation": "n. 豆",
+    "example": "Coffee beans are roasted.",
+    "difficulty": 1,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "bear",
+    "phonetic": "/beər/",
+    "translation": "n. 熊 v. 忍受",
+    "example": "I can't bear this pain.",
+    "difficulty": 2,
+    "partOfSpeech": "n./v.",
+    "library": "CET4"
+  },
+  {
+    "word": "beard",
+    "phonetic": "/bɪəd/",
+    "translation": "n. 胡须",
+    "example": "He grew a beard.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "beast",
+    "phonetic": "/biːst/",
+    "translation": "n. 兽，野兽",
+    "example": "The lion is the king of beasts.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "beat",
+    "phonetic": "/biːt/",
+    "translation": "v. 打败，敲打 n. 节拍",
+    "example": "Our team beat them easily.",
+    "difficulty": 2,
+    "partOfSpeech": "v./n.",
+    "library": "CET4"
+  },
+  {
+    "word": "beautiful",
+    "phonetic": "/ˈbjuːtɪfl/",
+    "translation": "adj. 美丽的",
+    "example": "She is a beautiful girl.",
+    "difficulty": 1,
+    "partOfSpeech": "adj.",
+    "library": "CET4"
+  },
+  {
+    "word": "beauty",
+    "phonetic": "/ˈbjuːti/",
+    "translation": "n. 美丽，美人",
+    "example": "Beauty is in the eye of beholder.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "because",
+    "phonetic": "/bɪˈkɒz/",
+    "translation": "conj. 因为",
+    "example": "I did it because I wanted to.",
+    "difficulty": 1,
+    "partOfSpeech": "conj.",
+    "library": "CET4"
+  },
+  {
+    "word": "become",
+    "phonetic": "/bɪˈkʌm/",
+    "translation": "v. 变成，成为",
+    "example": "He became a doctor.",
+    "difficulty": 1,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "bed",
+    "phonetic": "/bed/",
+    "translation": "n. 床",
+    "example": "I go to bed at 10 PM.",
+    "difficulty": 1,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "bedroom",
+    "phonetic": "/ˈbedruːm/",
+    "translation": "n. 卧室",
+    "example": "My bedroom is on the second floor.",
+    "difficulty": 1,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "bee",
+    "phonetic": "/biː/",
+    "translation": "n. 蜜蜂",
+    "example": "Bees make honey.",
+    "difficulty": 1,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "beef",
+    "phonetic": "/biːf/",
+    "translation": "n. 牛肉",
+    "example": "I'd like beef steak.",
+    "difficulty": 1,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "beer",
+    "phonetic": "/bɪər/",
+    "translation": "n. 啤酒",
+    "example": "Let's have a beer.",
+    "difficulty": 1,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "before",
+    "phonetic": "/bɪˈfɔːr/",
+    "translation": "prep./conj. 在...之前 adv. 以前",
+    "example": "Call me before you come.",
+    "difficulty": 1,
+    "partOfSpeech": "prep./conj./adv.",
+    "library": "CET4"
+  },
+  {
+    "word": "beg",
+    "phonetic": "/beɡ/",
+    "translation": "v. 乞讨，请求",
+    "example": "He begged for money.",
+    "difficulty": 2,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "begin",
+    "phonetic": "/bɪˈɡɪn/",
+    "translation": "v. 开始",
+    "example": "Let's begin the meeting.",
+    "difficulty": 1,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "beginning",
+    "phonetic": "/bɪˈɡɪnɪŋ/",
+    "translation": "n. 开始，开端",
+    "example": "At the beginning of class.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "behalf",
+    "phonetic": "/bɪˈhɑːf/",
+    "translation": "n. 代表，利益",
+    "example": "On behalf of my company.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "behave",
+    "phonetic": "/bɪˈheɪv/",
+    "translation": "v. 表现，举止",
+    "example": "Behave yourself!",
+    "difficulty": 2,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "behavior",
+    "phonetic": "/bɪˈheɪvjər/",
+    "translation": "n. 行为，举止",
+    "example": "His behavior was unacceptable.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "behind",
+    "phonetic": "/bɪˈhaɪnd/",
+    "translation": "prep. 在...后面 adv. 在后面",
+    "example": "He stood behind the door.",
+    "difficulty": 1,
+    "partOfSpeech": "prep./adv.",
+    "library": "CET4"
+  },
+  {
+    "word": "being",
+    "phonetic": "/ˈbiːɪŋ/",
+    "translation": "n. 存在，生命",
+    "example": "Human beings need love.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "belief",
+    "phonetic": "/bɪˈliːf/",
+    "translation": "n. 信仰，信念",
+    "example": "My belief is strong.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "believe",
+    "phonetic": "/bɪˈliːv/",
+    "translation": "v. 相信",
+    "example": "I believe you.",
+    "difficulty": 2,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "bell",
+    "phonetic": "/bel/",
+    "translation": "n. 铃，钟",
+    "example": "The bell rang.",
+    "difficulty": 1,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "belong",
+    "phonetic": "/bɪˈlɒŋ/",
+    "translation": "v. 属于",
+    "example": "This book belongs to me.",
+    "difficulty": 2,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "below",
+    "phonetic": "/bɪˈləʊ/",
+    "translation": "prep./adv. 在...下面",
+    "example": "The temperature is below zero.",
+    "difficulty": 2,
+    "partOfSpeech": "prep./adv.",
+    "library": "CET4"
+  },
+  {
+    "word": "belt",
+    "phonetic": "/belt/",
+    "translation": "n. 皮带，地带",
+    "example": "Fasten your seat belt.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "bench",
+    "phonetic": "/bentʃ/",
+    "translation": "n. 长椅",
+    "example": "We sat on the park bench.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "bend",
+    "phonetic": "/bend/",
+    "translation": "v. 弯曲 n. 弯曲",
+    "example": "Don't bend the rules.",
+    "difficulty": 2,
+    "partOfSpeech": "v./n.",
+    "library": "CET4"
+  },
+  {
+    "word": "beneath",
+    "phonetic": "/bɪˈniːθ/",
+    "translation": "prep. 在...下方",
+    "example": "The earth lay beneath his feet.",
+    "difficulty": 3,
+    "partOfSpeech": "prep.",
+    "library": "CET4"
+  },
+  {
+    "word": "beneficial",
+    "phonetic": "/ˌbenɪˈfɪʃl/",
+    "translation": "adj. 有益的",
+    "example": "Exercise is beneficial to health.",
+    "difficulty": 3,
+    "partOfSpeech": "adj.",
+    "library": "CET4"
+  },
+  {
+    "word": "benefit",
+    "phonetic": "/ˈbenɪfɪt/",
+    "translation": "n. 利益 v. 有益于",
+    "example": "The new policy benefits everyone.",
+    "difficulty": 2,
+    "partOfSpeech": "n./v.",
+    "library": "CET4"
+  },
+  {
+    "word": "beside",
+    "phonetic": "/bɪˈsaɪd/",
+    "translation": "prep. 在...旁边",
+    "example": "Come and sit beside me.",
+    "difficulty": 2,
+    "partOfSpeech": "prep.",
+    "library": "CET4"
+  },
+  {
+    "word": "besides",
+    "phonetic": "/bɪˈsaɪdz/",
+    "translation": "prep. 除...之外 adv. 此外",
+    "example": "Besides English, I speak French.",
+    "difficulty": 2,
+    "partOfSpeech": "prep./adv.",
+    "library": "CET4"
+  },
+  {
+    "word": "best",
+    "phonetic": "/best/",
+    "translation": "adj./adv. 最好的（地）",
+    "example": "This is the best way.",
+    "difficulty": 1,
+    "partOfSpeech": "adj./adv.",
+    "library": "CET4"
+  },
+  {
+    "word": "bet",
+    "phonetic": "/bet/",
+    "translation": "v./n. 打赌",
+    "example": "I bet you can't do it.",
+    "difficulty": 2,
+    "partOfSpeech": "v./n.",
+    "library": "CET4"
+  },
+  {
+    "word": "better",
+    "phonetic": "/ˈbetər/",
+    "translation": "adj./adv. 更好的（地）",
+    "example": "Tomorrow will be better.",
+    "difficulty": 1,
+    "partOfSpeech": "adj./adv.",
+    "library": "CET4"
+  },
+  {
+    "word": "between",
+    "phonetic": "/bɪˈtwiːn/",
+    "translation": "prep. 在...之间",
+    "example": "Choose between the two.",
+    "difficulty": 1,
+    "partOfSpeech": "prep.",
+    "library": "CET4"
+  },
+  {
+    "word": "beyond",
+    "phonetic": "/bɪˈjɒnd/",
+    "translation": "prep. 超过，在...那边",
+    "example": "This is beyond my ability.",
+    "difficulty": 3,
+    "partOfSpeech": "prep.",
+    "library": "CET4"
+  },
+  {
+    "word": "bicycle",
+    "phonetic": "/ˈbaɪsɪkl/",
+    "translation": "n. 自行车",
+    "example": "I ride my bicycle to work.",
+    "difficulty": 1,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "bid",
+    "phonetic": "/bɪd/",
+    "translation": "v./n. 出价，投标",
+    "example": "I'll bid $100.",
+    "difficulty": 3,
+    "partOfSpeech": "v./n.",
+    "library": "CET4"
+  },
+  {
+    "word": "big",
+    "phonetic": "/bɪɡ/",
+    "translation": "adj. 大的",
+    "example": "It's a big decision.",
+    "difficulty": 1,
+    "partOfSpeech": "adj.",
+    "library": "CET4"
+  },
+  {
+    "word": "bike",
+    "phonetic": "/baɪk/",
+    "translation": "n. 自行车",
+    "example": "My bike is broken.",
+    "difficulty": 1,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "bill",
+    "phonetic": "/bɪl/",
+    "translation": "n. 账单，法案",
+    "example": "Can I pay the bill?",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "billion",
+    "phonetic": "/ˈbɪljən/",
+    "translation": "n. 十亿",
+    "example": "There are billions of stars.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "bind",
+    "phonetic": "/baɪnd/",
+    "translation": "v. 捆绑，约束",
+    "example": "Bind the papers together.",
+    "difficulty": 3,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "biology",
+    "phonetic": "/baɪˈɒlədʒi/",
+    "translation": "n. 生物学",
+    "example": "She studies biology.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "bird",
+    "phonetic": "/bɜːd/",
+    "translation": "n. 鸟",
+    "example": "The bird can fly.",
+    "difficulty": 1,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "birth",
+    "phonetic": "/bɜːθ/",
+    "translation": "n. 出生",
+    "example": "He gave birth to a baby boy.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "birthday",
+    "phonetic": "/ˈbɜːθdeɪ/",
+    "translation": "n. 生日",
+    "example": "Happy birthday!",
+    "difficulty": 1,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "bit",
+    "phonetic": "/bɪt/",
+    "translation": "n. 一点，少量",
+    "example": "Wait a bit.",
+    "difficulty": 1,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "bite",
+    "phonetic": "/baɪt/",
+    "translation": "v./n. 咬",
+    "example": "The dog bit him.",
+    "difficulty": 2,
+    "partOfSpeech": "v./n.",
+    "library": "CET4"
+  },
+  {
+    "word": "bitter",
+    "phonetic": "/ˈbɪtər/",
+    "translation": "adj. 苦的，痛苦的",
+    "example": "This coffee is bitter.",
+    "difficulty": 3,
+    "partOfSpeech": "adj.",
+    "library": "CET4"
+  },
+  {
+    "word": "black",
+    "phonetic": "/blæk/",
+    "translation": "adj./n. 黑色（的）",
+    "example": "He wears black clothes.",
+    "difficulty": 1,
+    "partOfSpeech": "adj./n.",
+    "library": "CET4"
+  },
+  {
+    "word": "blackboard",
+    "phonetic": "/ˈblækbɔːd/",
+    "translation": "n. 黑板",
+    "example": "Write on the blackboard.",
+    "difficulty": 1,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "blame",
+    "phonetic": "/bleɪm/",
+    "translation": "v./n. 责备",
+    "example": "Don't blame me.",
+    "difficulty": 3,
+    "partOfSpeech": "v./n.",
+    "library": "CET4"
+  },
+  {
+    "word": "blank",
+    "phonetic": "/blæŋk/",
+    "translation": "adj. 空白的 n. 空白",
+    "example": "Fill in the blank.",
+    "difficulty": 3,
+    "partOfSpeech": "adj./n.",
+    "library": "CET4"
+  },
+  {
+    "word": "blanket",
+    "phonetic": "/ˈblæŋkɪt/",
+    "translation": "n. 毯子",
+    "example": "Cover yourself with a blanket.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "blast",
+    "phonetic": "/blɑːst/",
+    "translation": "n./v. 爆炸",
+    "example": "There was a blast.",
+    "difficulty": 3,
+    "partOfSpeech": "n./v.",
+    "library": "CET4"
+  },
+  {
+    "word": "bleed",
+    "phonetic": "/bliːd/",
+    "translation": "v. 流血",
+    "example": "Your nose is bleeding.",
+    "difficulty": 3,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "blend",
+    "phonetic": "/blend/",
+    "translation": "v./n. 混合",
+    "example": "Blend the sugar and butter.",
+    "difficulty": 3,
+    "partOfSpeech": "v./n.",
+    "library": "CET4"
+  },
+  {
+    "word": "bless",
+    "phonetic": "/bles/",
+    "translation": "v. 祝福",
+    "example": "God bless you.",
+    "difficulty": 3,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "blind",
+    "phonetic": "/blaɪnd/",
+    "translation": "adj. 瞎的",
+    "example": "He is blind in one eye.",
+    "difficulty": 2,
+    "partOfSpeech": "adj.",
+    "library": "CET4"
+  },
+  {
+    "word": "block",
+    "phonetic": "/blɒk/",
+    "translation": "n. 街区，块 v. 阻塞",
+    "example": "Walk two blocks.",
+    "difficulty": 2,
+    "partOfSpeech": "n./v.",
+    "library": "CET4"
+  },
+  {
+    "word": "blood",
+    "phonetic": "/blʌd/",
+    "translation": "n. 血",
+    "example": "Blood is thicker than water.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "bloom",
+    "phonetic": "/bluːm/",
+    "translation": "v./n. 开花",
+    "example": "Flowers bloom in spring.",
+    "difficulty": 3,
+    "partOfSpeech": "v./n.",
+    "library": "CET4"
+  },
+  {
+    "word": "blow",
+    "phonetic": "/bləʊ/",
+    "translation": "v. 吹，吹风",
+    "example": "The wind is blowing.",
+    "difficulty": 2,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "blue",
+    "phonetic": "/bluː/",
+    "translation": "adj./n. 蓝色（的）",
+    "example": "The sky is blue.",
+    "difficulty": 1,
+    "partOfSpeech": "adj./n.",
+    "library": "CET4"
+  },
+  {
+    "word": "board",
+    "phonetic": "/bɔːd/",
+    "translation": "n. 板，木板，董事会",
+    "example": "Write on the board.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "boast",
+    "phonetic": "/bəʊst/",
+    "translation": "v./n. 吹嘘",
+    "example": "He boasts about his wealth.",
+    "difficulty": 3,
+    "partOfSpeech": "v./n.",
+    "library": "CET4"
+  },
+  {
+    "word": "boat",
+    "phonetic": "/bəʊt/",
+    "translation": "n. 船",
+    "example": "We took a boat ride.",
+    "difficulty": 1,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "body",
+    "phonetic": "/ˈbɒdi/",
+    "translation": "n. 身体",
+    "example": "Exercise is good for your body.",
+    "difficulty": 1,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "boil",
+    "phonetic": "/bɔɪl/",
+    "translation": "v. 沸腾",
+    "example": "Water boils at 100°C.",
+    "difficulty": 2,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "bold",
+    "phonetic": "/bəʊld/",
+    "translation": "adj. 大胆的",
+    "example": "Be bold and take risks.",
+    "difficulty": 3,
+    "partOfSpeech": "adj.",
+    "library": "CET4"
+  },
+  {
+    "word": "bolt",
+    "phonetic": "/bəʊlt/",
+    "translation": "n. 螺栓 v. 逃跑",
+    "example": "Tighten the bolt.",
+    "difficulty": 3,
+    "partOfSpeech": "n./v.",
+    "library": "CET4"
+  },
+  {
+    "word": "bomb",
+    "phonetic": "/bɒm/",
+    "translation": "n. 炸弹",
+    "example": "The bomb exploded.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "bond",
+    "phonetic": "/bɒnd/",
+    "translation": "n. 联结，债券",
+    "example": "We have a strong bond.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "bone",
+    "phonetic": "/bəʊn/",
+    "translation": "n. 骨头",
+    "example": "Fish have many bones.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "book",
+    "phonetic": "/bʊk/",
+    "translation": "n. 书 v. 预订",
+    "example": "I'm reading a good book.",
+    "difficulty": 1,
+    "partOfSpeech": "n./v.",
+    "library": "CET4"
+  },
+  {
+    "word": "boom",
+    "phonetic": "/buːm/",
+    "translation": "n./v. 繁荣，激增",
+    "example": "The baby boomers.",
+    "difficulty": 3,
+    "partOfSpeech": "n./v.",
+    "library": "CET4"
+  },
+  {
+    "word": "boost",
+    "phonetic": "/buːst/",
+    "translation": "v. 提升，促进",
+    "example": "Exercise boosts your mood.",
+    "difficulty": 3,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "border",
+    "phonetic": "/ˈbɔːdər/",
+    "translation": "n. 边界，国界",
+    "example": "Cross the border.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "bored",
+    "phonetic": "/bɔːd/",
+    "translation": "adj. 厌倦的",
+    "example": "I'm bored.",
+    "difficulty": 2,
+    "partOfSpeech": "adj.",
+    "library": "CET4"
+  },
+  {
+    "word": "boring",
+    "phonetic": "/ˈbɔːrɪŋ/",
+    "translation": "adj. 无聊的",
+    "example": "The movie was boring.",
+    "difficulty": 2,
+    "partOfSpeech": "adj.",
+    "library": "CET4"
+  },
+  {
+    "word": "born",
+    "phonetic": "/bɔːn/",
+    "translation": "adj. 天生的",
+    "example": "He is a born leader.",
+    "difficulty": 2,
+    "partOfSpeech": "adj.",
+    "library": "CET4"
+  },
+  {
+    "word": "borrow",
+    "phonetic": "/ˈbɒrəʊ/",
+    "translation": "v. 借",
+    "example": "Can I borrow your pen?",
+    "difficulty": 2,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "boss",
+    "phonetic": "/bɒs/",
+    "translation": "n. 老板",
+    "example": "My boss is very strict.",
+    "difficulty": 1,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "both",
+    "phonetic": "/bəʊθ/",
+    "translation": "adj./pron. 两者（都）",
+    "example": "Both of them came.",
+    "difficulty": 1,
+    "partOfSpeech": "adj./pron.",
+    "library": "CET4"
+  },
+  {
+    "word": "bother",
+    "phonetic": "/ˈbɒðər/",
+    "translation": "v. 打扰 n. 麻烦",
+    "example": "Don't bother me.",
+    "difficulty": 3,
+    "partOfSpeech": "v./n.",
+    "library": "CET4"
+  },
+  {
+    "word": "bottle",
+    "phonetic": "/ˈbɒtl/",
+    "translation": "n. 瓶子",
+    "example": "A bottle of water.",
+    "difficulty": 1,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "bottom",
+    "phonetic": "/ˈbɒtəm/",
+    "translation": "n. 底部",
+    "example": "At the bottom of the page.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "bounce",
+    "phonetic": "/baʊns/",
+    "translation": "v./n. 弹跳",
+    "example": "The ball bounced high.",
+    "difficulty": 3,
+    "partOfSpeech": "v./n.",
+    "library": "CET4"
+  },
+  {
+    "word": "bound",
+    "phonetic": "/baʊnd/",
+    "translation": "adj. 必定的，有义务的",
+    "example": "You are bound to succeed.",
+    "difficulty": 3,
+    "partOfSpeech": "adj.",
+    "library": "CET4"
+  },
+  {
+    "word": "boundary",
+    "phonetic": "/ˈbaʊndri/",
+    "translation": "n. 边界",
+    "example": "Set clear boundaries.",
+    "difficulty": 4,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "bow",
+    "phonetic": "/baʊ/",
+    "translation": "v./n. 鞠躬",
+    "example": "Bow to the queen.",
+    "difficulty": 2,
+    "partOfSpeech": "v./n.",
+    "library": "CET4"
+  },
+  {
+    "word": "bowl",
+    "phonetic": "/bəʊl/",
+    "translation": "n. 碗",
+    "example": "A bowl of rice.",
+    "difficulty": 1,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "box",
+    "phonetic": "/bɒks/",
+    "translation": "n. 箱子 v. 拳击",
+    "example": "Pack the box.",
+    "difficulty": 1,
+    "partOfSpeech": "n./v.",
+    "library": "CET4"
+  },
+  {
+    "word": "boy",
+    "phonetic": "/bɔɪ/",
+    "translation": "n. 男孩",
+    "example": "He is a good boy.",
+    "difficulty": 1,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "brain",
+    "phonetic": "/breɪn/",
+    "translation": "n. 大脑",
+    "example": "Use your brain.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "brake",
+    "phonetic": "/breɪk/",
+    "translation": "n./v. 刹车",
+    "example": "Hit the brake!",
+    "difficulty": 3,
+    "partOfSpeech": "n./v.",
+    "library": "CET4"
+  },
+  {
+    "word": "branch",
+    "phonetic": "/brɑːntʃ/",
+    "translation": "n. 树枝，分支",
+    "example": "The bank has many branches.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "brand",
+    "phonetic": "/brænd/",
+    "translation": "n. 品牌",
+    "example": "What brand do you like?",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "brave",
+    "phonetic": "/breɪv/",
+    "translation": "adj. 勇敢的",
+    "example": "Be brave!",
+    "difficulty": 2,
+    "partOfSpeech": "adj.",
+    "library": "CET4"
+  },
+  {
+    "word": "bread",
+    "phonetic": "/bred/",
+    "translation": "n. 面包",
+    "example": "I eat bread for breakfast.",
+    "difficulty": 1,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "break",
+    "phonetic": "/breɪk/",
+    "translation": "v. 打破 n. 休息",
+    "example": "Don't break the vase.",
+    "difficulty": 2,
+    "partOfSpeech": "v./n.",
+    "library": "CET4"
+  },
+  {
+    "word": "breakfast",
+    "phonetic": "/ˈbrekfəst/",
+    "translation": "n. 早餐",
+    "example": "What's for breakfast?",
+    "difficulty": 1,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "breast",
+    "phonetic": "/brest/",
+    "translation": "n. 胸部",
+    "example": "Breast cancer is serious.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "breath",
+    "phonetic": "/breθ/",
+    "translation": "n. 呼吸",
+    "example": "Take a deep breath.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "breathe",
+    "phonetic": "/briːð/",
+    "translation": "v. 呼吸",
+    "example": "Breathe deeply.",
+    "difficulty": 2,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "brick",
+    "phonetic": "/brɪk/",
+    "translation": "n. 砖",
+    "example": "The house is made of brick.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "bride",
+    "phonetic": "/braɪd/",
+    "translation": "n. 新娘",
+    "example": "The bride looked beautiful.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "bridge",
+    "phonetic": "/brɪdʒ/",
+    "translation": "n. 桥",
+    "example": "Cross the bridge.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "brief",
+    "phonetic": "/briːf/",
+    "translation": "adj. 简短的 n. 摘要",
+    "example": "Be brief and clear.",
+    "difficulty": 3,
+    "partOfSpeech": "adj./n.",
+    "library": "CET4"
+  },
+  {
+    "word": "bright",
+    "phonetic": "/braɪt/",
+    "translation": "adj. 明亮的，聪明的",
+    "example": "The sun is bright.",
+    "difficulty": 2,
+    "partOfSpeech": "adj.",
+    "library": "CET4"
+  },
+  {
+    "word": "brilliant",
+    "phonetic": "/ˈbrɪliənt/",
+    "translation": "adj. 杰出的，灿烂的",
+    "example": "A brilliant idea!",
+    "difficulty": 4,
+    "partOfSpeech": "adj.",
+    "library": "CET4"
+  },
+  {
+    "word": "bring",
+    "phonetic": "/brɪŋ/",
+    "translation": "v. 带来",
+    "example": "Bring your book tomorrow.",
+    "difficulty": 1,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "broad",
+    "phonetic": "/brɔːd/",
+    "translation": "adj. 宽广的",
+    "example": "He has broad shoulders.",
+    "difficulty": 2,
+    "partOfSpeech": "adj.",
+    "library": "CET4"
+  },
+  {
+    "word": "broadcast",
+    "phonetic": "/ˈbrɔːdkɑːst/",
+    "translation": "v./n. 广播",
+    "example": "The news was broadcast live.",
+    "difficulty": 3,
+    "partOfSpeech": "v./n.",
+    "library": "CET4"
+  },
+  {
+    "word": "broken",
+    "phonetic": "/ˈbrəʊkən/",
+    "translation": "adj. 破碎的",
+    "example": "The glass is broken.",
+    "difficulty": 2,
+    "partOfSpeech": "adj.",
+    "library": "CET4"
+  },
+  {
+    "word": "brother",
+    "phonetic": "/ˈbrʌðər/",
+    "translation": "n. 兄弟",
+    "example": "He is my brother.",
+    "difficulty": 1,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "brow",
+    "phonetic": "/braʊ/",
+    "translation": "n. 眉毛",
+    "example": "Raise your eyebrows.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "brown",
+    "phonetic": "/braʊn/",
+    "translation": "adj./n. 棕色（的）",
+    "example": "She has brown hair.",
+    "difficulty": 1,
+    "partOfSpeech": "adj./n.",
+    "library": "CET4"
+  },
+  {
+    "word": "brush",
+    "phonetic": "/brʌʃ/",
+    "translation": "n. 刷子 v. 刷",
+    "example": "Brush your teeth.",
+    "difficulty": 2,
+    "partOfSpeech": "n./v.",
+    "library": "CET4"
+  },
+  {
+    "word": "budget",
+    "phonetic": "/ˈbʌdʒɪt/",
+    "translation": "n. 预算",
+    "example": "We need a budget.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "build",
+    "phonetic": "/bɪld/",
+    "translation": "v. 建造",
+    "example": "They built a new house.",
+    "difficulty": 2,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "building",
+    "phonetic": "/ˈbɪldɪŋ/",
+    "translation": "n. 建筑物",
+    "example": "That's a tall building.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "bulk",
+    "phonetic": "/bʌlk/",
+    "translation": "n. 大部分，大量",
+    "example": "Buy in bulk to save money.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "bullet",
+    "phonetic": "/ˈbʊlɪt/",
+    "translation": "n. 子弹",
+    "example": "The bullet missed.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "bunch",
+    "phonetic": "/bʌntʃ/",
+    "translation": "n. 束，群",
+    "example": "A bunch of flowers.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "bundle",
+    "phonetic": "/ˈbʌndl/",
+    "translation": "n. 捆，束",
+    "example": "A bundle of joy.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "burden",
+    "phonetic": "/ˈbɜːdn/",
+    "translation": "n. 负担",
+    "example": "Don't be a burden.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "bureau",
+    "phonetic": "/ˈbjʊərəʊ/",
+    "translation": "n. 局，办事处",
+    "example": "The information bureau.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "burn",
+    "phonetic": "/bɜːn/",
+    "translation": "v. 燃烧",
+    "example": "Don't burn yourself.",
+    "difficulty": 2,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "burst",
+    "phonetic": "/bɜːst/",
+    "translation": "v./n. 爆裂",
+    "example": "The balloon burst.",
+    "difficulty": 3,
+    "partOfSpeech": "v./n.",
+    "library": "CET4"
+  },
+  {
+    "word": "bury",
+    "phonetic": "/ˈberi/",
+    "translation": "v. 埋葬",
+    "example": "They buried the treasure.",
+    "difficulty": 3,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "bus",
+    "phonetic": "/bʌs/",
+    "translation": "n. 公交车",
+    "example": "Take the bus to work.",
+    "difficulty": 1,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "bush",
+    "phonetic": "/bʊʃ/",
+    "translation": "n. 灌木",
+    "example": "A rose bush.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "business",
+    "phonetic": "/ˈbɪznəs/",
+    "translation": "n. 商业，生意",
+    "example": "Mind your own business.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "busy",
+    "phonetic": "/ˈbɪzi/",
+    "translation": "adj. 忙碌的",
+    "example": "I'm busy right now.",
+    "difficulty": 1,
+    "partOfSpeech": "adj.",
+    "library": "CET4"
+  },
+  {
+    "word": "but",
+    "phonetic": "/bət/",
+    "translation": "conj. 但是",
+    "example": "I like it, but it's expensive.",
+    "difficulty": 1,
+    "partOfSpeech": "conj.",
+    "library": "CET4"
+  },
+  {
+    "word": "butcher",
+    "phonetic": "/ˈbʊtʃər/",
+    "translation": "n. 屠夫",
+    "example": "Buy meat at the butcher's.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "butter",
+    "phonetic": "/ˈbʌtər/",
+    "translation": "n. 黄油",
+    "example": "Spread butter on bread.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "button",
+    "phonetic": "/ˈbʌtn/",
+    "translation": "n. 按钮",
+    "example": "Press the button.",
+    "difficulty": 1,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "buy",
+    "phonetic": "/baɪ/",
+    "translation": "v. 买",
+    "example": "I want to buy a car.",
+    "difficulty": 1,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "by",
+    "phonetic": "/baɪ/",
+    "translation": "prep. 在...旁，被",
+    "example": "Sit by the window.",
+    "difficulty": 1,
+    "partOfSpeech": "prep.",
+    "library": "CET4"
+  },
+  {
+    "word": "cabin",
+    "phonetic": "/ˈkæbɪn/",
+    "translation": "n. 小屋，机舱",
+    "example": "We stayed in a cabin.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "cabinet",
+    "phonetic": "/ˈkæbɪnət/",
+    "translation": "n. 内阁，储藏柜",
+    "example": "The cabinet meets tomorrow.",
+    "difficulty": 4,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "cable",
+    "phonetic": "/ˈkeɪbl/",
+    "translation": "n. 电缆",
+    "example": "Connect the cable.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "cafe",
+    "phonetic": "/ˈkæfeɪ/",
+    "translation": "n. 咖啡馆",
+    "example": "Let's meet at the cafe.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "cage",
+    "phonetic": "/keɪdʒ/",
+    "translation": "n. 笼子",
+    "example": "The bird is in a cage.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "cake",
+    "phonetic": "/keɪk/",
+    "translation": "n. 蛋糕",
+    "example": "Have a piece of cake.",
+    "difficulty": 1,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "calculate",
+    "phonetic": "/ˈkælkjuleɪt/",
+    "translation": "v. 计算",
+    "example": "Calculate the total cost.",
+    "difficulty": 3,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "calculator",
+    "phonetic": "/ˈkælkjuleɪtər/",
+    "translation": "n. 计算器",
+    "example": "Use a calculator.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "calendar",
+    "phonetic": "/ˈkælɪndər/",
+    "translation": "n. 日历",
+    "example": "Check the calendar.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "call",
+    "phonetic": "/kɔːl/",
+    "translation": "v./n. 呼叫，电话",
+    "example": "Call me later.",
+    "difficulty": 1,
+    "partOfSpeech": "v./n.",
+    "library": "CET4"
+  },
+  {
+    "word": "calm",
+    "phonetic": "/kɑːm/",
+    "translation": "adj. 平静的 v. 使平静",
+    "example": "Keep calm.",
+    "difficulty": 2,
+    "partOfSpeech": "adj./v.",
+    "library": "CET4"
+  },
+  {
+    "word": "camera",
+    "phonetic": "/ˈkæmərə/",
+    "translation": "n. 相机",
+    "example": "Take a picture with the camera.",
+    "difficulty": 1,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "camp",
+    "phonetic": "/kæmp/",
+    "translation": "n. 营地 v. 露营",
+    "example": "Let's go camping.",
+    "difficulty": 2,
+    "partOfSpeech": "n./v.",
+    "library": "CET4"
+  },
+  {
+    "word": "campaign",
+    "phonetic": "/kæmˈpeɪn/",
+    "translation": "n. 运动，战役",
+    "example": "The election campaign.",
+    "difficulty": 4,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "campus",
+    "phonetic": "/ˈkæmpəs/",
+    "translation": "n. 校园",
+    "example": "Live on campus.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "can",
+    "phonetic": "/kæn/",
+    "translation": "modal v. 能，可以 n. 罐头",
+    "example": "I can swim.",
+    "difficulty": 1,
+    "partOfSpeech": "modal v./n.",
+    "library": "CET4"
+  },
+  {
+    "word": "canal",
+    "phonetic": "/kəˈnæl/",
+    "translation": "n. 运河",
+    "example": "The Suez Canal.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "cancel",
+    "phonetic": "/ˈkænsəl/",
+    "translation": "v. 取消",
+    "example": "Cancel the meeting.",
+    "difficulty": 2,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "cancer",
+    "phonetic": "/ˈkænsər/",
+    "translation": "n. 癌症",
+    "example": "Lung cancer is serious.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "candidate",
+    "phonetic": "/ˈkændɪdət/",
+    "translation": "n. 候选人",
+    "example": "He is a candidate for president.",
+    "difficulty": 4,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "candle",
+    "phonetic": "/ˈkændl/",
+    "translation": "n. 蜡烛",
+    "example": "Light a candle.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "candy",
+    "phonetic": "/ˈkændi/",
+    "translation": "n. 糖果",
+    "example": "Kids love candy.",
+    "difficulty": 1,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "canteen",
+    "phonetic": "/kænˈtiːn/",
+    "translation": "n. 食堂",
+    "example": "Eat at the canteen.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "cap",
+    "phonetic": "/kæp/",
+    "translation": "n. 帽子",
+    "example": "Wear a cap.",
+    "difficulty": 1,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "capable",
+    "phonetic": "/ˈkeɪpəbl/",
+    "translation": "adj. 有能力的",
+    "example": "She is capable of more.",
+    "difficulty": 3,
+    "partOfSpeech": "adj.",
+    "library": "CET4"
+  },
+  {
+    "word": "capacity",
+    "phonetic": "/kəˈpæsəti/",
+    "translation": "n. 容量，能力",
+    "example": "The stadium's capacity is 50,000.",
+    "difficulty": 4,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "capital",
+    "phonetic": "/ˈkæpɪtl/",
+    "translation": "n. 首都，资本",
+    "example": "Beijing is the capital of China.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "captain",
+    "phonetic": "/ˈkæptɪn/",
+    "translation": "n. 队长，船长",
+    "example": "The captain led the team.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "capture",
+    "phonetic": "/ˈkæptʃər/",
+    "translation": "v. 捕获，占领",
+    "example": "The police captured the thief.",
+    "difficulty": 2,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "car",
+    "phonetic": "/kɑːr/",
+    "translation": "n. 汽车",
+    "example": "My car is red.",
+    "difficulty": 1,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "carbon",
+    "phonetic": "/ˈkɑːbən/",
+    "translation": "n. 碳",
+    "example": "Carbon dioxide is a greenhouse gas.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "card",
+    "phonetic": "/kɑːd/",
+    "translation": "n. 卡片",
+    "example": "Show your ID card.",
+    "difficulty": 1,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "care",
+    "phonetic": "/keər/",
+    "translation": "n./v. 关心，在意",
+    "example": "I care about you.",
+    "difficulty": 1,
+    "partOfSpeech": "n./v.",
+    "library": "CET4"
+  },
+  {
+    "word": "career",
+    "phonetic": "/kəˈrɪər/",
+    "translation": "n. 职业生涯",
+    "example": "She built a successful career.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "careful",
+    "phonetic": "/ˈkeəfl/",
+    "translation": "adj. 小心的",
+    "example": "Be careful!",
+    "difficulty": 2,
+    "partOfSpeech": "adj.",
+    "library": "CET4"
+  },
+  {
+    "word": "careless",
+    "phonetic": "/ˈkeələs/",
+    "translation": "adj. 粗心的",
+    "example": "Don't be careless.",
+    "difficulty": 3,
+    "partOfSpeech": "adj.",
+    "library": "CET4"
+  },
+  {
+    "word": "cargo",
+    "phonetic": "/ˈkɑːɡəʊ/",
+    "translation": "n. 货物",
+    "example": "The ship carries cargo.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "carpet",
+    "phonetic": "/ˈkɑːpɪt/",
+    "translation": "n. 地毯",
+    "example": "Vacuum the carpet.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "carriage",
+    "phonetic": "/ˈkærɪdʒ/",
+    "translation": "n. 马车，车厢",
+    "example": "Sit in the carriage.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "carrot",
+    "phonetic": "/ˈkærət/",
+    "translation": "n. 胡萝卜",
+    "example": "Rabbits like carrots.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "carry",
+    "phonetic": "/ˈkæri/",
+    "translation": "v. 携带",
+    "example": "Carry your bag.",
+    "difficulty": 2,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "cart",
+    "phonetic": "/kɑːt/",
+    "translation": "n. 手推车",
+    "example": "Push the cart.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "cartoon",
+    "phonetic": "/kɑːˈtuːn/",
+    "translation": "n. 卡通",
+    "example": "Kids watch cartoons.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "carve",
+    "phonetic": "/kɑːv/",
+    "translation": "v. 雕刻",
+    "example": "Carve a statue.",
+    "difficulty": 3,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "case",
+    "phonetic": "/keɪs/",
+    "translation": "n. 情况，箱子",
+    "example": "In any case.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "cash",
+    "phonetic": "/kæʃ/",
+    "translation": "n. 现金 v. 兑现",
+    "example": "Pay in cash.",
+    "difficulty": 2,
+    "partOfSpeech": "n./v.",
+    "library": "CET4"
+  },
+  {
+    "word": "cassette",
+    "phonetic": "/kəˈset/",
+    "translation": "n. 盒式磁带",
+    "example": "Play the cassette.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "cast",
+    "phonetic": "/kɑːst/",
+    "translation": "v. 投掷 n. 演员表",
+    "example": "Cast a fishing line.",
+    "difficulty": 3,
+    "partOfSpeech": "v./n.",
+    "library": "CET4"
+  },
+  {
+    "word": "castle",
+    "phonetic": "/ˈkɑːsl/",
+    "translation": "n. 城堡",
+    "example": "Visit the castle.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "casual",
+    "phonetic": "/ˈkæʒuəl/",
+    "translation": "adj. 随意的",
+    "example": "Dress casual.",
+    "difficulty": 3,
+    "partOfSpeech": "adj.",
+    "library": "CET4"
+  },
+  {
+    "word": "cat",
+    "phonetic": "/kæt/",
+    "translation": "n. 猫",
+    "example": "The cat meowed.",
+    "difficulty": 1,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "catalog",
+    "phonetic": "/ˈkætəlɒɡ/",
+    "translation": "n. 目录",
+    "example": "Check the product catalog.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "catch",
+    "phonetic": "/kætʃ/",
+    "translation": "v. 抓住，赶上",
+    "example": "Catch the ball.",
+    "difficulty": 1,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "category",
+    "phonetic": "/ˈkætəɡəri/",
+    "translation": "n. 类别",
+    "example": "Which category?",
+    "difficulty": 4,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "cattle",
+    "phonetic": "/ˈkætl/",
+    "translation": "n. 牛",
+    "example": "The cattle grazed.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "cause",
+    "phonetic": "/kɔːz/",
+    "translation": "n./v. 原因，导致",
+    "example": "Smoking causes cancer.",
+    "difficulty": 2,
+    "partOfSpeech": "n./v.",
+    "library": "CET4"
+  },
+  {
+    "word": "caution",
+    "phonetic": "/ˈkɔːʃn/",
+    "translation": "n. 小心，警告",
+    "example": "Proceed with caution.",
+    "difficulty": 4,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "cautious",
+    "phonetic": "/ˈkɔːʃəs/",
+    "translation": "adj. 小心的",
+    "example": "Be cautious.",
+    "difficulty": 4,
+    "partOfSpeech": "adj.",
+    "library": "CET4"
+  },
+  {
+    "word": "cave",
+    "phonetic": "/keɪv/",
+    "translation": "n. 洞穴",
+    "example": "Explore the cave.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "cease",
+    "phonetic": "/siːs/",
+    "translation": "v. 停止",
+    "example": "Cease fire.",
+    "difficulty": 4,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "ceiling",
+    "phonetic": "/ˈsiːlɪŋ/",
+    "translation": "n. 天花板",
+    "example": "Paint the ceiling.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "celebrate",
+    "phonetic": "/ˈselɪbreɪt/",
+    "translation": "v. 庆祝",
+    "example": "Celebrate your birthday.",
+    "difficulty": 3,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "celebration",
+    "phonetic": "/ˌselɪˈbreɪʃn/",
+    "translation": "n. 庆祝",
+    "example": "Join the celebration.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "cell",
+    "phonetic": "/sel/",
+    "translation": "n. 细胞，牢房",
+    "example": "Red blood cells.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "cellar",
+    "phonetic": "/ˈselər/",
+    "translation": "n. 地窖",
+    "example": "Store wine in the cellar.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "cement",
+    "phonetic": "/sɪˈment/",
+    "translation": "n. 水泥",
+    "example": "Mix the cement.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "cent",
+    "phonetic": "/sent/",
+    "translation": "n. 分（货币单位）",
+    "example": "That's 50 cents.",
+    "difficulty": 1,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "center",
+    "phonetic": "/ˈsentər/",
+    "translation": "n. 中心",
+    "example": "City center.",
+    "difficulty": 1,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "central",
+    "phonetic": "/ˈsentrəl/",
+    "translation": "adj. 中心的",
+    "example": "Central location.",
+    "difficulty": 3,
+    "partOfSpeech": "adj.",
+    "library": "CET4"
+  },
+  {
+    "word": "century",
+    "phonetic": "/ˈsentʃəri/",
+    "translation": "n. 世纪",
+    "example": "The 21st century.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "ceremony",
+    "phonetic": "/ˈserəməni/",
+    "translation": "n. 仪式",
+    "example": "Opening ceremony.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "certain",
+    "phonetic": "/ˈsɜːtn/",
+    "translation": "adj. 确定的",
+    "example": "I'm certain.",
+    "difficulty": 2,
+    "partOfSpeech": "adj.",
+    "library": "CET4"
+  },
+  {
+    "word": "certainly",
+    "phonetic": "/ˈsɜːtnli/",
+    "translation": "adv. 当然",
+    "example": "Certainly!",
+    "difficulty": 2,
+    "partOfSpeech": "adv.",
+    "library": "CET4"
+  },
+  {
+    "word": "certificate",
+    "phonetic": "/səˈtɪfɪkət/",
+    "translation": "n. 证书",
+    "example": "Birth certificate.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "chain",
+    "phonetic": "/tʃeɪn/",
+    "translation": "n. 链条",
+    "example": "Bike chain.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "chair",
+    "phonetic": "/tʃeər/",
+    "translation": "n. 椅子",
+    "example": "Sit on the chair.",
+    "difficulty": 1,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "chairman",
+    "phonetic": "/ˈtʃeəmən/",
+    "translation": "n. 主席",
+    "example": "The chairman spoke.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "chalk",
+    "phonetic": "/tʃɔːk/",
+    "translation": "n. 粉笔",
+    "example": "Write with chalk.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "challenge",
+    "phonetic": "/ˈtʃælɪndʒ/",
+    "translation": "n. 挑战 v. 向...挑战",
+    "example": "Accept the challenge.",
+    "difficulty": 4,
+    "partOfSpeech": "n./v.",
+    "library": "CET4"
+  },
+  {
+    "word": "challenging",
+    "phonetic": "/ˈtʃælɪndʒɪŋ/",
+    "translation": "adj. 具有挑战性的",
+    "example": "A challenging task.",
+    "difficulty": 3,
+    "partOfSpeech": "adj.",
+    "library": "CET4"
+  },
+  {
+    "word": "chamber",
+    "phonetic": "/ˈtʃeɪmbər/",
+    "translation": "n. 室，房间",
+    "example": "The council chamber.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "champion",
+    "phonetic": "/ˈtʃæmpiən/",
+    "translation": "n. 冠军",
+    "example": "World champion.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "chance",
+    "phonetic": "/tʃɑːns/",
+    "translation": "n. 机会",
+    "example": "Take a chance.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "change",
+    "phonetic": "/tʃeɪndʒ/",
+    "translation": "v./n. 改变，零钱",
+    "example": "Change the world.",
+    "difficulty": 1,
+    "partOfSpeech": "v./n.",
+    "library": "CET4"
+  },
+  {
+    "word": "channel",
+    "phonetic": "/ˈtʃænl/",
+    "translation": "n. 频道，海峡",
+    "example": "Change the channel.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  }
+]

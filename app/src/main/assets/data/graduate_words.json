@@ -1,0 +1,299 @@
+[
+  {
+    "word": "abandon",
+    "phonetic": "/əˈbændən/",
+    "translation": "v. 抛弃",
+    "example": "abandon hope",
+    "difficulty": 3,
+    "partOfSpeech": "v.",
+    "library": "GRADUATE"
+  },
+  {
+    "word": "abide",
+    "phonetic": "/əˈbaɪd/",
+    "translation": "v. 遵守",
+    "example": "abide by rules",
+    "difficulty": 4,
+    "partOfSpeech": "v.",
+    "library": "GRADUATE"
+  },
+  {
+    "word": "abolish",
+    "phonetic": "/əˈbɒlɪʃ/",
+    "translation": "v. 废除",
+    "example": "abolish bad habit",
+    "difficulty": 4,
+    "partOfSpeech": "v.",
+    "library": "GRADUATE"
+  },
+  {
+    "word": "absorb",
+    "phonetic": "/əbˈzɔːrb/",
+    "translation": "v. 吸收",
+    "example": "absorb information",
+    "difficulty": 3,
+    "partOfSpeech": "v.",
+    "library": "GRADUATE"
+  },
+  {
+    "word": "abstract",
+    "phonetic": "/ˈæbstrækt/",
+    "translation": "adj. 抽象的",
+    "example": "abstract noun",
+    "difficulty": 4,
+    "partOfSpeech": "adj.",
+    "library": "GRADUATE"
+  },
+  {
+    "word": "abundant",
+    "phonetic": "/əˈbʌndənt/",
+    "translation": "adj. 丰富的",
+    "example": "abundant resources",
+    "difficulty": 4,
+    "partOfSpeech": "adj.",
+    "library": "GRADUATE"
+  },
+  {
+    "word": "academic",
+    "phonetic": "/ˌækəˈdemɪk/",
+    "translation": "adj. 学院的",
+    "example": "academic degree",
+    "difficulty": 3,
+    "partOfSpeech": "adj.",
+    "library": "GRADUATE"
+  },
+  {
+    "word": "accelerate",
+    "phonetic": "/əkˈseləreɪt/",
+    "translation": "v. 加速",
+    "example": "accelerate speed",
+    "difficulty": 4,
+    "partOfSpeech": "v.",
+    "library": "GRADUATE"
+  },
+  {
+    "word": "access",
+    "phonetic": "/ˈækses/",
+    "translation": "n. 接近",
+    "example": "easy access",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "GRADUATE"
+  },
+  {
+    "word": "accommodate",
+    "phonetic": "/əˈkɒmədeɪt/",
+    "translation": "v. 容纳",
+    "example": "accommodate demand",
+    "difficulty": 4,
+    "partOfSpeech": "v.",
+    "library": "GRADUATE"
+  },
+  {
+    "word": "accomplish",
+    "phonetic": "/əˈkʌmplɪʃ/",
+    "translation": "v. 完成",
+    "example": "accomplish purpose",
+    "difficulty": 3,
+    "partOfSpeech": "v.",
+    "library": "GRADUATE"
+  },
+  {
+    "word": "accordance",
+    "phonetic": "/əˈkɔːrdəns/",
+    "translation": "n. 一致",
+    "example": "in accordance",
+    "difficulty": 4,
+    "partOfSpeech": "n.",
+    "library": "GRADUATE"
+  },
+  {
+    "word": "account",
+    "phonetic": "/əˈkaʊnt/",
+    "translation": "n. 账目",
+    "example": "open account",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "GRADUATE"
+  },
+  {
+    "word": "accumulate",
+    "phonetic": "/əˈkjuːmjəleɪt/",
+    "translation": "v. 积累",
+    "example": "accumulate capital",
+    "difficulty": 4,
+    "partOfSpeech": "v.",
+    "library": "GRADUATE"
+  },
+  {
+    "word": "accurate",
+    "phonetic": "/ˈækjərət/",
+    "translation": "adj. 准确的",
+    "example": "accurate calculation",
+    "difficulty": 3,
+    "partOfSpeech": "adj.",
+    "library": "GRADUATE"
+  },
+  {
+    "word": "accuse",
+    "phonetic": "/əˈkjuːz/",
+    "translation": "v. 指控",
+    "example": "accuse of crime",
+    "difficulty": 3,
+    "partOfSpeech": "v.",
+    "library": "GRADUATE"
+  },
+  {
+    "word": "accustomed",
+    "phonetic": "/əˈkʌstəmd/",
+    "translation": "adj. 习惯的",
+    "example": "get accustomed",
+    "difficulty": 3,
+    "partOfSpeech": "adj.",
+    "library": "GRADUATE"
+  },
+  {
+    "word": "achievement",
+    "phonetic": "/əˈtʃiːvmənt/",
+    "translation": "n. 成就",
+    "example": "great achievement",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "GRADUATE"
+  },
+  {
+    "word": "acknowledge",
+    "phonetic": "/əkˈnɒlɪdʒ/",
+    "translation": "v. 承认",
+    "example": "acknowledge defeat",
+    "difficulty": 4,
+    "partOfSpeech": "v.",
+    "library": "GRADUATE"
+  },
+  {
+    "word": "acquaint",
+    "phonetic": "/əˈkweɪnt/",
+    "translation": "v. 使熟悉",
+    "example": "acquaint with",
+    "difficulty": 4,
+    "partOfSpeech": "v.",
+    "library": "GRADUATE"
+  },
+  {
+    "word": "acquire",
+    "phonetic": "/əˈkwaɪər/",
+    "translation": "v. 获得",
+    "example": "acquire knowledge",
+    "difficulty": 3,
+    "partOfSpeech": "v.",
+    "library": "GRADUATE"
+  },
+  {
+    "word": "adapt",
+    "phonetic": "/əˈdæpt/",
+    "translation": "v. 适应",
+    "example": "adapt to climate",
+    "difficulty": 3,
+    "partOfSpeech": "v.",
+    "library": "GRADUATE"
+  },
+  {
+    "word": "adequate",
+    "phonetic": "/ˈædɪkwət/",
+    "translation": "adj. 足够的",
+    "example": "adequate preparation",
+    "difficulty": 3,
+    "partOfSpeech": "adj.",
+    "library": "GRADUATE"
+  },
+  {
+    "word": "adjacent",
+    "phonetic": "/əˈdʒeɪsnt/",
+    "translation": "adj. 邻近的",
+    "example": "adjacent room",
+    "difficulty": 4,
+    "partOfSpeech": "adj.",
+    "library": "GRADUATE"
+  },
+  {
+    "word": "adjust",
+    "phonetic": "/əˈdʒʌst/",
+    "translation": "v. 调节",
+    "example": "adjust temperature",
+    "difficulty": 2,
+    "partOfSpeech": "v.",
+    "library": "GRADUATE"
+  },
+  {
+    "word": "administration",
+    "phonetic": "/ədˌmɪnɪˈstreɪʃn/",
+    "translation": "n. 行政",
+    "example": "business administration",
+    "difficulty": 4,
+    "partOfSpeech": "n.",
+    "library": "GRADUATE"
+  },
+  {
+    "word": "admire",
+    "phonetic": "/ədˈmaɪər/",
+    "translation": "v. 钦佩",
+    "example": "admire hero",
+    "difficulty": 2,
+    "partOfSpeech": "v.",
+    "library": "GRADUATE"
+  },
+  {
+    "word": "admission",
+    "phonetic": "/ədˈmɪʃn/",
+    "translation": "n. 允许进入",
+    "example": "admission ticket",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "GRADUATE"
+  },
+  {
+    "word": "adopt",
+    "phonetic": "/əˈdɒpt/",
+    "translation": "v. 收养",
+    "example": "adopt child",
+    "difficulty": 2,
+    "partOfSpeech": "v.",
+    "library": "GRADUATE"
+  },
+  {
+    "word": "advance",
+    "phonetic": "/ədˈvæns/",
+    "translation": "v. 前进",
+    "example": "advance forward",
+    "difficulty": 2,
+    "partOfSpeech": "v.",
+    "library": "GRADUATE"
+  },
+  {
+    "word": "advantage",
+    "phonetic": "/ədˈvɑːntɪdʒ/",
+    "translation": "n. 优势",
+    "example": "take advantage",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "GRADUATE"
+  },
+  {
+    "word": "adventure",
+    "phonetic": "/ədˈventʃər/",
+    "translation": "n. 冒险",
+    "example": "seek adventure",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "GRADUATE"
+  },
+  {
+    "word": "advocate",
+    "phonetic": "/ˈædvəkət/",
+    "translation": "n. 拥护者",
+    "example": "advocate peace",
+    "difficulty": 4,
+    "partOfSpeech": "n.",
+    "library": "GRADUATE"
+  }
+]

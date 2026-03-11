@@ -1,0 +1,1325 @@
+[
+  {
+    "word": "abandon",
+    "phonetic": "/əˈbændən/",
+    "translation": "v. 抛弃，舍弃，放弃",
+    "example": "We had to abandon the car and walk.",
+    "difficulty": 2,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "ability",
+    "phonetic": "/əˈbɪləti/",
+    "translation": "n. 能力，本领",
+    "example": "He has the ability to solve problems.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "absolute",
+    "phonetic": "/ˈæbsəluːt/",
+    "translation": "adj. 绝对的，完全的",
+    "example": "I have absolute confidence in her.",
+    "difficulty": 3,
+    "partOfSpeech": "adj.",
+    "library": "CET4"
+  },
+  {
+    "word": "academic",
+    "phonetic": "/ˌækəˈdemɪk/",
+    "translation": "adj. 学术的，学院的",
+    "example": "The academic year begins in September.",
+    "difficulty": 2,
+    "partOfSpeech": "adj.",
+    "library": "CET4"
+  },
+  {
+    "word": "accept",
+    "phonetic": "/əkˈsept/",
+    "translation": "v. 接受，同意",
+    "example": "She accepted the job offer.",
+    "difficulty": 2,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "access",
+    "phonetic": "/ˈækses/",
+    "translation": "n. 接近，通道 v. 存取",
+    "example": "Students have access to the library.",
+    "difficulty": 2,
+    "partOfSpeech": "n./v.",
+    "library": "CET4"
+  },
+  {
+    "word": "accommodate",
+    "phonetic": "/əˈkɒmədeɪt/",
+    "translation": "v. 容纳，供应，供给",
+    "example": "The hotel can accommodate 200 guests.",
+    "difficulty": 3,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "accompany",
+    "phonetic": "/əˈkʌmpəni/",
+    "translation": "v. 陪伴，伴随",
+    "example": "May I accompany you to the station?",
+    "difficulty": 3,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "accomplish",
+    "phonetic": "/əˈkʌmplɪʃ/",
+    "translation": "v. 完成，实现",
+    "example": "She accomplished her mission successfully.",
+    "difficulty": 3,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "accordance",
+    "phonetic": "/əˈkɔːdəns/",
+    "translation": "n. 一致，和谐",
+    "example": "In accordance with your instructions.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "account",
+    "phonetic": "/əˈkaʊnt/",
+    "translation": "n. 账户，说明 v. 说明",
+    "example": "I opened a bank account.",
+    "difficulty": 2,
+    "partOfSpeech": "n./v.",
+    "library": "CET4"
+  },
+  {
+    "word": "accumulate",
+    "phonetic": "/əˈkjuːmjəleɪt/",
+    "translation": "v. 积累，积聚",
+    "example": "Dust accumulates quickly in this room.",
+    "difficulty": 3,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "accurate",
+    "phonetic": "/ˈækjərət/",
+    "translation": "adj. 准确的，精确的",
+    "example": "Please give me an accurate report.",
+    "difficulty": 3,
+    "partOfSpeech": "adj.",
+    "library": "CET4"
+  },
+  {
+    "word": "achieve",
+    "phonetic": "/əˈtʃiːv/",
+    "translation": "v. 实现，达到",
+    "example": "You will achieve your goal if you work hard.",
+    "difficulty": 2,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "acknowledge",
+    "phonetic": "/əkˈnɒlɪdʒ/",
+    "translation": "v. 承认，答谢",
+    "example": "He acknowledged his mistake.",
+    "difficulty": 4,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "acquire",
+    "phonetic": "/əˈkwaɪər/",
+    "translation": "v. 获得，取得",
+    "example": "She acquired a good knowledge of English.",
+    "difficulty": 3,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "adapt",
+    "phonetic": "/əˈdæpt/",
+    "translation": "v. 适应，改编",
+    "example": "Animals adapt to their environment.",
+    "difficulty": 3,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "adequate",
+    "phonetic": "/ˈædɪkwət/",
+    "translation": "adj. 足够的，适当的",
+    "example": "Is your salary adequate to support your family?",
+    "difficulty": 3,
+    "partOfSpeech": "adj.",
+    "library": "CET4"
+  },
+  {
+    "word": "adjust",
+    "phonetic": "/əˈdʒʌst/",
+    "translation": "v. 调整，调节",
+    "example": "You can adjust the height of the chair.",
+    "difficulty": 2,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "administration",
+    "phonetic": "/ədˌmɪnɪˈstreɪʃn/",
+    "translation": "n. 管理，行政",
+    "example": "The administration of the hospital is efficient.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "admire",
+    "phonetic": "/ədˈmaɪər/",
+    "translation": "v. 钦佩，羡慕",
+    "example": "I admire your courage.",
+    "difficulty": 2,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "admit",
+    "phonetic": "/ədˈmɪt/",
+    "translation": "v. 承认，准许进入",
+    "example": "He admitted his guilt.",
+    "difficulty": 2,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "adopt",
+    "phonetic": "/əˈdɒpt/",
+    "translation": "v. 收养，采用",
+    "example": "They decided to adopt a child.",
+    "difficulty": 3,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "adult",
+    "phonetic": "/ˈædʌlt/",
+    "translation": "n. 成年人 adj. 成年的",
+    "example": "This movie is for adults only.",
+    "difficulty": 1,
+    "partOfSpeech": "n./adj.",
+    "library": "CET4"
+  },
+  {
+    "word": "advance",
+    "phonetic": "/ədˈvɑːns/",
+    "translation": "v. 前进，提高 n. 进展",
+    "example": "Technology continues to advance.",
+    "difficulty": 2,
+    "partOfSpeech": "v./n.",
+    "library": "CET4"
+  },
+  {
+    "word": "advanced",
+    "phonetic": "/ədˈvɑːnst/",
+    "translation": "adj. 先进的，高级的",
+    "example": "This is an advanced course.",
+    "difficulty": 3,
+    "partOfSpeech": "adj.",
+    "library": "CET4"
+  },
+  {
+    "word": "advantage",
+    "phonetic": "/ədˈvɑːntɪdʒ/",
+    "translation": "n. 优势，利益",
+    "example": "What is the advantage of this method?",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "adventure",
+    "phonetic": "/ədˈventʃər/",
+    "translation": "n. 冒险，奇遇",
+    "example": "They went on a great adventure.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "advise",
+    "phonetic": "/ədˈvaɪz/",
+    "translation": "v. 建议，劝告",
+    "example": "I advise you to accept the offer.",
+    "difficulty": 2,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "affair",
+    "phonetic": "/əˈfeər/",
+    "translation": "n. 事情，事务",
+    "example": "That is my personal affair.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "affect",
+    "phonetic": "/əˈfekt/",
+    "translation": "v. 影响，感动",
+    "example": "Weather affects crop production.",
+    "difficulty": 2,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "affection",
+    "phonetic": "/əˈfekʃn/",
+    "translation": "n. 慈爱，感情",
+    "example": "She shows great affection for animals.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "afford",
+    "phonetic": "/əˈfɔːd/",
+    "translation": "v. 买得起，承担",
+    "example": "I can't afford a new car.",
+    "difficulty": 2,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "afraid",
+    "phonetic": "/əˈfreɪd/",
+    "translation": "adj. 害怕的，担心的",
+    "example": "Don't be afraid of making mistakes.",
+    "difficulty": 1,
+    "partOfSpeech": "adj.",
+    "library": "CET4"
+  },
+  {
+    "word": "agency",
+    "phonetic": "/ˈeɪdʒənsi/",
+    "translation": "n. 代理处，机构",
+    "example": "He works for a travel agency.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "aggressive",
+    "phonetic": "/əˈɡresɪv/",
+    "translation": "adj. 侵略的，进取的",
+    "example": "He has an aggressive personality.",
+    "difficulty": 3,
+    "partOfSpeech": "adj.",
+    "library": "CET4"
+  },
+  {
+    "word": "agreement",
+    "phonetic": "/əˈɡriːmənt/",
+    "translation": "n. 协议，同意",
+    "example": "We reached an agreement.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "agriculture",
+    "phonetic": "/ˈæɡrɪkʌltʃər/",
+    "translation": "n. 农业",
+    "example": "Agriculture is important to the economy.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "aid",
+    "phonetic": "/eɪd/",
+    "translation": "n. 帮助，援助 v. 援助",
+    "example": "Medical aid was sent to the disaster area.",
+    "difficulty": 2,
+    "partOfSpeech": "n./v.",
+    "library": "CET4"
+  },
+  {
+    "word": "alarm",
+    "phonetic": "/əˈlɑːm/",
+    "translation": "n. 警报，惊恐 v. 警告",
+    "example": "The fire alarm rang.",
+    "difficulty": 2,
+    "partOfSpeech": "n./v.",
+    "library": "CET4"
+  },
+  {
+    "word": "alcohol",
+    "phonetic": "/ˈælkəhɒl/",
+    "translation": "n. 酒精，酒",
+    "example": "Drinking too much alcohol is bad for health.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "alert",
+    "phonetic": "/əˈlɜːt/",
+    "translation": "adj. 警惕的 n. 警报",
+    "example": "Be alert to possible dangers.",
+    "difficulty": 2,
+    "partOfSpeech": "adj./n.",
+    "library": "CET4"
+  },
+  {
+    "word": "allergic",
+    "phonetic": "/əˈlɜːdʒɪk/",
+    "translation": "adj. 过敏的",
+    "example": "I'm allergic to peanuts.",
+    "difficulty": 3,
+    "partOfSpeech": "adj.",
+    "library": "CET4"
+  },
+  {
+    "word": "allow",
+    "phonetic": "/əˈlaʊ/",
+    "translation": "v. 允许，给予",
+    "example": "Smoking is not allowed here.",
+    "difficulty": 2,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "ally",
+    "phonetic": "/ˈælaɪ/",
+    "translation": "n. 同盟国 v. 结盟",
+    "example": "Britain was an ally of the US.",
+    "difficulty": 3,
+    "partOfSpeech": "n./v.",
+    "library": "CET4"
+  },
+  {
+    "word": "alter",
+    "phonetic": "/ˈɔːltər/",
+    "translation": "v. 改变，变更",
+    "example": "We need to alter our plans.",
+    "difficulty": 3,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "alternative",
+    "phonetic": "/ɔːlˈtɜːnətɪv/",
+    "translation": "n. 替代品 adj. 供选择的",
+    "example": "Is there an alternative to this plan?",
+    "difficulty": 4,
+    "partOfSpeech": "n./adj.",
+    "library": "CET4"
+  },
+  {
+    "word": "amazed",
+    "phonetic": "/əˈmeɪzd/",
+    "translation": "adj. 惊讶的，吃惊的",
+    "example": "I was amazed at her talent.",
+    "difficulty": 2,
+    "partOfSpeech": "adj.",
+    "library": "CET4"
+  },
+  {
+    "word": "ambition",
+    "phonetic": "/æmˈbɪʃn/",
+    "translation": "n. 雄心，野心",
+    "example": "Her ambition is to become a doctor.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "ambulance",
+    "phonetic": "/ˈæmbjələns/",
+    "translation": "n. 救护车",
+    "example": "Call an ambulance!",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "amount",
+    "phonetic": "/əˈmaʊnt/",
+    "translation": "n. 数量，总数 v. 总计",
+    "example": "A large amount of money was spent.",
+    "difficulty": 2,
+    "partOfSpeech": "n./v.",
+    "library": "CET4"
+  },
+  {
+    "word": "amuse",
+    "phonetic": "/əˈmjuːz/",
+    "translation": "v. 逗乐，娱乐",
+    "example": "The clown amused the children.",
+    "difficulty": 3,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "analyze",
+    "phonetic": "/ˈænəlaɪz/",
+    "translation": "v. 分析",
+    "example": "We need to analyze the data.",
+    "difficulty": 3,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "analysis",
+    "phonetic": "/əˈnæləsɪs/",
+    "translation": "n. 分析",
+    "example": "This analysis shows the trend.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "ancestor",
+    "phonetic": "/ˈænsestər/",
+    "translation": "n. 祖先，祖宗",
+    "example": "Our ancestors lived in caves.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "ancient",
+    "phonetic": "/ˈeɪnʃənt/",
+    "translation": "adj. 古代的，古老的",
+    "example": "Rome is famous for its ancient ruins.",
+    "difficulty": 2,
+    "partOfSpeech": "adj.",
+    "library": "CET4"
+  },
+  {
+    "word": "anger",
+    "phonetic": "/ˈæŋɡər/",
+    "translation": "n. 愤怒 v. 激怒",
+    "example": "He couldn't control his anger.",
+    "difficulty": 2,
+    "partOfSpeech": "n./v.",
+    "library": "CET4"
+  },
+  {
+    "word": "angle",
+    "phonetic": "/ˈæŋɡl/",
+    "translation": "n. 角，角度",
+    "example": "A right angle is 90 degrees.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "animal",
+    "phonetic": "/ˈænɪml/",
+    "translation": "n. 动物",
+    "example": "Dogs are loyal animals.",
+    "difficulty": 1,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "anniversary",
+    "phonetic": "/ˌænɪˈvɜːsəri/",
+    "translation": "n. 周年纪念",
+    "example": "Today is our wedding anniversary.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "announce",
+    "phonetic": "/əˈnaʊns/",
+    "translation": "v. 宣布，通告",
+    "example": "They announced their engagement.",
+    "difficulty": 2,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "annual",
+    "phonetic": "/ˈænjuəl/",
+    "translation": "adj. 每年的 n. 年刊",
+    "example": "The annual meeting is in December.",
+    "difficulty": 3,
+    "partOfSpeech": "adj./n.",
+    "library": "CET4"
+  },
+  {
+    "word": "another",
+    "phonetic": "/əˈnʌðər/",
+    "translation": "adj. 另一个，又一个",
+    "example": "Would you like another cup of coffee?",
+    "difficulty": 1,
+    "partOfSpeech": "adj.",
+    "library": "CET4"
+  },
+  {
+    "word": "answer",
+    "phonetic": "/ˈɑːnsər/",
+    "translation": "n. 回答 v. 回答",
+    "example": "Please answer the question.",
+    "difficulty": 1,
+    "partOfSpeech": "n./v.",
+    "library": "CET4"
+  },
+  {
+    "word": "anxiety",
+    "phonetic": "/æŋˈzaɪəti/",
+    "translation": "n. 焦虑，担心",
+    "example": "She suffers from anxiety.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "anxious",
+    "phonetic": "/ˈæŋkʃəs/",
+    "translation": "adj. 焦虑的，渴望的",
+    "example": "He is anxious about the exam.",
+    "difficulty": 3,
+    "partOfSpeech": "adj.",
+    "library": "CET4"
+  },
+  {
+    "word": "anyway",
+    "phonetic": "/ˈeniweɪ/",
+    "translation": "adv. 无论如何",
+    "example": "It's raining, but I'm going out anyway.",
+    "difficulty": 2,
+    "partOfSpeech": "adv.",
+    "library": "CET4"
+  },
+  {
+    "word": "apart",
+    "phonetic": "/əˈpɑːt/",
+    "translation": "adv. 分开，相隔",
+    "example": "The two houses are about 100 meters apart.",
+    "difficulty": 2,
+    "partOfSpeech": "adv.",
+    "library": "CET4"
+  },
+  {
+    "word": "apartment",
+    "phonetic": "/əˈpɑːtmənt/",
+    "translation": "n. 公寓",
+    "example": "They live in a small apartment.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "apologize",
+    "phonetic": "/əˈpɒlədʒaɪz/",
+    "translation": "v. 道歉",
+    "example": "You should apologize to her.",
+    "difficulty": 3,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "appearance",
+    "phonetic": "/əˈpɪərəns/",
+    "translation": "n. 外观，出现",
+    "example": "Don't judge by appearance.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "apple",
+    "phonetic": "/ˈæpl/",
+    "translation": "n. 苹果",
+    "example": "An apple a day keeps the doctor away.",
+    "difficulty": 1,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "application",
+    "phonetic": "/ˌæplɪˈkeɪʃn/",
+    "translation": "n. 申请，应用",
+    "example": "I submitted my job application.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "apply",
+    "phonetic": "/əˈplaɪ/",
+    "translation": "v. 申请，应用",
+    "example": "You can apply for this scholarship.",
+    "difficulty": 2,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "appoint",
+    "phonetic": "/əˈpɔɪnt/",
+    "translation": "v. 任命，约定",
+    "example": "They appointed him manager.",
+    "difficulty": 3,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "appointment",
+    "phonetic": "/əˈpɔɪntmənt/",
+    "translation": "n. 任命，预约",
+    "example": "I have an appointment with the dentist.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "appreciate",
+    "phonetic": "/əˈpriːʃieɪt/",
+    "translation": "v. 感激，欣赏",
+    "example": "I appreciate your help.",
+    "difficulty": 4,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "approach",
+    "phonetic": "/əˈprəʊtʃ/",
+    "translation": "v. 接近 n. 方法",
+    "example": "Winter is approaching.",
+    "difficulty": 3,
+    "partOfSpeech": "v./n.",
+    "library": "CET4"
+  },
+  {
+    "word": "appropriate",
+    "phonetic": "/əˈprəʊpriət/",
+    "translation": "adj. 适当的",
+    "example": "Please wear appropriate clothing.",
+    "difficulty": 4,
+    "partOfSpeech": "adj.",
+    "library": "CET4"
+  },
+  {
+    "word": "approval",
+    "phonetic": "/əˈpruːvl/",
+    "translation": "n. 批准，赞成",
+    "example": "The project needs approval.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "approve",
+    "phonetic": "/əˈpruːv/",
+    "translation": "v. 批准，赞成",
+    "example": "The committee approved the plan.",
+    "difficulty": 3,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "approximate",
+    "phonetic": "/əˈprɒksɪmət/",
+    "translation": "adj. 大约的 v. 接近",
+    "example": "The approximate cost is $1000.",
+    "difficulty": 4,
+    "partOfSpeech": "adj./v.",
+    "library": "CET4"
+  },
+  {
+    "word": "arbitrary",
+    "phonetic": "/ˈɑːbɪtrəri/",
+    "translation": "adj. 任意的，专断的",
+    "example": "The decision seemed arbitrary.",
+    "difficulty": 4,
+    "partOfSpeech": "adj.",
+    "library": "CET4"
+  },
+  {
+    "word": "architect",
+    "phonetic": "/ˈɑːkɪtekt/",
+    "translation": "n. 建筑师",
+    "example": "Frank Lloyd Wright was a famous architect.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "architecture",
+    "phonetic": "/ˈɑːkɪtektʃər/",
+    "translation": "n. 建筑学，建筑",
+    "example": "The architecture of this building is unique.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "area",
+    "phonetic": "/ˈeəriə/",
+    "translation": "n. 区域，面积",
+    "example": "This is a residential area.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "argue",
+    "phonetic": "/ˈɑːɡjuː/",
+    "translation": "v. 争论，辩论",
+    "example": "Don't argue with your parents.",
+    "difficulty": 2,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "argument",
+    "phonetic": "/ˈɑːɡjumənt/",
+    "translation": "n. 争论，论点",
+    "example": "They had a heated argument.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "arise",
+    "phonetic": "/əˈraɪz/",
+    "translation": "v. 出现，升起",
+    "example": "A new problem has arisen.",
+    "difficulty": 3,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "arithmetic",
+    "phonetic": "/əˈrɪθmətɪk/",
+    "translation": "n. 算术",
+    "example": "Students learn arithmetic in primary school.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "arouse",
+    "phonetic": "/əˈraʊz/",
+    "translation": "v. 引起，唤醒",
+    "example": "His speech aroused great interest.",
+    "difficulty": 3,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "arrange",
+    "phonetic": "/əˈreɪndʒ/",
+    "translation": "v. 安排，整理",
+    "example": "I'll arrange a meeting for you.",
+    "difficulty": 2,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "arrangement",
+    "phonetic": "/əˈreɪndʒmənt/",
+    "translation": "n. 安排，排列",
+    "example": "We need to make arrangements for the party.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "arrest",
+    "phonetic": "/əˈrest/",
+    "translation": "v./n. 逮捕",
+    "example": "The police arrested the thief.",
+    "difficulty": 3,
+    "partOfSpeech": "v./n.",
+    "library": "CET4"
+  },
+  {
+    "word": "arrival",
+    "phonetic": "/əˈraɪvl/",
+    "translation": "n. 到达，到来",
+    "example": "We are waiting for his arrival.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "arrive",
+    "phonetic": "/əˈraɪv/",
+    "translation": "v. 到达，来到",
+    "example": "When will the train arrive?",
+    "difficulty": 2,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "arrow",
+    "phonetic": "/ˈærəʊ/",
+    "translation": "n. 箭，箭头",
+    "example": "Follow the arrow to the exit.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "art",
+    "phonetic": "/ɑːt/",
+    "translation": "n. 艺术，美术",
+    "example": "She is studying art history.",
+    "difficulty": 1,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "article",
+    "phonetic": "/ˈɑːtɪkl/",
+    "translation": "n. 文章，物品",
+    "example": "I read an interesting article today.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "artificial",
+    "phonetic": "/ˌɑːtɪˈfɪʃl/",
+    "translation": "adj. 人造的，假的",
+    "example": "These flowers are artificial.",
+    "difficulty": 4,
+    "partOfSpeech": "adj.",
+    "library": "CET4"
+  },
+  {
+    "word": "artist",
+    "phonetic": "/ˈɑːtɪst/",
+    "translation": "n. 艺术家，画家",
+    "example": "Picasso was a great artist.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "ash",
+    "phonetic": "/æʃ/",
+    "translation": "n. 灰，灰烬",
+    "example": "Cigarette ash fell on the carpet.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "ashamed",
+    "phonetic": "/əˈʃeɪmd/",
+    "translation": "adj. 惭愧的，羞耻的",
+    "example": "You should be ashamed of yourself.",
+    "difficulty": 3,
+    "partOfSpeech": "adj.",
+    "library": "CET4"
+  },
+  {
+    "word": "aside",
+    "phonetic": "/əˈsaɪd/",
+    "translation": "adv. 在旁边",
+    "example": "Please step aside.",
+    "difficulty": 2,
+    "partOfSpeech": "adv.",
+    "library": "CET4"
+  },
+  {
+    "word": "aspect",
+    "phonetic": "/ˈæspekt/",
+    "translation": "n. 方面，外表",
+    "example": "We must consider every aspect.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "assemble",
+    "phonetic": "/əˈsembl/",
+    "translation": "v. 集合，装配",
+    "example": "The students assembled in the hall.",
+    "difficulty": 4,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "assembly",
+    "phonetic": "/əˈsembli/",
+    "translation": "n. 集会，装配",
+    "example": "The school assembly starts at 9 AM.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "assess",
+    "phonetic": "/əˈses/",
+    "translation": "v. 评估，估价",
+    "example": "We need to assess the situation.",
+    "difficulty": 3,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "asset",
+    "phonetic": "/ˈæset/",
+    "translation": "n. 资产，优点",
+    "example": "The company's assets increased.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "assign",
+    "phonetic": "/əˈsaɪn/",
+    "translation": "v. 分配，指派",
+    "example": "The teacher assigned homework.",
+    "difficulty": 3,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "assignment",
+    "phonetic": "/əˈsaɪnmənt/",
+    "translation": "n. 任务，作业",
+    "example": "I have a lot of assignments.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "assist",
+    "phonetic": "/əˈsɪst/",
+    "translation": "v. 协助，帮助",
+    "example": "He assisted me with my work.",
+    "difficulty": 3,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "associate",
+    "phonetic": "/əˈsəʊʃieɪt/",
+    "translation": "v. 联想，交往 n. 同事",
+    "example": "People associate red with danger.",
+    "difficulty": 4,
+    "partOfSpeech": "v./n.",
+    "library": "CET4"
+  },
+  {
+    "word": "association",
+    "phonetic": "/əˌsəʊsiˈeɪʃn/",
+    "translation": "n. 协会，联想",
+    "example": "He is a member of the football association.",
+    "difficulty": 4,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "assume",
+    "phonetic": "/əˈsjuːm/",
+    "translation": "v. 假定，承担",
+    "example": "I assume you are tired.",
+    "difficulty": 3,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "assure",
+    "phonetic": "/əˈʃʊər/",
+    "translation": "v. 保证，使确信",
+    "example": "I assure you that everything will be fine.",
+    "difficulty": 4,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "astonish",
+    "phonetic": "/əˈstɒnɪʃ/",
+    "translation": "v. 使惊讶",
+    "example": "The news astonished everyone.",
+    "difficulty": 4,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "athlete",
+    "phonetic": "/ˈæθliːt/",
+    "translation": "n. 运动员",
+    "example": "Professional athletes train hard.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "atmosphere",
+    "phonetic": "/ˈætməsfɪər/",
+    "translation": "n. 大气，气氛",
+    "example": "The atmosphere at the party was lively.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "atom",
+    "phonetic": "/ˈætəm/",
+    "translation": "n. 原子",
+    "example": "Everything is made of atoms.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "attach",
+    "phonetic": "/əˈtætʃ/",
+    "translation": "v. 贴上，附加",
+    "example": "Please attach a photo to the form.",
+    "difficulty": 3,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "attack",
+    "phonetic": "/əˈtæk/",
+    "translation": "v./n. 攻击，进攻",
+    "example": "The dog might attack strangers.",
+    "difficulty": 2,
+    "partOfSpeech": "v./n.",
+    "library": "CET4"
+  },
+  {
+    "word": "attempt",
+    "phonetic": "/əˈtempt/",
+    "translation": "v./n. 尝试，企图",
+    "example": "He attempted to break the record.",
+    "difficulty": 3,
+    "partOfSpeech": "v./n.",
+    "library": "CET4"
+  },
+  {
+    "word": "attend",
+    "phonetic": "/əˈtend/",
+    "translation": "v. 出席，照料",
+    "example": "Did you attend the meeting?",
+    "difficulty": 2,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "attention",
+    "phonetic": "/əˈtenʃn/",
+    "translation": "n. 注意，关注",
+    "example": "Please pay attention to what I say.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "attitude",
+    "phonetic": "/ˈætɪtjuːd/",
+    "translation": "n. 态度，看法",
+    "example": "She has a positive attitude toward life.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "attract",
+    "phonetic": "/əˈtrækt/",
+    "translation": "v. 吸引，引起",
+    "example": "The beautiful scenery attracts tourists.",
+    "difficulty": 3,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "attraction",
+    "phonetic": "/əˈtrækʃn/",
+    "translation": "n. 吸引，吸引力",
+    "example": "The Eiffel Tower is a major tourist attraction.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "attractive",
+    "phonetic": "/əˈtræktɪv/",
+    "translation": "adj. 有吸引力的",
+    "example": "She is very attractive.",
+    "difficulty": 3,
+    "partOfSpeech": "adj.",
+    "library": "CET4"
+  },
+  {
+    "word": "attribute",
+    "phonetic": "/əˈtrɪbjuːt/",
+    "translation": "v. 归因于 n. 属性",
+    "example": "She attributes her success to hard work.",
+    "difficulty": 4,
+    "partOfSpeech": "v./n.",
+    "library": "CET4"
+  },
+  {
+    "word": "audience",
+    "phonetic": "/ˈɔːdiəns/",
+    "translation": "n. 观众，听众",
+    "example": "The audience applauded loudly.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "author",
+    "phonetic": "/ˈɔːθər/",
+    "translation": "n. 作者",
+    "example": "Who is the author of this book?",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "authority",
+    "phonetic": "/ɔːˈθɒrəti/",
+    "translation": "n. 权威，当局",
+    "example": "The local authority approved the plan.",
+    "difficulty": 4,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "automatic",
+    "phonetic": "/ˌɔːtəˈmætɪk/",
+    "translation": "adj. 自动的",
+    "example": "This door is automatic.",
+    "difficulty": 3,
+    "partOfSpeech": "adj.",
+    "library": "CET4"
+  },
+  {
+    "word": "automobile",
+    "phonetic": "/ˈɔːtəməbiːl/",
+    "translation": "n. 汽车",
+    "example": "The automobile industry is growing.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "available",
+    "phonetic": "/əˈveɪləbl/",
+    "translation": "adj. 可用的，可获得的",
+    "example": "Is this seat available?",
+    "difficulty": 3,
+    "partOfSpeech": "adj.",
+    "library": "CET4"
+  },
+  {
+    "word": "avenue",
+    "phonetic": "/ˈævənjuː/",
+    "translation": "n. 大街，途径",
+    "example": "They live on Fifth Avenue.",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  },
+  {
+    "word": "average",
+    "phonetic": "/ˈævərɪdʒ/",
+    "translation": "n./adj. 平均（的）",
+    "example": "The average temperature is 20 degrees.",
+    "difficulty": 2,
+    "partOfSpeech": "n./adj.",
+    "library": "CET4"
+  },
+  {
+    "word": "avoid",
+    "phonetic": "/əˈvɔɪd/",
+    "translation": "v. 避免，逃避",
+    "example": "You should avoid smoking.",
+    "difficulty": 3,
+    "partOfSpeech": "v.",
+    "library": "CET4"
+  },
+  {
+    "word": "awake",
+    "phonetic": "/əˈweɪk/",
+    "translation": "adj. 醒着的 v. 唤醒",
+    "example": "I was awake all night.",
+    "difficulty": 2,
+    "partOfSpeech": "adj./v.",
+    "library": "CET4"
+  },
+  {
+    "word": "award",
+    "phonetic": "/əˈwɔːd/",
+    "translation": "n. 奖品 v. 授予",
+    "example": "She won an award for her performance.",
+    "difficulty": 3,
+    "partOfSpeech": "n./v.",
+    "library": "CET4"
+  },
+  {
+    "word": "aware",
+    "phonetic": "/əˈweər/",
+    "translation": "adj. 意识到的",
+    "example": "Are you aware of the rules?",
+    "difficulty": 3,
+    "partOfSpeech": "adj.",
+    "library": "CET4"
+  },
+  {
+    "word": "away",
+    "phonetic": "/əˈweɪ/",
+    "translation": "adv. 离开，远离",
+    "example": "He went away yesterday.",
+    "difficulty": 1,
+    "partOfSpeech": "adv.",
+    "library": "CET4"
+  },
+  {
+    "word": "awesome",
+    "phonetic": "/ˈɔːsəm/",
+    "translation": "adj. 令人敬畏的，极好的",
+    "example": "The view from here is awesome!",
+    "difficulty": 2,
+    "partOfSpeech": "adj.",
+    "library": "CET4"
+  },
+  {
+    "word": "awful",
+    "phonetic": "/ˈɔːfl/",
+    "translation": "adj. 可怕的，糟糕的",
+    "example": "The weather is awful today.",
+    "difficulty": 2,
+    "partOfSpeech": "adj.",
+    "library": "CET4"
+  },
+  {
+    "word": "awkward",
+    "phonetic": "/ˈɔːkwəd/",
+    "translation": "adj. 尴尬的，笨拙的",
+    "example": "There was an awkward silence.",
+    "difficulty": 4,
+    "partOfSpeech": "adj.",
+    "library": "CET4"
+  },
+  {
+    "word": "background",
+    "phonetic": "/ˈbækɡraʊnd/",
+    "translation": "n. 背景",
+    "example": "Tell me about your background.",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "CET4"
+  }
+]

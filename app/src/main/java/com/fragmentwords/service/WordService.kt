@@ -14,6 +14,8 @@ import androidx.core.app.NotificationCompat
 import androidx.media.app.NotificationCompat.MediaStyle
 import com.fragmentwords.R
 import com.fragmentwords.data.WordRepository
+import com.fragmentwords.manager.LibraryManager
+import com.fragmentwords.manager.LearningManager
 import com.fragmentwords.model.Word
 import com.fragmentwords.receiver.WordActionReceiver
 import kotlinx.coroutines.CoroutineScope
@@ -78,6 +80,8 @@ class WordService : Service() {
 
     private val serviceScope = CoroutineScope(Dispatchers.Main + Job())
     private lateinit var repository: WordRepository
+    private lateinit var learningManager: LearningManager
+    private lateinit var libraryManager: LibraryManager
     private lateinit var notificationManager: NotificationManager
     private var currentWord: Word? = null
     private var isFirstWord = true // 标记是否是第一个单词
@@ -89,6 +93,8 @@ class WordService : Service() {
             // 重置状态标志，确保服务重启后正常工作
             isFirstWord = true
             repository = WordRepository(applicationContext)
+            learningManager = LearningManager(applicationContext)
+            libraryManager = LibraryManager(applicationContext)
 
             val nm = getSystemService(Context.NOTIFICATION_SERVICE)
             if (nm is NotificationManager) {
@@ -188,16 +194,37 @@ class WordService : Service() {
      * 更新单词通知（不停止服务）
      */
     private fun updateWordNotification() {
-        // 获取新单词时排除当前单词，避免重复
-        val word = repository.getNextWordSync(excludeWord = currentWord?.word)
-        if (word != null) {
-            currentWord = word
-            val notification = createWordNotification(word, isFirstWord)
-            notificationManager.notify(NOTIFICATION_ID, notification)
-            isFirstWord = false // 第一个单词已显示
-            Log.d(TAG, "Updated word: ${word.word} from ${word.library}")
-        } else {
-            Log.w(TAG, "No words available")
+        serviceScope.launch {
+            try {
+                // 使用LibraryManager获取已启用的词库
+                val enabledLibraryIds = libraryManager.getEnabledLibraryIds()
+                val selectedLibraries = if (enabledLibraryIds.isEmpty()) {
+                    // 如果没有启用任何词库，使用CET4作为默认
+                    listOf("CET4")
+                } else {
+                    // 将词库ID转换为大写作为数据库的library字段
+                    enabledLibraryIds.map { it.uppercase() }
+                }
+
+                Log.d(TAG, "Enabled libraries: $selectedLibraries")
+
+                // 使用LearningManager获取下一个单词（优先复习）
+                val word = learningManager.getNextWord(selectedLibraries)
+
+                if (word != null) {
+                    currentWord = word
+                    repository.saveCurrentWord(word) // 保存当前单词
+
+                    val notification = createWordNotification(word, isFirstWord)
+                    notificationManager.notify(NOTIFICATION_ID, notification)
+                    isFirstWord = false // 第一个单词已显示
+                    Log.d(TAG, "Updated word: ${word.word} from ${word.library}")
+                } else {
+                    Log.w(TAG, "No words available")
+                }
+            } catch (e: Exception) {
+                Log.e(TAG, "Error updating word notification: ${e.message}")
+            }
         }
         // 不停止服务，保持前台通知
     }
@@ -278,8 +305,8 @@ class WordService : Service() {
             .setVisibility(NotificationCompat.VISIBILITY_PUBLIC) // 锁屏可见
             .setPriority(NotificationCompat.PRIORITY_MAX) // 最高优先级
             .setCategory(NotificationCompat.CATEGORY_TRANSPORT) // 媒体传输类别
-            .setOngoing(true) // 不可滑动删除，常驻通知栏
-            .setAutoCancel(false) // 点击不自动取消
+            .setOngoing(false) // 可滑动删除 ✅ 修改：允许用户操作
+            .setAutoCancel(false) // 点击通知本身不自动取消，但要点击按钮才取消
 
         // 只在第一个单词时有声音和震动
         if (isFirst) {

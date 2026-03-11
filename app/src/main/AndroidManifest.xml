@@ -39,9 +39,22 @@
             android:exported="false"
             android:theme="@style/Theme.FragmentWords" />
 
-        <!-- 词库选择 Activity -->
+        <!-- 词�库选择 Activity -->
         <activity
             android:name=".LibrarySelectActivity"
+            android:exported="false"
+            android:theme="@style/Theme.FragmentWords" />
+
+        <!-- 词库商城 Activity -->
+        <activity
+            android:name=".LibraryStoreActivity"
+            android:exported="false"
+            android:theme="@style/Theme.FragmentWords"
+            android:configChanges="orientation|screenSize" />
+
+        <!-- 设置 Activity -->
+        <activity
+            android:name=".SettingsActivity"
             android:exported="false"
             android:theme="@style/Theme.FragmentWords" />
 

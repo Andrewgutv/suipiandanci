@@ -1,0 +1,308 @@
+[
+  {
+    "word": "abandon",
+    "phonetic": "/əˈbændən/",
+    "translation": "v. 抛弃",
+    "example": "abandon project",
+    "difficulty": 3,
+    "partOfSpeech": "v.",
+    "library": "TOEFL"
+  },
+  {
+    "word": "abbreviate",
+    "phonetic": "/əˈbriːvieɪt/",
+    "translation": "v. 缩写",
+    "example": "abbreviate word",
+    "difficulty": 5,
+    "partOfSpeech": "v.",
+    "library": "TOEFL"
+  },
+  {
+    "word": "abide",
+    "phonetic": "/əˈbaɪd/",
+    "translation": "v. 遵守",
+    "example": "abide by law",
+    "difficulty": 4,
+    "partOfSpeech": "v.",
+    "library": "TOEFL"
+  },
+  {
+    "word": "abolish",
+    "phonetic": "/əˈbɒlɪʃ/",
+    "translation": "v. 废除",
+    "example": "abolish system",
+    "difficulty": 5,
+    "partOfSpeech": "v.",
+    "library": "TOEFL"
+  },
+  {
+    "word": "absorb",
+    "phonetic": "/əbˈzɔːrb/",
+    "translation": "v. 吸收",
+    "example": "absorb nutrients",
+    "difficulty": 4,
+    "partOfSpeech": "v.",
+    "library": "TOEFL"
+  },
+  {
+    "word": "abstract",
+    "phonetic": "/ˈæbstrækt/",
+    "translation": "adj. 抽象的",
+    "example": "abstract art",
+    "difficulty": 4,
+    "partOfSpeech": "adj.",
+    "library": "TOEFL"
+  },
+  {
+    "word": "abundance",
+    "phonetic": "/əˈbʌndəns/",
+    "translation": "n. 丰富",
+    "example": "abundance wildlife",
+    "difficulty": 4,
+    "partOfSpeech": "n.",
+    "library": "TOEFL"
+  },
+  {
+    "word": "academic",
+    "phonetic": "/ˌækəˈdemɪk/",
+    "translation": "adj. 学术的",
+    "example": "academic research",
+    "difficulty": 3,
+    "partOfSpeech": "adj.",
+    "library": "TOEFL"
+  },
+  {
+    "word": "accelerate",
+    "phonetic": "/əkˈseləreɪt/",
+    "translation": "v. 加速",
+    "example": "accelerate process",
+    "difficulty": 4,
+    "partOfSpeech": "v.",
+    "library": "TOEFL"
+  },
+  {
+    "word": "access",
+    "phonetic": "/ˈækses/",
+    "translation": "n. 接近",
+    "example": "have access to",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "TOEFL"
+  },
+  {
+    "word": "accessible",
+    "phonetic": "/əkˈsesəbl/",
+    "translation": "adj. 可到达的",
+    "example": "accessible location",
+    "difficulty": 4,
+    "partOfSpeech": "adj.",
+    "library": "TOEFL"
+  },
+  {
+    "word": "accommodate",
+    "phonetic": "/əˈkɒmədeɪt/",
+    "translation": "v. 容纳",
+    "example": "accommodate changes",
+    "difficulty": 4,
+    "partOfSpeech": "v.",
+    "library": "TOEFL"
+  },
+  {
+    "word": "accompany",
+    "phonetic": "/əˈkʌmpəni/",
+    "translation": "v. 陪伴",
+    "example": "accompany friend",
+    "difficulty": 3,
+    "partOfSpeech": "v.",
+    "library": "TOEFL"
+  },
+  {
+    "word": "accomplish",
+    "phonetic": "/əˈkʌmplɪʃ/",
+    "translation": "v. 完成",
+    "example": "accomplish task",
+    "difficulty": 3,
+    "partOfSpeech": "v.",
+    "library": "TOEFL"
+  },
+  {
+    "word": "accordance",
+    "phonetic": "/əˈkɔːrdəns/",
+    "translation": "n. 一致",
+    "example": "in accordance",
+    "difficulty": 4,
+    "partOfSpeech": "n.",
+    "library": "TOEFL"
+  },
+  {
+    "word": "account",
+    "phonetic": "/əˈkaʊnt/",
+    "translation": "n. 账户",
+    "example": "bank account",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "TOEFL"
+  },
+  {
+    "word": "accumulate",
+    "phonetic": "/əˈkjuːmjəleɪt/",
+    "translation": "v. 积累",
+    "example": "accumulate wealth",
+    "difficulty": 4,
+    "partOfSpeech": "v.",
+    "library": "TOEFL"
+  },
+  {
+    "word": "accurate",
+    "phonetic": "/ˈækjərət/",
+    "translation": "adj. 精确的",
+    "example": "accurate measurement",
+    "difficulty": 3,
+    "partOfSpeech": "adj.",
+    "library": "TOEFL"
+  },
+  {
+    "word": "achieve",
+    "phonetic": "/əˈtʃiːv/",
+    "translation": "v. 达到",
+    "example": "achieve goal",
+    "difficulty": 2,
+    "partOfSpeech": "v.",
+    "library": "TOEFL"
+  },
+  {
+    "word": "acknowledge",
+    "phonetic": "/əkˈnɒlɪdʒ/",
+    "translation": "v. 承认",
+    "example": "acknowledge fact",
+    "difficulty": 4,
+    "partOfSpeech": "v.",
+    "library": "TOEFL"
+  },
+  {
+    "word": "acquire",
+    "phonetic": "/əˈkwaɪər/",
+    "translation": "v. 获得",
+    "example": "acquire knowledge",
+    "difficulty": 4,
+    "partOfSpeech": "v.",
+    "library": "TOEFL"
+  },
+  {
+    "word": "adaptation",
+    "phonetic": "/ˌædæpˈteɪʃn/",
+    "translation": "n. 适应",
+    "example": "make adaptation",
+    "difficulty": 4,
+    "partOfSpeech": "n.",
+    "library": "TOEFL"
+  },
+  {
+    "word": "adequate",
+    "phonetic": "/ˈædɪkwət/",
+    "translation": "adj. 足够的",
+    "example": "adequate supply",
+    "difficulty": 3,
+    "partOfSpeech": "adj.",
+    "library": "TOEFL"
+  },
+  {
+    "word": "adjacent",
+    "phonetic": "/əˈdʒeɪsnt/",
+    "translation": "adj. 相邻的",
+    "example": "adjacent area",
+    "difficulty": 4,
+    "partOfSpeech": "adj.",
+    "library": "TOEFL"
+  },
+  {
+    "word": "adjust",
+    "phonetic": "/əˈdʒʌst/",
+    "translation": "v. 调整",
+    "example": "adjust focus",
+    "difficulty": 2,
+    "partOfSpeech": "v.",
+    "library": "TOEFL"
+  },
+  {
+    "word": "administration",
+    "phonetic": "/ədˌmɪnɪˈstreɪʃn/",
+    "translation": "n. 管理",
+    "example": "business administration",
+    "difficulty": 4,
+    "partOfSpeech": "n.",
+    "library": "TOEFL"
+  },
+  {
+    "word": "admire",
+    "phonetic": "/ədˈmaɪər/",
+    "translation": "v. 欣赏",
+    "example": "admire painting",
+    "difficulty": 2,
+    "partOfSpeech": "v.",
+    "library": "TOEFL"
+  },
+  {
+    "word": "admission",
+    "phonetic": "/ədˈmɪʃn/",
+    "translation": "n. 进入",
+    "example": "gain admission",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "TOEFL"
+  },
+  {
+    "word": "adopt",
+    "phonetic": "/əˈdɒpt/",
+    "translation": "v. 采用",
+    "example": "adopt policy",
+    "difficulty": 3,
+    "partOfSpeech": "v.",
+    "library": "TOEFL"
+  },
+  {
+    "word": "adult",
+    "phonetic": "/ˈædʌlt/",
+    "translation": "n. 成人",
+    "example": "adult education",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "TOEFL"
+  },
+  {
+    "word": "advance",
+    "phonetic": "/ədˈvæns/",
+    "translation": "v. 前进",
+    "example": "advance technology",
+    "difficulty": 2,
+    "partOfSpeech": "v.",
+    "library": "TOEFL"
+  },
+  {
+    "word": "advantage",
+    "phonetic": "/ədˈvæntɪdʒ/",
+    "translation": "n. 优点",
+    "example": "take advantage",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "TOEFL"
+  },
+  {
+    "word": "adventure",
+    "phonetic": "/ədˈventʃər/",
+    "translation": "n. 奇遇",
+    "example": "sense of adventure",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "TOEFL"
+  },
+  {
+    "word": "adverse",
+    "phonetic": "/ˈædvɜːrs/",
+    "translation": "adj. 不利的",
+    "example": "adverse effect",
+    "difficulty": 5,
+    "partOfSpeech": "adj.",
+    "library": "TOEFL"
+  }
+]

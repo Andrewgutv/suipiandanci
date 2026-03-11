@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Build
 import android.util.Log
 import com.fragmentwords.data.WordRepository
+import com.fragmentwords.manager.LearningManager
 import com.fragmentwords.model.Word
 import com.fragmentwords.service.WordService
 import kotlinx.coroutines.CoroutineScope
@@ -46,36 +47,61 @@ class WordActionReceiver : BroadcastReceiver() {
     }
 
     private fun handleKnown(context: Context) {
-        // "认识" - 刷新到下一个单词
-        Log.d(TAG, "Word marked as known, refreshing to next word")
-        val serviceIntent = Intent(context, WordService::class.java).apply {
-            action = WordService.ACTION_SHOW_WORD
+        // "认识" - 使用艾宾浩斯算法记录学习进度
+        Log.d(TAG, "Word marked as known, recording learning progress")
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val learningManager = LearningManager(context)
+                val repository = WordRepository(context)
+                val currentWord = repository.getCurrentWord()
+
+                if (currentWord != null) {
+                    val advice = learningManager.handleUserFeedback(currentWord, "known")
+                    Log.d(TAG, "Learning advice: $advice")
+
+                    // 取消当前通知 ✅ 关键修改：点击后通知消失
+                    val notificationManager = context.getSystemService(android.content.Context.NOTIFICATION_SERVICE) as android.app.NotificationManager
+                    notificationManager.cancel(WordService.NOTIFICATION_ID)
+
+                    Log.d(TAG, "Notification cancelled, will show next word on unlock")
+                }
+            } catch (e: Exception) {
+                Log.e(TAG, "Error handling known: ${e.message}")
+            }
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            context.startForegroundService(serviceIntent)
-        } else {
-            context.startService(serviceIntent)
-        }
+
+        // ✅ 移除：不再立即显示下一个单词
+        // 下次解锁手机时，ScreenUnlockReceiver 会自动显示新单词
     }
 
     private fun handleUnknown(context: Context, word: Word) {
-        // "不认识" - 加入生词本，然后刷新到下一个单词
+        // "不认识" - 使用艾宾浩斯算法记录学习进度，加入生词本
         Log.d(TAG, "Word: ${word.word} marked as unknown")
         CoroutineScope(Dispatchers.IO).launch {
-            val repository = WordRepository(context)
-            repository.addToNotebook(word)
-            Log.d(TAG, "Added to notebook: ${word.word}")
+            try {
+                val learningManager = LearningManager(context)
+                val repository = WordRepository(context)
+
+                // 使用艾宾浩斯算法记录学习进度
+                val advice = learningManager.handleUserFeedback(word, "unknown")
+                Log.d(TAG, "Learning advice: $advice")
+
+                // 加入生词本
+                repository.addToNotebook(word)
+                Log.d(TAG, "Added to notebook: ${word.word}")
+
+                // 取消当前通知 ✅ 关键修改：点击后通知消失
+                val notificationManager = context.getSystemService(android.content.Context.NOTIFICATION_SERVICE) as android.app.NotificationManager
+                notificationManager.cancel(WordService.NOTIFICATION_ID)
+
+                Log.d(TAG, "Notification cancelled, will show next word on unlock")
+            } catch (e: Exception) {
+                Log.e(TAG, "Error handling unknown: ${e.message}")
+            }
         }
-        // 刷新到下一个单词
-        Log.d(TAG, "Refreshing to next word")
-        val serviceIntent = Intent(context, WordService::class.java).apply {
-            action = WordService.ACTION_SHOW_WORD
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            context.startForegroundService(serviceIntent)
-        } else {
-            context.startService(serviceIntent)
-        }
+
+        // ✅ 移除：不再立即显示下一个单词
+        // 下次解锁手机时，ScreenUnlockReceiver 会自动显示新单词
     }
 
     private fun extractWord(intent: Intent): Word? {

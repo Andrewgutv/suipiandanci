@@ -1,18 +1,23 @@
 package com.fragmentwords.data
 
 import android.content.Context
+import android.util.Log
 import com.fragmentwords.database.WordDatabase
+import com.fragmentwords.manager.LibraryManager
 import com.fragmentwords.model.Word
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import java.io.InputStreamReader
 
 /**
  * 单词数据仓库
  */
 class WordRepository(context: Context) {
 
+    private val context = context
     private val database = WordDatabase(context)
     private val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+    private val libraryManager = LibraryManager(context)
 
     companion object {
         private const val PREFS_NAME = "word_prefs"
@@ -34,21 +39,82 @@ class WordRepository(context: Context) {
      * 从 assets 加载默认单词数据
      */
     private fun loadDefaultWords() {
-        // 这里可以添加默认单词，或者从 assets 加载
-        val defaultWords = getAllDefaultWords()
-        database.insertWords(defaultWords)
+        try {
+            var totalLoaded = 0
+
+            // 从JSON文件加载CET4词库（多个文件）
+            val cet4Files = listOf(
+                "data/cet4_words.json",
+                "data/cet4_words_part2.json"
+                // 可以继续添加更多文件
+                // "data/cet4_words_part3.json",
+                // "data/cet4_words_part4.json",
+                // "data/cet4_words_part5.json"
+            )
+
+            cet4Files.forEach { fileName ->
+                val words = loadWordsFromJson(fileName)
+                if (words.isNotEmpty()) {
+                    database.insertWords(words)
+                    totalLoaded += words.size
+                    Log.d("WordRepository", "Loaded ${words.size} words from $fileName")
+                }
+            }
+
+            // 可以继续添加其他词库
+            // val cet6Files = listOf("data/cet6_words.json", "data/cet6_words_part2.json")
+            // val ieltsFiles = listOf("data/ielts_words.json", "data/ielts_words_part2.json")
+            // val toeflFiles = listOf("data/toefl_words.json", "data/toefl_words_part2.json")
+
+            Log.d("WordRepository", "Total words loaded: $totalLoaded")
+
+            // 如果没有加载到任何单词，使用代码中的默认词库
+            if (totalLoaded == 0) {
+                Log.w("WordRepository", "No words loaded from JSON, using default words")
+                val defaultWords = getAllDefaultWords()
+                database.insertWords(defaultWords)
+            }
+
+        } catch (e: Exception) {
+            Log.e("WordRepository", "Error loading words from JSON: ${e.message}")
+            // 如果JSON加载失败，使用代码中的默认词库
+            val defaultWords = getAllDefaultWords()
+            database.insertWords(defaultWords)
+        }
     }
 
     /**
-     * 获取下一个单词
+     * 从JSON文件加载单词
+     */
+    private fun loadWordsFromJson(path: String): List<Word> {
+        try {
+            val inputStream = context.assets.open(path)
+            val reader = InputStreamReader(inputStream)
+            val wordType = object : TypeToken<List<Word>>() {}.type
+            val words = Gson().fromJson<List<Word>>(reader, wordType)
+            reader.close()
+            inputStream.close()
+            return words ?: emptyList()
+        } catch (e: Exception) {
+            Log.e("WordRepository", "Error loading JSON from $path: ${e.message}")
+            return emptyList()
+        }
+    }
+
+    /**
+     * 获取下一个单词（从启用的词库中）
      */
     suspend fun getNextWord(excludeWord: String? = null): Word? {
-        // 获取用户选择的词库
-        val selectedLibraries = getSelectedLibraries()
-        return if (selectedLibraries.isNotEmpty()) {
-            database.getRandomWordByLibraries(selectedLibraries, excludeWord)
+        // 从LibraryManager获取已启用的词库ID列表
+        val enabledLibraryIds = libraryManager.getEnabledLibraryIds()
+        return if (enabledLibraryIds.isNotEmpty()) {
+            // 将词库ID转换为大写作为数据库的library字段
+            val libraryNames = enabledLibraryIds.map { it.uppercase() }
+            database.getRandomWordByLibraries(libraryNames, excludeWord)
         } else {
-            database.getRandomWord(excludeWord)
+            // 如果没有启用任何词库，返回null
+            Log.w("WordRepository", "No libraries enabled")
+            null
         }
     }
 
@@ -60,12 +126,12 @@ class WordRepository(context: Context) {
         val json = prefs.getString(KEY_SELECTED_LIBRARIES, null)
         val selectedLibraries = if (json != null) {
             try {
-                Gson().fromJson(json, object : TypeToken<List<String>>() {}.type) ?: listOf("ADVANCED")
+                Gson().fromJson(json, object : TypeToken<List<String>>() {}.type) ?: listOf("CET4")
             } catch (e: Exception) {
-                listOf("ADVANCED")
+                listOf("CET4")
             }
         } else {
-            listOf("ADVANCED")
+            listOf("CET4")
         }
 
         // 根据选择的词库获取单词
@@ -74,6 +140,33 @@ class WordRepository(context: Context) {
         } else {
             database.getRandomWord(excludeWord)
         }
+    }
+
+    /**
+     * 获取当前正在学习的单词（从SharedPreferences获取）
+     */
+    fun getCurrentWord(): Word? {
+        val wordJson = prefs.getString("current_word", null) ?: return null
+        return try {
+            Gson().fromJson(wordJson, Word::class.java)
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    /**
+     * 保存当前正在学习的单词
+     */
+    fun saveCurrentWord(word: Word) {
+        val wordJson = Gson().toJson(word)
+        prefs.edit().putString("current_word", wordJson).apply()
+    }
+
+    /**
+     * 清除当前单词
+     */
+    fun clearCurrentWord() {
+        prefs.edit().remove("current_word").apply()
     }
 
     /**
@@ -123,11 +216,11 @@ class WordRepository(context: Context) {
      * 获取已选择的词库列表
      */
     suspend fun getSelectedLibraries(): List<String> {
-        val json = prefs.getString(KEY_SELECTED_LIBRARIES, null) ?: return listOf("ADVANCED")
+        val json = prefs.getString(KEY_SELECTED_LIBRARIES, null) ?: return listOf("CET4")
         return try {
             Gson().fromJson(json, object : TypeToken<List<String>>() {}.type)
         } catch (e: Exception) {
-            listOf("ADVANCED")
+            listOf("CET4")
         }
     }
 
@@ -137,6 +230,76 @@ class WordRepository(context: Context) {
     suspend fun saveSelectedLibraries(libraries: List<String>) {
         val json = Gson().toJson(libraries)
         prefs.edit().putString(KEY_SELECTED_LIBRARIES, json).apply()
+    }
+
+    /**
+     * 动态加载词库到数据库
+     * @param libraryId 词库ID (如 "cet4", "cet6", "ielts")
+     * @return 是否加载成功
+     */
+    suspend fun loadLibraryToDatabase(libraryId: String): Boolean {
+        return try {
+            Log.d("WordRepository", "Loading library: $libraryId")
+
+            // 从LibraryManager获取词库信息
+            val libraries = libraryManager.getAllLibraries()
+            val library = libraries.find { it.id == libraryId }
+
+            if (library == null) {
+                Log.e("WordRepository", "Library not found: $libraryId")
+                return false
+            }
+
+            // 使用LibraryManager加载词库词汇
+            val words = libraryManager.loadLibraryWords(library)
+
+            if (words.isNullOrEmpty()) {
+                Log.e("WordRepository", "No words loaded from library: $libraryId")
+                return false
+            }
+
+            // 插入到数据库
+            val inserted = database.insertWords(words)
+            Log.d("WordRepository", "Inserted $inserted words from library: $libraryId")
+
+            true
+        } catch (e: Exception) {
+            Log.e("WordRepository", "Error loading library $libraryId", e)
+            false
+        }
+    }
+
+    /**
+     * 从数据库删除词库的所有单词
+     * @param libraryId 词库ID
+     * @return 是否删除成功
+     */
+    suspend fun deleteLibraryFromDatabase(libraryId: String): Boolean {
+        return try {
+            val libraryName = libraryId.uppercase()
+            val deleted = database.deleteWordsByLibrary(libraryName)
+            Log.d("WordRepository", "Deleted $deleted words from library: $libraryId")
+            deleted > 0
+        } catch (e: Exception) {
+            Log.e("WordRepository", "Error deleting library $libraryId", e)
+            false
+        }
+    }
+
+    /**
+     * 检查词库是否已加载到数据库
+     * @param libraryId 词库ID
+     * @return 是否已加载
+     */
+    suspend fun isLibraryLoaded(libraryId: String): Boolean {
+        return try {
+            val libraryName = libraryId.uppercase()
+            val count = database.getWordCountByLibrary(libraryName)
+            count > 0
+        } catch (e: Exception) {
+            Log.e("WordRepository", "Error checking library $libraryId", e)
+            false
+        }
     }
 
     private fun isInitialized(): Boolean {

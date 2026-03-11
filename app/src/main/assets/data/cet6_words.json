@@ -1,0 +1,281 @@
+[
+  {
+    "word": "abnormal",
+    "phonetic": "/æbˈnɔːrml/",
+    "translation": "adj. 反常的",
+    "example": "abnormal behavior",
+    "difficulty": 4,
+    "partOfSpeech": "adj.",
+    "library": "CET6"
+  },
+  {
+    "word": "abolish",
+    "phonetic": "/əˈbɒlɪʃ/",
+    "translation": "v. 废除",
+    "example": "abolish slavery",
+    "difficulty": 4,
+    "partOfSpeech": "v.",
+    "library": "CET6"
+  },
+  {
+    "word": "abrupt",
+    "phonetic": "/əˈbrʌpt/",
+    "translation": "adj. 突然的",
+    "example": "abrupt change",
+    "difficulty": 4,
+    "partOfSpeech": "adj.",
+    "library": "CET6"
+  },
+  {
+    "word": "absurd",
+    "phonetic": "/əbˈsɜːrd/",
+    "translation": "adj. 荒谬的",
+    "example": "absurd idea",
+    "difficulty": 4,
+    "partOfSpeech": "adj.",
+    "library": "CET6"
+  },
+  {
+    "word": "abundance",
+    "phonetic": "/əˈbʌndəns/",
+    "translation": "n. 丰富",
+    "example": "abundance of resources",
+    "difficulty": 4,
+    "partOfSpeech": "n.",
+    "library": "CET6"
+  },
+  {
+    "word": "academy",
+    "phonetic": "/əˈkædəmi/",
+    "translation": "n. 学院",
+    "example": "military academy",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET6"
+  },
+  {
+    "word": "accessory",
+    "phonetic": "/əkˈsesəri/",
+    "translation": "n. 附件",
+    "example": "car accessories",
+    "difficulty": 4,
+    "partOfSpeech": "n.",
+    "library": "CET6"
+  },
+  {
+    "word": "accommodate",
+    "phonetic": "/əˈkɒmədeɪt/",
+    "translation": "v. 容纳",
+    "example": "accommodate 500 people",
+    "difficulty": 4,
+    "partOfSpeech": "v.",
+    "library": "CET6"
+  },
+  {
+    "word": "accomplish",
+    "phonetic": "/əˈkʌmplɪʃ/",
+    "translation": "v. 完成",
+    "example": "accomplish goals",
+    "difficulty": 3,
+    "partOfSpeech": "v.",
+    "library": "CET6"
+  },
+  {
+    "word": "accountable",
+    "phonetic": "/əˈkaʊntəbl/",
+    "translation": "adj. 负责的",
+    "example": "hold accountable",
+    "difficulty": 4,
+    "partOfSpeech": "adj.",
+    "library": "CET6"
+  },
+  {
+    "word": "accumulate",
+    "phonetic": "/əˈkjuːmjəleɪt/",
+    "translation": "v. 积累",
+    "example": "accumulate wealth",
+    "difficulty": 4,
+    "partOfSpeech": "v.",
+    "library": "CET6"
+  },
+  {
+    "word": "accuracy",
+    "phonetic": "/ˈækjərəsi/",
+    "translation": "n. 准确性",
+    "example": "ensure accuracy",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET6"
+  },
+  {
+    "word": "acknowledge",
+    "phonetic": "/əkˈnɒlɪdʒ/",
+    "translation": "v. 承认",
+    "example": "acknowledge receipt",
+    "difficulty": 4,
+    "partOfSpeech": "v.",
+    "library": "CET6"
+  },
+  {
+    "word": "acquaintance",
+    "phonetic": "/əˈkweɪntəns/",
+    "translation": "n. 熟人",
+    "example": "casual acquaintance",
+    "difficulty": 4,
+    "partOfSpeech": "n.",
+    "library": "CET6"
+  },
+  {
+    "word": "acquisition",
+    "phonetic": "/ˌækwɪˈzɪʃn/",
+    "translation": "n. 获得",
+    "example": "data acquisition",
+    "difficulty": 5,
+    "partOfSpeech": "n.",
+    "library": "CET6"
+  },
+  {
+    "word": "adapt",
+    "phonetic": "/əˈdæpt/",
+    "translation": "v. 适应",
+    "example": "adapt to changes",
+    "difficulty": 3,
+    "partOfSpeech": "v.",
+    "library": "CET6"
+  },
+  {
+    "word": "adequate",
+    "phonetic": "/ˈædɪkwət/",
+    "translation": "adj. 足够的",
+    "example": "adequate supply",
+    "difficulty": 3,
+    "partOfSpeech": "adj.",
+    "library": "CET6"
+  },
+  {
+    "word": "adjacent",
+    "phonetic": "/əˈdʒeɪsnt/",
+    "translation": "adj. 相邻的",
+    "example": "adjacent rooms",
+    "difficulty": 4,
+    "partOfSpeech": "adj.",
+    "library": "CET6"
+  },
+  {
+    "word": "advocate",
+    "phonetic": "/ˈædvəkeɪt/",
+    "translation": "v. 提倡",
+    "example": "advocate reform",
+    "difficulty": 4,
+    "partOfSpeech": "v.",
+    "library": "CET6"
+  },
+  {
+    "word": "aesthetic",
+    "phonetic": "/iːsˈθetɪk/",
+    "translation": "adj. 美学的",
+    "example": "aesthetic value",
+    "difficulty": 4,
+    "partOfSpeech": "adj.",
+    "library": "CET6"
+  },
+  {
+    "word": "affiliate",
+    "phonetic": "/əˈfɪlieɪt/",
+    "translation": "v. 隶属",
+    "example": "affiliate with",
+    "difficulty": 5,
+    "partOfSpeech": "v.",
+    "library": "CET6"
+  },
+  {
+    "word": "aggravate",
+    "phonetic": "/ˈæɡrəveɪt/",
+    "translation": "v. 加重",
+    "example": "aggravate situation",
+    "difficulty": 4,
+    "partOfSpeech": "v.",
+    "library": "CET6"
+  },
+  {
+    "word": "alienate",
+    "phonetic": "/ˈeɪliəneɪt/",
+    "translation": "v. 疏远",
+    "example": "alienate friends",
+    "difficulty": 4,
+    "partOfSpeech": "v.",
+    "library": "CET6"
+  },
+  {
+    "word": "allegedly",
+    "phonetic": "/əˈledʒɪdli/",
+    "translation": "adv. 据说",
+    "example": "allegedly stolen",
+    "difficulty": 4,
+    "partOfSpeech": "adv.",
+    "library": "CET6"
+  },
+  {
+    "word": "alleviate",
+    "phonetic": "/əˈliːvieɪt/",
+    "translation": "v. 减轻",
+    "example": "alleviate pain",
+    "difficulty": 4,
+    "partOfSpeech": "v.",
+    "library": "CET6"
+  },
+  {
+    "word": "ambiguous",
+    "phonetic": "/æmˈbɪɡjuəs/",
+    "translation": "adj. 模糊的",
+    "example": "ambiguous message",
+    "difficulty": 4,
+    "partOfSpeech": "adj.",
+    "library": "CET6"
+  },
+  {
+    "word": "ambitious",
+    "phonetic": "/æmˈbɪʃəs/",
+    "translation": "adj. 有野心的",
+    "example": "ambitious plan",
+    "difficulty": 3,
+    "partOfSpeech": "adj.",
+    "library": "CET6"
+  },
+  {
+    "word": "amplify",
+    "phonetic": "/ˈæmplɪfaɪ/",
+    "translation": "v. 放大",
+    "example": "amplify sound",
+    "difficulty": 4,
+    "partOfSpeech": "v.",
+    "library": "CET6"
+  },
+  {
+    "word": "analogy",
+    "phonetic": "/əˈnælədʒi/",
+    "translation": "n. 类比",
+    "example": "draw analogy",
+    "difficulty": 4,
+    "partOfSpeech": "n.",
+    "library": "CET6"
+  },
+  {
+    "word": "analytic",
+    "phonetic": "/ˌænəˈlɪtɪk/",
+    "translation": "adj. 分析的",
+    "example": "analytic skills",
+    "difficulty": 4,
+    "partOfSpeech": "adj.",
+    "library": "CET6"
+  },
+  {
+    "word": "anniversary",
+    "phonetic": "/ˌænɪˈvɜːrsəri/",
+    "translation": "n. 周年",
+    "example": "wedding anniversary",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "CET6"
+  }
+]
