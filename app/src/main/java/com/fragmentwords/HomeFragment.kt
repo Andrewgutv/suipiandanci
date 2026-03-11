@@ -61,19 +61,35 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        repository = WordRepository(requireContext())
-        database = com.fragmentwords.database.WordDatabase(requireContext())
+        try {
+            repository = WordRepository(requireContext())
+            database = com.fragmentwords.database.WordDatabase(requireContext())
 
-        initViews(view)
-        setupClickListeners()
-        updateUI()
-
-        lifecycleScope.launch {
-            repository.initializeIfNeeded()
+            initViews(view)
+            setupClickListeners()
             updateUI()
-        }
 
-        checkAndRequestNotificationPermission()
+            // 延迟初始化，避免阻塞主线程
+            view.post {
+                try {
+                    lifecycleScope.launch {
+                        try {
+                            repository.initializeIfNeeded()
+                            updateUI()
+                        } catch (e: Exception) {
+                            Log.e("HomeFragment", "Error initializing: ${e.message}", e)
+                        }
+                    }
+                } catch (e: Exception) {
+                    Log.e("HomeFragment", "Error in post: ${e.message}", e)
+                }
+            }
+
+            checkAndRequestNotificationPermission()
+        } catch (e: Exception) {
+            Log.e("HomeFragment", "Error in onViewCreated: ${e.message}", e)
+            Toast.makeText(requireContext(), "初始化失败: ${e.message}", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun initViews(view: View) {

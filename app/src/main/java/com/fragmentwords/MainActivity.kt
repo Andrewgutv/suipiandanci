@@ -1,12 +1,12 @@
 package com.fragmentwords
 
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.get
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.viewpager2.widget.ViewPager2
-import androidx.viewpager2.adapter.FragmentStateAdapter
 
 /**
  * 主界面 - 碎片单词
@@ -19,59 +19,88 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
-        initViews()
-        setupViewPager()
-        setupBottomNavigation()
+        try {
+            setContentView(R.layout.activity_main)
+
+            initViews()
+            setupViewPager()
+            setupBottomNavigation()
+        } catch (e: Exception) {
+            Log.e("MainActivity", "Error in onCreate: ${e.message}", e)
+            finish()
+        }
     }
 
     private fun initViews() {
-        viewPager = findViewById(R.id.view_pager)
-        bottomNavigation = findViewById(R.id.bottom_navigation)
+        try {
+            viewPager = findViewById(R.id.view_pager)
+            bottomNavigation = findViewById(R.id.bottom_navigation)
+        } catch (e: Exception) {
+            Log.e("MainActivity", "Error in initViews: ${e.message}", e)
+            throw e
+        }
     }
 
     private fun setupViewPager() {
-        // 创建Adapter
-        val adapter = ViewPagerAdapter(this)
-        viewPager.adapter = adapter
+        try {
+            // 创建Adapter
+            val adapter = ViewPagerAdapter(this)
+            viewPager.adapter = adapter
 
-        // 禁用预加载，提升性能
-        viewPager.offscreenPageLimit = 1
+            // 禁用预加载，提升性能
+            viewPager.offscreenPageLimit = 1
 
-        // ViewPager2页面变化回调，同步更新底部导航栏
-        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-                when (position) {
-                    0 -> bottomNavigation.selectedItemId = R.id.navigation_home
-                    1 -> bottomNavigation.selectedItemId = R.id.navigation_notebook
-                    2 -> bottomNavigation.selectedItemId = R.id.navigation_settings
+            // ViewPager2页面变化回调，同步更新底部导航栏
+            viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+                    try {
+                        when (position) {
+                            0 -> bottomNavigation.selectedItemId = R.id.navigation_home
+                            1 -> bottomNavigation.selectedItemId = R.id.navigation_notebook
+                            2 -> bottomNavigation.selectedItemId = R.id.navigation_settings
+                        }
+                    } catch (e: Exception) {
+                        Log.e("MainActivity", "Error in onPageSelected: ${e.message}", e)
+                    }
                 }
-            }
-        })
+            })
+        } catch (e: Exception) {
+            Log.e("MainActivity", "Error in setupViewPager: ${e.message}", e)
+            throw e
+        }
     }
 
     private fun setupBottomNavigation() {
-        bottomNavigation.setOnItemSelectedListener { item: MenuItem ->
-            when (item.itemId) {
-                R.id.navigation_home -> {
-                    viewPager.currentItem = 0
-                    true
+        try {
+            bottomNavigation.setOnItemSelectedListener { item: MenuItem ->
+                try {
+                    when (item.itemId) {
+                        R.id.navigation_home -> {
+                            viewPager.currentItem = 0
+                            true
+                        }
+                        R.id.navigation_notebook -> {
+                            viewPager.currentItem = 1
+                            true
+                        }
+                        R.id.navigation_settings -> {
+                            viewPager.currentItem = 2
+                            true
+                        }
+                        else -> false
+                    }
+                } catch (e: Exception) {
+                    Log.e("MainActivity", "Error in navigation: ${e.message}", e)
+                    false
                 }
-                R.id.navigation_notebook -> {
-                    viewPager.currentItem = 1
-                    true
-                }
-                R.id.navigation_settings -> {
-                    viewPager.currentItem = 2
-                    true
-                }
-                else -> false
             }
-        }
 
-        // 设置默认选中首页
-        bottomNavigation.selectedItemId = R.id.navigation_home
+            // 设置默认选中首页
+            bottomNavigation.selectedItemId = R.id.navigation_home
+        } catch (e: Exception) {
+            Log.e("MainActivity", "Error in setupBottomNavigation: ${e.message}", e)
+        }
     }
 }
