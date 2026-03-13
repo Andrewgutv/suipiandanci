@@ -1,10 +1,22 @@
-# 碎片单词 - Fragment Words
+# 锁屏背单词 - Fragment Words
 
-一个用原生 Android 开发的英语单词学习 App，通过锁屏通知卡片帮助用户碎片化记忆单词。
+> 一个基于**艾宾浩斯遗忘曲线**的英语单词学习App，通过锁屏通知卡片帮助用户利用碎片时间高效记忆单词。
 
-## 功能特点
+**目标**：参加省级创新创业大赛，冲击金奖 🏆
 
-### 核心功能
+---
+
+## 📱 项目简介
+
+锁屏背单词采用**前后端分离架构**：
+
+- **Android客户端**：原生Kotlin开发，提供锁屏单词卡片、生词本等功能
+- **Spring Boot后端**：提供词库管理、学习进度同步、数据统计等API服务
+- **核心算法**：艾宾浩斯遗忘曲线（8个复习节点），提升3倍记忆效率
+
+---
+
+## 🎯 核心功能
 - **锁屏单词卡片** - 在通知栏和锁屏显示单词卡片，类似音乐播放器样式
 - **三大交互按钮**
   - **认识** - 直接跳过该单词
@@ -47,42 +59,55 @@
 ## 项目结构
 
 ```
-app/
-├── src/main/java/com/fragmentwords/
-│   ├── MainActivity.kt              # 主界面
-│   ├── model/
-│   │   └── Word.kt                 # 单词数据模型
-│   ├── database/
-│   │   └── WordDatabase.kt         # SQLite 数据库
-│   ├── data/
-│   │   └── WordRepository.kt       # 数据仓库
-│   ├── service/
-│   │   └── WordService.kt          # 前台服务（核心）
-│   ├── receiver/
-│   │   ├── WordActionReceiver.kt   # 按钮点击接收器
-│   │   └── BootReceiver.kt         # 开机启动接收器
-│   ├── worker/
-│   │   └── WordRefreshWorker.kt    # 定期刷新 Worker
-│   └── utils/
-│       └── WorkManagerScheduler.kt # WorkManager 调度器
-└── src/main/res/
-    ├── layout/
-    │   └── activity_main.xml       # 主界面布局
-    └── values/
-        ├── strings.xml             # 字符串资源
-        ├── colors.xml              # 颜色资源
-        └── themes.xml              # 主题样式
+D:\workspace\app\
+├── app/                            # Android客户端模块
+│   ├── src/main/java/com/fragmentwords/
+│   │   ├── MainActivity.kt         # 主界面
+│   │   ├── manager/
+│   │   │   ├── EbbinghausManager.kt # 艾宾浩斯算法核心 ⭐
+│   │   │   └── LearningManager.kt   # 学习管理器
+│   │   ├── database/
+│   │   │   └── WordDatabase.kt     # SQLite数据库
+│   │   ├── service/
+│   │   │   └── WordService.kt      # 前台服务
+│   │   └── receiver/               # 广播接收器
+│   └── src/main/res/
+│       └── layout/                 # UI布局
+│
+├── backend/                        # Spring Boot后端模块 ⭐
+│   ├── src/main/java/com/fragmentwords/
+│   │   ├── controller/             # REST API控制器
+│   │   ├── service/                # 业务逻辑层
+│   │   ├── model/                  # 实体类和DTO
+│   │   └── mapper/                 # MyBatis Mapper
+│   ├── src/main/resources/
+│   │   ├── application.yml         # 配置文件
+│   │   └── sql/init.sql            # 数据库初始化脚本
+│   ├── start.bat                   # 启动脚本
+│   └── README.md                   # 后端文档
+│
+└── fragment-words/                 # 旧的uni-app项目（已废弃）
 ```
 
 ## 技术栈
 
-- **语言**: Kotlin
-- **最低 SDK**: Android 8.0 (API 26)
-- **目标 SDK**: Android 14 (API 34)
+### Android客户端
+- **语言**: Kotlin 1.9.20
+- **SDK**: API 26-34 (Android 8.0-14)
 - **架构**: MVVM + Repository Pattern
-- **数据库**: SQLite
-- **后台任务**: WorkManager
-- **通知**: NotificationCompat + MediaStyle
+- **本地数据库**: SQLite
+- **核心依赖**: WorkManager, Coroutines, Material Design 3
+
+### 后端服务
+- **语言**: Java 17
+- **框架**: Spring Boot 3.3.4
+- **数据库**: MySQL 8.0+
+- **ORM**: MyBatis-Plus 3.5.6
+- **API文档**: SpringDoc 2.4.0
+
+### 核心算法
+- **艾宾浩斯遗忘曲线**: 8个复习节点
+  - 5分钟 → 30分钟 → 12小时 → 1天 → 2天 → 4天 → 7天 → 15天
 
 ## 如何编译运行
 
@@ -161,14 +186,70 @@ WorkManager.getInstance(context).enqueueUniquePeriodicWork(
 )
 ```
 
-## 后续优化方向
+## 🚀 快速开始
 
-1. **添加更多单词** - 目前只内置了 10 个示例单词
-2. **单词难度分级** - 根据艾宾浩斯遗忘曲线智能复习
-3. **发音功能** - 添加 TTS 朗读单词
-4. **生词本导出** - 支持导出为 CSV 或 Anki 格式
-5. **统计功能** - 记录学习进度和数据统计
-6. **深色模式** - 支持系统深色模式
+### Android客户端
+
+详见下方 [如何编译运行](#如何编译运行)
+
+### 后端服务
+
+1. **启动MySQL数据库**
+   ```bash
+   net start MySQL80
+   ```
+
+2. **初始化数据库**
+   ```bash
+   mysql -uroot -p123456
+   source D:/workspace/app/backend/src/main/resources/sql/init.sql
+   ```
+
+3. **启动后端服务**
+   ```bash
+   cd D:\workspace\app\backend
+   start.bat
+   ```
+
+4. **访问服务**
+   - 服务地址: http://localhost:8080
+   - API文档: http://localhost:8080/swagger-ui/index.html
+
+详细文档：[backend/README.md](backend/README.md)
+
+---
+
+## 📊 项目进度
+
+### ✅ 已完成功能
+- [x] 锁屏通知显示单词卡片
+- [x] 三大按钮交互（认识/不认识/下一个）
+- [x] 生词本管理
+- [x] 多词库选择（CET4/6/IELTS/TOEFL/GRE）
+- [x] 前台服务（确保常驻）
+- [x] WorkManager定时任务
+- [x] 开机自启动
+- [x] **艾宾浩斯遗忘曲线算法**（Android端）⭐
+- [x] **Spring Boot后端服务** ⭐
+- [x] MySQL数据库设计
+
+### 🚧 待开发功能
+- [ ] 后端集成艾宾浩斯算法
+- [ ] Android客户端对接后端API
+- [ ] 扩展词库到5000+单词
+- [ ] 数据统计模块
+- [ ] 语音朗读（TTS）
+- [ ] 用户注册/登录系统
+
+---
+
+## 📖 相关文档
+
+- [SESSION_LOG.md](SESSION_LOG.md) - 开发会话日志
+- [backend/README.md](backend/README.md) - 后端服务文档
+- [词库扩展指南](词库扩展指南.md) - 如何添加新词库
+
+---
 
 ## License
 
