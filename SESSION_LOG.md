@@ -441,5 +441,106 @@ Android：
 
 ---
 
+### 会话 #5（2026-03-13）
+
+**本次对话内容**：
+1. ✅ 完成后端API测试（100%通过）
+2. ✅ 测试用户注册/登录功能
+3. ✅ 测试艾宾浩斯算法API
+4. ✅ 修复context-path配置问题
+5. ✅ 代码提交到Git仓库
+6. ✅ 推送到GitHub (commit: 654401b)
+
+**核心决策**：
+- 修复application.yml中的context-path配置（移除/api前缀）
+- 验证所有后端API正常工作
+- 完整的Git提交历史记录
+
+**后端API测试结果**：
+```bash
+✅ POST /api/user/register - 用户注册成功
+   响应: {"code":200,"data":{"id":1,"username":"testuser"}}
+
+✅ POST /api/user/login - 登录成功，获取JWT Token
+   响应: {"code":200,"data":{"userId":1,"token":"eyJhbGc..."}}
+
+✅ POST /api/learning/next - 智能推荐单词
+   响应: {"code":200,"data":{"word":"nature","stage":0,"retentionRate":20}}
+
+✅ POST /api/learning/feedback - 提交学习反馈
+   响应: {"code":200,"data":{"stage":1,"retentionRate":58}}
+
+✅ GET /api/learning/stats - 学习统计
+   响应: {"code":200,"data":{"totalWords":1,"masteredWords":0}}
+```
+
+**艾宾浩斯算法验证**：
+- ✅ Stage 0 → 1（点击"认识"后正确升级）
+- ✅ 记忆保持率：20% → 58%（正确提升）
+- ✅ 下次复习时间：立即 → 30分钟后（正确计算）
+
+**Git提交信息**：
+- Commit Hash: `654401b`
+- 提交标题: "feat: 实现前后端分离架构和艾宾浩斯算法后端实现"
+- 新增文件: 108个文件，4727行代码
+- 仓库地址: https://github.com/Andrewgutv/suipiandanci.git
+
+**文件变更统计**：
+- 新增: backend/（完整Spring Boot后端）
+- 新增: app/src/main/java/com/fragmentwords/network/（网络层）
+- 新增: SESSION_LOG.md
+- 修改: app/build.gradle.kts（添加Retrofit依赖）
+- 修改: README.md
+
+**Bug修复**：
+- ❌ 问题：context-path=/api导致404错误
+- ✅ 解决：移除application.yml中的context-path配置
+- ✅ 验证：所有API测试通过
+
+**待完成任务**（明后天）：
+1. ⏭️ 启动Android模拟器
+2. ⏭️ 编译并安装Android应用
+3. ⏭️ 测试Android端API集成
+4. ⏭️ 测试锁屏单词功能
+5. ⏭️ 验证艾宾浩斯算法在Android端的表现
+6. ⏭️ 扩展词库到5000+词汇
+
+**技术栈确认**：
+```
+后端：
+- Spring Boot 3.3.4 + Java 17
+- MySQL 8.0 (端口3307)
+- MyBatis-Plus 3.5.6
+- JWT 0.12.3
+- 端口: 8080
+
+Android：
+- Kotlin 1.9.20
+- API 26-34 (Android 8.0-14)
+- Retrofit 2.9.0
+- OkHttp 4.12.0
+- Coroutines 1.7.3
+```
+
+**数据库状态**：
+- MySQL服务: ✅ 运行中 (端口3307)
+- 数据库: fragment_words
+- 表数量: 6张核心表
+- 词库数据: 110个CET4词汇
+
+**测试文档**：
+- backend/TESTING_GUIDE.md - 完整的API测试指南
+- 包含curl命令示例
+- 包含预期响应结果
+
+**下次对话启动指令**：
+```
+我在做锁屏背单词项目，路径是 D:\workspace\app
+请读取 SESSION_LOG.md 恢复上下文，
+然后继续测试Android应用。
+```
+
+---
+
 **最后更新**：2026-03-13
-**会话次数**：4
+**会话次数**：5
