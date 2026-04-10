@@ -41,10 +41,6 @@
             android:theme='@style/Theme.FragmentWords'
             android:configChanges='orientation|screenSize' />
 
-        <activity
-            android:name='.SettingsActivity'
-            android:exported='false'
-            android:theme='@style/Theme.FragmentWords' />
 
         <service
             android:name='.service.WordService'
@@ -84,6 +80,7 @@
     </application>
 
 </manifest>
+
 
 
 

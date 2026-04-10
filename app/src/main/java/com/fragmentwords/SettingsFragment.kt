@@ -1,17 +1,24 @@
 ﻿package com.fragmentwords
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Switch
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import com.fragmentwords.service.WordService
+import com.fragmentwords.utils.AlarmScheduler
+import com.fragmentwords.utils.WorkManagerScheduler
 
 class SettingsFragment : Fragment() {
 
+    private lateinit var switchPush: Switch
     private lateinit var tvCurrentLibrary: TextView
+    private var suppressSwitchCallback = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,10 +41,18 @@ class SettingsFragment : Fragment() {
     }
 
     private fun initViews(view: View) {
+        switchPush = view.findViewById(R.id.switch_push)
         tvCurrentLibrary = view.findViewById(R.id.tv_current_library)
     }
 
     private fun setupClickListeners(view: View) {
+        switchPush.setOnCheckedChangeListener { _, isChecked ->
+            if (suppressSwitchCallback) {
+                return@setOnCheckedChangeListener
+            }
+            onPushToggleChanged(isChecked)
+        }
+
         view.findViewById<View>(R.id.btn_manage_libraries).setOnClickListener {
             startActivity(Intent(requireContext(), LibrarySelectActivity::class.java))
         }
@@ -48,7 +63,8 @@ class SettingsFragment : Fragment() {
     }
 
     private fun loadSettings() {
-        val prefs = requireContext().getSharedPreferences("word_prefs", android.content.Context.MODE_PRIVATE)
+        val prefs = requireContext().getSharedPreferences("word_prefs", Context.MODE_PRIVATE)
+        val pushEnabled = prefs.getBoolean("notification_enabled", false)
         val selectedLibraries = prefs.getStringSet("selected_libraries", null)
         val libraryName = when {
             selectedLibraries?.size == 1 && selectedLibraries.contains("ADVANCED") -> "高级词库"
@@ -60,7 +76,26 @@ class SettingsFragment : Fragment() {
             (selectedLibraries?.size ?: 0) > 1 -> "多个词库"
             else -> "四级词库"
         }
+
+        suppressSwitchCallback = true
+        switchPush.isChecked = pushEnabled
+        suppressSwitchCallback = false
         tvCurrentLibrary.text = libraryName
+    }
+
+    private fun onPushToggleChanged(enabled: Boolean) {
+        val prefs = requireContext().getSharedPreferences("word_prefs", Context.MODE_PRIVATE)
+        prefs.edit().putBoolean("notification_enabled", enabled).apply()
+
+        if (enabled) {
+            WordService.startService(requireContext())
+            AlarmScheduler.schedulePeriodicAlarm(requireContext())
+            WorkManagerScheduler.cancelRefresh(requireContext())
+        } else {
+            WordService.stopService(requireContext())
+            AlarmScheduler.cancelAlarms(requireContext())
+            WorkManagerScheduler.cancelRefresh(requireContext())
+        }
     }
 
     private fun showAboutDialog() {

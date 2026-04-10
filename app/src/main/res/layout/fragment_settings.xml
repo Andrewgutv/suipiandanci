@@ -15,7 +15,6 @@
         android:paddingTop="60dp"
         android:paddingBottom="96dp">
 
-        <!-- 标题 -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -27,7 +26,56 @@
             android:gravity="center"
             android:layout_marginBottom="40dp" />
 
-        <!-- 设置卡片 -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            app:cardBackgroundColor="@color/card_background"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="24dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="单词推送"
+                        android:textSize="18sp"
+                        android:textStyle="normal"
+                        android:textColor="@color/text_primary"
+                        android:layout_marginBottom="4dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="在锁屏和通知栏显示单词卡片"
+                        android:textSize="12sp"
+                        android:textColor="@color/text_secondary" />
+
+                </LinearLayout>
+
+                <Switch
+                    android:id="@+id/switch_push"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:thumb="@drawable/toggle_thumb_drawable"
+                    android:track="@drawable/toggle_track" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -40,7 +88,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <!-- 词库管理 -->
                 <LinearLayout
                     android:id="@+id/btn_manage_libraries"
                     android:layout_width="match_parent"
@@ -87,7 +134,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="›"
+                            android:text=">"
                             android:textSize="18sp"
                             android:textColor="@color/text_secondary" />
 
@@ -95,14 +142,12 @@
 
                 </LinearLayout>
 
-                <!-- 分割线 -->
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="#FFEAEAEA"
                     android:layout_marginStart="76dp" />
 
-                <!-- 关于 -->
                 <LinearLayout
                     android:id="@+id/btn_about"
                     android:layout_width="match_parent"
@@ -125,7 +170,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="关于碎片单词"
+                        android:text="关于应用"
                         android:textSize="16sp"
                         android:textStyle="normal"
                         android:textColor="@color/text_primary"
@@ -140,7 +185,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="v2.1.0"
+                            android:text="当前版本"
                             android:textSize="14sp"
                             android:textColor="@color/text_secondary"
                             android:layout_marginEnd="4dp" />
@@ -148,7 +193,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="›"
+                            android:text=">"
                             android:textSize="18sp"
                             android:textColor="@color/text_secondary" />
 
