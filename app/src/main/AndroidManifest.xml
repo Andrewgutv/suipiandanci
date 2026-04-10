@@ -31,11 +31,6 @@
         </activity>
 
         <activity
-            android:name='.NotebookActivity'
-            android:exported='false'
-            android:theme='@style/Theme.FragmentWords' />
-
-        <activity
             android:name='.LibrarySelectActivity'
             android:exported='false'
             android:theme='@style/Theme.FragmentWords' />
@@ -89,5 +84,6 @@
     </application>
 
 </manifest>
+
 
 
