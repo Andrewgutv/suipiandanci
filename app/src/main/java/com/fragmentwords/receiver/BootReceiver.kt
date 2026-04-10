@@ -22,9 +22,9 @@ class BootReceiver : BroadcastReceiver() {
                 val prefs = context.getSharedPreferences("word_prefs", Context.MODE_PRIVATE)
                 val enabled = prefs.getBoolean("notification_enabled", false)
                 if (enabled) {
-                    AlarmScheduler.schedulePeriodicAlarm(context)
+                    val scheduled = AlarmScheduler.schedulePeriodicAlarm(context)
                     WorkManagerScheduler.cancelRefresh(context)
-                    Log.d(TAG, "Schedules restored after boot")
+                    Log.d(TAG, "Schedules restored after boot: scheduled=$scheduled")
                 }
             }
         }
