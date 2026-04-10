@@ -1,5 +1,6 @@
-package com.fragmentwords.service
+﻿package com.fragmentwords.service
 
+import android.app.Activity
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -7,10 +8,12 @@ import android.app.PendingIntent
 import android.app.Service
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ServiceInfo
 import android.os.Build
 import android.os.IBinder
 import android.util.Log
 import androidx.core.app.NotificationCompat
+import androidx.core.app.ServiceCompat
 import androidx.media.app.NotificationCompat.MediaStyle
 import com.fragmentwords.R
 import com.fragmentwords.data.WordRepository
@@ -21,20 +24,15 @@ import com.fragmentwords.receiver.WordActionReceiver
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
-/**
- * 单词服务 - 前台服务，单词卡片常驻通知栏
- */
 class WordService : Service() {
 
     companion object {
         private const val TAG = "WordService"
         const val CHANNEL_ID = "word_channel"
         const val NOTIFICATION_ID = 1001
-
-        // Android 14+ 前台服务类型常量
-        private const val FOREGROUND_SERVICE_TYPE_DATA_SYNC = 1
 
         const val ACTION_SHOW_WORD = "com.fragmentwords.SHOW_WORD"
         const val ACTION_KNOWN = "com.fragmentwords.ACTION_KNOWN"
@@ -45,10 +43,13 @@ class WordService : Service() {
         const val EXTRA_PHONETIC = "extra_phonetic"
         const val EXTRA_TRANSLATION = "extra_translation"
         const val EXTRA_EXAMPLE = "extra_example"
+        const val EXTRA_DIFFICULTY = "extra_difficulty"
+        const val EXTRA_PART_OF_SPEECH = "extra_part_of_speech"
+        const val EXTRA_LIBRARY = "extra_library"
 
         fun startService(context: Context) {
             val intent = Intent(context, WordService::class.java)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && context !is Activity) {
                 context.startForegroundService(intent)
             } else {
                 context.startService(intent)
@@ -56,25 +57,18 @@ class WordService : Service() {
         }
 
         fun stopService(context: Context) {
-            val intent = Intent(context, WordService::class.java)
-            context.stopService(intent)
+            context.stopService(Intent(context, WordService::class.java))
         }
 
         fun showNewWord(context: Context) {
             val intent = Intent(context, WordService::class.java).apply {
                 action = ACTION_SHOW_WORD
             }
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && context !is Activity) {
                 context.startForegroundService(intent)
             } else {
                 context.startService(intent)
             }
-        }
-
-        fun dismissNotification(context: Context) {
-            val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.cancel(NOTIFICATION_ID)
-            Log.d(TAG, "Notification dismissed")
         }
     }
 
@@ -83,196 +77,140 @@ class WordService : Service() {
     private lateinit var learningManager: LearningManager
     private lateinit var libraryManager: LibraryManager
     private lateinit var notificationManager: NotificationManager
-    private var currentWord: Word? = null
-    private var isFirstWord = true // 标记是否是第一个单词
+    private var isFirstWord = true
+    private var initialLoadScheduled = false
+    private var updateJob: Job? = null
 
     override fun onCreate() {
         super.onCreate()
         Log.d(TAG, "WordService onCreate")
-        try {
-            // 重置状态标志，确保服务重启后正常工作
-            isFirstWord = true
-            repository = WordRepository(applicationContext)
-            learningManager = LearningManager(applicationContext)
-            libraryManager = LibraryManager(applicationContext)
 
-            val nm = getSystemService(Context.NOTIFICATION_SERVICE)
-            if (nm is NotificationManager) {
-                notificationManager = nm
-            } else {
-                Log.e(TAG, "Failed to get NotificationManager")
-                stopSelf()
-                return
-            }
+        repository = WordRepository(applicationContext)
+        learningManager = LearningManager(applicationContext)
+        libraryManager = LibraryManager(applicationContext)
+        notificationManager =
+            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-            createNotificationChannel()
-
-            // 立即启动前台服务，使用占位通知（避免5秒超时）
-            val placeholderNotification = createPlaceholderNotification()
-
-            // Android 14+ (API 34) 需要指定前台服务类型
-            if (Build.VERSION.SDK_INT >= 34) {
-                try {
-                    // 使用反射调用新的API
-                    val method = Service::class.java.getMethod(
-                        "startForeground",
-                        Int::class.java,
-                        Notification::class.java,
-                        Int::class.java
-                    )
-                    method.invoke(this, NOTIFICATION_ID, placeholderNotification, FOREGROUND_SERVICE_TYPE_DATA_SYNC)
-                } catch (e: Exception) {
-                    Log.e(TAG, "Failed to call startForeground with type", e)
-                    // 回退到旧API
-                    startForeground(NOTIFICATION_ID, placeholderNotification)
-                }
-            } else {
-                startForeground(NOTIFICATION_ID, placeholderNotification)
-            }
-
-            Log.d(TAG, "Foreground service started with placeholder")
-
-            // 然后异步加载单词
-            serviceScope.launch {
-                try {
-                    repository.initializeIfNeeded()
-                    val word = repository.getNextWordSync()
-                    if (word != null) {
-                        currentWord = word
-                        val notification = createWordNotification(word, true)
-                        notificationManager.notify(NOTIFICATION_ID, notification)
-                        Log.d(TAG, "Updated foreground notification with word: ${word.word}")
-                    } else {
-                        Log.w(TAG, "No words available, keeping placeholder")
-                    }
-                } catch (e: Exception) {
-                    Log.e(TAG, "Error loading word: ${e.message}", e)
-                }
-            }
-        } catch (e: Exception) {
-            Log.e(TAG, "Error in onCreate: ${e.message}", e)
-            stopSelf()
-        }
+        createNotificationChannel()
+        startForegroundCompat(createPlaceholderNotification())
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        Log.d(TAG, "WordService onStartCommand, action: ${intent?.action}")
-
         when (intent?.action) {
-            ACTION_SHOW_WORD -> {
-                Log.d(TAG, "Received ACTION_SHOW_WORD, updating word notification")
-                serviceScope.launch {
-                    repository.initializeIfNeeded()
-                    updateWordNotification()
-                }
-            }
             ACTION_STOP -> {
-                Log.d(TAG, "Received ACTION_STOP, stopping service")
                 stopSelf()
                 return START_NOT_STICKY
             }
-            else -> {
-                Log.d(TAG, "No action, updating word notification")
-                serviceScope.launch {
-                    repository.initializeIfNeeded()
-                    updateWordNotification()
+
+            ACTION_SHOW_WORD -> scheduleUpdate(forceRefresh = true)
+            null -> {
+                if (!initialLoadScheduled) {
+                    initialLoadScheduled = true
+                    scheduleUpdate(forceRefresh = false)
+                } else {
+                    Log.d(TAG, "Ignoring duplicate initial start command")
                 }
             }
-        }
 
-        return START_STICKY // 保持服务运行
+            else -> Log.w(TAG, "Unhandled action: ${intent.action}")
+        }
+        return START_STICKY
     }
 
     override fun onBind(intent: Intent?): IBinder? = null
 
     override fun onDestroy() {
+        updateJob?.cancel()
+        serviceScope.cancel()
         super.onDestroy()
         Log.d(TAG, "WordService onDestroy")
     }
 
-    /**
-     * 更新单词通知（不停止服务）
-     */
-    private fun updateWordNotification() {
-        serviceScope.launch {
-            try {
-                // 使用LibraryManager获取已启用的词库
-                val enabledLibraryIds = libraryManager.getEnabledLibraryIds()
-                val selectedLibraries = if (enabledLibraryIds.isEmpty()) {
-                    // 如果没有启用任何词库，使用CET4作为默认
-                    listOf("CET4")
-                } else {
-                    // 将词库ID转换为大写作为数据库的library字段
-                    enabledLibraryIds.map { it.uppercase() }
-                }
-
-                Log.d(TAG, "Enabled libraries: $selectedLibraries")
-
-                // 使用LearningManager获取下一个单词（优先复习）
-                val word = learningManager.getNextWord(selectedLibraries)
-
-                if (word != null) {
-                    currentWord = word
-                    repository.saveCurrentWord(word) // 保存当前单词
-
-                    val notification = createWordNotification(word, isFirstWord)
-                    notificationManager.notify(NOTIFICATION_ID, notification)
-                    isFirstWord = false // 第一个单词已显示
-                    Log.d(TAG, "Updated word: ${word.word} from ${word.library}")
-                } else {
-                    Log.w(TAG, "No words available")
-                }
-            } catch (e: Exception) {
-                Log.e(TAG, "Error updating word notification: ${e.message}")
+    private fun scheduleUpdate(forceRefresh: Boolean) {
+        if (updateJob?.isActive == true) {
+            if (!forceRefresh) {
+                Log.d(TAG, "Skipping update because another update is already running")
+                return
             }
+            updateJob?.cancel()
         }
-        // 不停止服务，保持前台通知
+
+        updateJob = serviceScope.launch {
+            repository.initializeIfNeeded()
+            updateWordNotification(forceRefresh)
+        }
     }
 
-    /**
-     * 创建通知渠道
-     */
+    private fun startForegroundCompat(notification: Notification) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            ServiceCompat.startForeground(
+                this,
+                NOTIFICATION_ID,
+                notification,
+                ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC
+            )
+        } else {
+            startForeground(NOTIFICATION_ID, notification)
+        }
+    }
+
+    private suspend fun updateWordNotification(forceRefresh: Boolean) {
+        try {
+            val enabledLibraryIds = libraryManager.getEnabledLibraryIds()
+            val selectedLibraries = if (enabledLibraryIds.isEmpty()) {
+                listOf("CET4")
+            } else {
+                enabledLibraryIds.map { it.uppercase() }
+            }
+
+            val word = learningManager.getNextWord(selectedLibraries)
+            if (word == null) {
+                Log.w(TAG, "No words available for notification")
+                return
+            }
+
+            repository.saveCurrentWord(word)
+            notificationManager.notify(NOTIFICATION_ID, createWordNotification(word, isFirstWord))
+            Log.d(TAG, "Updated word notification: ${word.word}, library=${word.library}, forceRefresh=$forceRefresh")
+            isFirstWord = false
+        } catch (e: Exception) {
+            Log.e(TAG, "Error updating word notification", e)
+        }
+    }
+
     private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 CHANNEL_ID,
                 getString(R.string.channel_name),
-                NotificationManager.IMPORTANCE_MAX  // 最高重要性，横幅通知
+                NotificationManager.IMPORTANCE_HIGH
             ).apply {
                 description = getString(R.string.channel_description)
                 setShowBadge(false)
-                enableVibration(true)  // 启用震动
-                enableLights(true)      // 启用呼吸灯
+                enableVibration(true)
+                enableLights(true)
                 lockscreenVisibility = Notification.VISIBILITY_PUBLIC
             }
             notificationManager.createNotificationChannel(channel)
         }
     }
 
-    /**
-     * 创建单词卡片通知（使用媒体通知样式，类似音乐播放器）
-     */
-    private fun createWordNotification(word: Word, isFirst: Boolean = false): Notification {
-        // "认识" 按钮
+    private fun createWordNotification(word: Word, isFirst: Boolean): Notification {
         val knownIntent = Intent(this, WordActionReceiver::class.java).apply {
             action = ACTION_KNOWN
-            putExtra(EXTRA_WORD, word.word)
+            putWordExtras(word)
         }
+        val unknownIntent = Intent(this, WordActionReceiver::class.java).apply {
+            action = ACTION_UNKNOWN
+            putWordExtras(word)
+        }
+
         val knownPendingIntent = PendingIntent.getBroadcast(
             this,
             0,
             knownIntent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
-
-        // "不认识" 按钮
-        val unknownIntent = Intent(this, WordActionReceiver::class.java).apply {
-            action = ACTION_UNKNOWN
-            putExtra(EXTRA_WORD, word.word)
-            putExtra(EXTRA_PHONETIC, word.phonetic)
-            putExtra(EXTRA_TRANSLATION, word.translation)
-            putExtra(EXTRA_EXAMPLE, word.example)
-        }
         val unknownPendingIntent = PendingIntent.getBroadcast(
             this,
             1,
@@ -280,70 +218,60 @@ class WordService : Service() {
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
-        // 创建媒体通知样式 - 关键！让系统识别为媒体内容
-        val mediaStyle = MediaStyle()
-            .setShowActionsInCompactView(0, 1) // 在折叠视图显示2个按钮
-
-        // 创建内容文本
-        val contentText = StringBuilder()
-        contentText.append(word.phonetic)
-        contentText.append("\n").append(word.translation)
-        if (word.example.isNotEmpty()) {
-            contentText.append("\n\n例句：").append(word.example)
+        val contentText = buildString {
+            append(word.phonetic)
+            append("\n")
+            append(word.translation)
+            if (word.example.isNotBlank()) {
+                append("\n\n例句: ")
+                append(word.example)
+            }
         }
 
         val builder = NotificationCompat.Builder(this, CHANNEL_ID)
             .setSmallIcon(android.R.drawable.ic_menu_info_details)
             .setContentTitle(word.word)
-            .setContentText(word.phonetic)
+            .setContentText(word.translation)
             .setStyle(
                 NotificationCompat.BigTextStyle()
-                    .bigText(contentText.toString())
+                    .bigText(contentText)
                     .setBigContentTitle(word.word)
             )
-            .setStyle(mediaStyle) // 使用媒体样式
-            .setVisibility(NotificationCompat.VISIBILITY_PUBLIC) // 锁屏可见
-            .setPriority(NotificationCompat.PRIORITY_MAX) // 最高优先级
-            .setCategory(NotificationCompat.CATEGORY_TRANSPORT) // 媒体传输类别
-            .setOngoing(false) // 可滑动删除 ✅ 修改：允许用户操作
-            .setAutoCancel(false) // 点击通知本身不自动取消，但要点击按钮才取消
+            .setStyle(MediaStyle().setShowActionsInCompactView(0, 1))
+            .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setCategory(NotificationCompat.CATEGORY_RECOMMENDATION)
+            .setOngoing(false)
+            .setAutoCancel(false)
+            .addAction(android.R.drawable.ic_menu_add, getString(R.string.action_known), knownPendingIntent)
+            .addAction(android.R.drawable.ic_menu_delete, getString(R.string.action_unknown), unknownPendingIntent)
 
-        // 只在第一个单词时有声音和震动
         if (isFirst) {
-            builder.setVibrate(longArrayOf(0, 100, 50, 100))
             builder.setDefaults(NotificationCompat.DEFAULT_ALL)
+            builder.setVibrate(longArrayOf(0, 100, 50, 100))
         }
 
-        return builder
-            .addAction(
-                android.R.drawable.ic_menu_add,
-                getString(R.string.action_known),
-                knownPendingIntent
-            )
-            .addAction(
-                android.R.drawable.ic_menu_delete,
-                getString(R.string.action_unknown),
-                unknownPendingIntent
-            )
-            .build()
+        return builder.build()
     }
 
-    /**
-     * 创建占位通知（当没有单词时）
-     */
-    private fun createPlaceholderNotification(): Notification {
-        val builder = NotificationCompat.Builder(this, CHANNEL_ID)
-            .setSmallIcon(android.R.drawable.ic_menu_info_details)
-            .setContentTitle("碎片单词")
-            .setContentText("正在加载单词...")
-            .setStyle(NotificationCompat.BigTextStyle()
-                .bigText("正在加载单词库，请稍候"))
-            .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
-            .setPriority(NotificationCompat.PRIORITY_MAX)
-            .setCategory(NotificationCompat.CATEGORY_TRANSPORT)
-            .setOngoing(true)
-            .setAutoCancel(false)
+    private fun Intent.putWordExtras(word: Word) {
+        putExtra(EXTRA_WORD, word.word)
+        putExtra(EXTRA_PHONETIC, word.phonetic)
+        putExtra(EXTRA_TRANSLATION, word.translation)
+        putExtra(EXTRA_EXAMPLE, word.example)
+        putExtra(EXTRA_DIFFICULTY, word.difficulty)
+        putExtra(EXTRA_PART_OF_SPEECH, word.partOfSpeech)
+        putExtra(EXTRA_LIBRARY, word.library)
+    }
 
-        return builder.build()
+    private fun createPlaceholderNotification(): Notification {
+        return NotificationCompat.Builder(this, CHANNEL_ID)
+            .setSmallIcon(android.R.drawable.ic_menu_info_details)
+            .setContentTitle(getString(R.string.notification_title))
+            .setContentText(getString(R.string.notification_content))
+            .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+            .setPriority(NotificationCompat.PRIORITY_LOW)
+            .setOngoing(true)
+            .build()
     }
 }

@@ -1,10 +1,11 @@
-package com.fragmentwords.receiver
+﻿package com.fragmentwords.receiver
 
 import android.content.BroadcastReceiver
+import android.content.BroadcastReceiver.PendingResult
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.util.Log
+import android.widget.Toast
 import com.fragmentwords.data.WordRepository
 import com.fragmentwords.manager.LearningManager
 import com.fragmentwords.model.Word
@@ -12,10 +13,8 @@ import com.fragmentwords.service.WordService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-/**
- * 单词卡片按钮点击接收器
- */
 class WordActionReceiver : BroadcastReceiver() {
 
     companion object {
@@ -25,83 +24,115 @@ class WordActionReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         val action = intent.action
         Log.d(TAG, "Received action: $action")
+        val pendingResult = goAsync()
 
         when (action) {
             WordService.ACTION_KNOWN -> {
-                Log.d(TAG, "Handling KNOWN action")
-                handleKnown(context)
-            }
-            WordService.ACTION_UNKNOWN -> {
-                Log.d(TAG, "Handling UNKNOWN action")
                 val word = extractWord(intent)
                 if (word != null) {
-                    handleUnknown(context, word)
+                    handleKnown(context, word, pendingResult)
                 } else {
-                    Log.e(TAG, "Failed to extract word from intent")
+                    Log.e(TAG, "Failed to extract word for known action")
+                    pendingResult.finish()
                 }
             }
+
+            WordService.ACTION_UNKNOWN -> {
+                val word = extractWord(intent)
+                if (word != null) {
+                    handleUnknown(context, word, pendingResult)
+                } else {
+                    Log.e(TAG, "Failed to extract word for unknown action")
+                    pendingResult.finish()
+                }
+            }
+
             else -> {
                 Log.e(TAG, "Unknown action: $action")
+                pendingResult.finish()
             }
         }
     }
 
-    private fun handleKnown(context: Context) {
-        // "认识" - 使用艾宾浩斯算法记录学习进度
-        Log.d(TAG, "Word marked as known, recording learning progress")
+    private fun handleKnown(
+        context: Context,
+        word: Word,
+        pendingResult: PendingResult
+    ) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
+                markButtonClick(context)
+
                 val learningManager = LearningManager(context)
                 val repository = WordRepository(context)
-                val currentWord = repository.getCurrentWord()
+                val advice = learningManager.handleUserFeedback(word, "known")
+                Log.d(TAG, "Learning advice: $advice")
 
-                if (currentWord != null) {
-                    val advice = learningManager.handleUserFeedback(currentWord, "known")
-                    Log.d(TAG, "Learning advice: $advice")
-
-                    // 取消当前通知 ✅ 关键修改：点击后通知消失
-                    val notificationManager = context.getSystemService(android.content.Context.NOTIFICATION_SERVICE) as android.app.NotificationManager
-                    notificationManager.cancel(WordService.NOTIFICATION_ID)
-
-                    Log.d(TAG, "Notification cancelled, will show next word on unlock")
-                }
+                repository.clearCurrentWord()
+                cancelNotification(context)
             } catch (e: Exception) {
-                Log.e(TAG, "Error handling known: ${e.message}")
+                Log.e(TAG, "Error handling known action", e)
+            } finally {
+                pendingResult.finish()
             }
         }
-
-        // ✅ 移除：不再立即显示下一个单词
-        // 下次解锁手机时，ScreenUnlockReceiver 会自动显示新单词
     }
 
-    private fun handleUnknown(context: Context, word: Word) {
-        // "不认识" - 使用艾宾浩斯算法记录学习进度，加入生词本
-        Log.d(TAG, "Word: ${word.word} marked as unknown")
+    private fun handleUnknown(
+        context: Context,
+        word: Word,
+        pendingResult: PendingResult
+    ) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
+                markButtonClick(context)
+
                 val learningManager = LearningManager(context)
                 val repository = WordRepository(context)
-
-                // 使用艾宾浩斯算法记录学习进度
                 val advice = learningManager.handleUserFeedback(word, "unknown")
                 Log.d(TAG, "Learning advice: $advice")
 
-                // 加入生词本
-                repository.addToNotebook(word)
-                Log.d(TAG, "Added to notebook: ${word.word}")
+                val inserted = repository.addToNotebook(word)
+                val existsInNotebook = repository.getNotebookWords().any { it.word == word.word }
 
-                // 取消当前通知 ✅ 关键修改：点击后通知消失
-                val notificationManager = context.getSystemService(android.content.Context.NOTIFICATION_SERVICE) as android.app.NotificationManager
-                notificationManager.cancel(WordService.NOTIFICATION_ID)
-
-                Log.d(TAG, "Notification cancelled, will show next word on unlock")
+                repository.clearCurrentWord()
+                cancelNotification(context)
+                showUnknownResultToast(context, inserted, existsInNotebook)
             } catch (e: Exception) {
-                Log.e(TAG, "Error handling unknown: ${e.message}")
+                Log.e(TAG, "Error handling unknown action", e)
+            } finally {
+                pendingResult.finish()
             }
         }
+    }
 
-        // ✅ 移除：不再立即显示下一个单词
-        // 下次解锁手机时，ScreenUnlockReceiver 会自动显示新单词
+    private fun markButtonClick(context: Context) {
+        context.getSharedPreferences("word_prefs", Context.MODE_PRIVATE)
+            .edit()
+            .putBoolean("just_clicked_button", true)
+            .putLong("button_click_time", System.currentTimeMillis())
+            .apply()
+    }
+
+    private fun cancelNotification(context: Context) {
+        val notificationManager =
+            context.getSystemService(Context.NOTIFICATION_SERVICE) as android.app.NotificationManager
+        notificationManager.cancel(WordService.NOTIFICATION_ID)
+    }
+
+    private suspend fun showUnknownResultToast(
+        context: Context,
+        inserted: Boolean,
+        existsInNotebook: Boolean
+    ) {
+        withContext(Dispatchers.Main) {
+            val message = when {
+                inserted -> "已添加到生词本"
+                existsInNotebook -> "该单词已在生词本中"
+                else -> "添加到生词本失败"
+            }
+            Toast.makeText(context.applicationContext, message, Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun extractWord(intent: Intent): Word? {
@@ -109,6 +140,17 @@ class WordActionReceiver : BroadcastReceiver() {
         val phonetic = intent.getStringExtra(WordService.EXTRA_PHONETIC) ?: ""
         val translation = intent.getStringExtra(WordService.EXTRA_TRANSLATION) ?: ""
         val example = intent.getStringExtra(WordService.EXTRA_EXAMPLE) ?: ""
-        return Word(word, phonetic, translation, example)
+        val difficulty = intent.getIntExtra(WordService.EXTRA_DIFFICULTY, 1)
+        val partOfSpeech = intent.getStringExtra(WordService.EXTRA_PART_OF_SPEECH) ?: ""
+        val library = intent.getStringExtra(WordService.EXTRA_LIBRARY) ?: ""
+        return Word(
+            word = word,
+            phonetic = phonetic,
+            translation = translation,
+            example = example,
+            difficulty = difficulty,
+            partOfSpeech = partOfSpeech,
+            library = library
+        )
     }
 }

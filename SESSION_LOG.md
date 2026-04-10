@@ -1,520 +1,520 @@
-# Claude Code 会话日志
+﻿# Claude Code 浼氳瘽鏃ュ織
 
-> 📌 **用途**：记录每次与Claude对话的要点，下次对话时自动恢复上下文
-
----
-
-## 📋 项目基本信息
-
-**项目名称**：锁屏背单词 (LockScreenVocabulary)
-**项目路径**：D:\workspace\app
-**创建时间**：2025-01-XX
-**目标**：参加省级创新创业大赛，冲击金奖
+> 馃搶 **鐢ㄩ€?*锛氳褰曟瘡娆′笌Claude瀵硅瘽鐨勮鐐癸紝涓嬫瀵硅瘽鏃惰嚜鍔ㄦ仮澶嶄笂涓嬫枃
 
 ---
 
-## 👥 团队配置（4人）
+## 馃搵 椤圭洰鍩烘湰淇℃伅
 
-| 成员 | 角色 | 专业 | 核心职责 |
+**椤圭洰鍚嶇О**锛氶攣灞忚儗鍗曡瘝 (LockScreenVocabulary)
+**椤圭洰璺緞**锛欴:\workspace\app
+**鍒涘缓鏃堕棿**锛?025-01-XX
+**鐩爣**锛氬弬鍔犵渷绾у垱鏂板垱涓氬ぇ璧涳紝鍐插嚮閲戝
+
+---
+
+## 馃懃 鍥㈤槦閰嶇疆锛?浜猴級
+
+| 鎴愬憳 | 瑙掕壊 | 涓撲笟 | 鏍稿績鑱岃矗 |
 |------|------|------|----------|
-| 你 | 技术负责人 | 计算机 | 架构、UI、前台服务 |
-| 朋友C | 核心开发 | 计算机 | 艾宾浩斯算法、数据统计 |
-| 朋友A | 功能开发 | 计算机 | 生词本、设置、测试 |
-| 朋友B | 产品运营 | 人管 | 运营、BP、视频、推广 |
+| 浣?| 鎶€鏈礋璐ｄ汉 | 璁＄畻鏈?| 鏋舵瀯銆乁I銆佸墠鍙版湇鍔?|
+| 鏈嬪弸C | 鏍稿績寮€鍙?| 璁＄畻鏈?| 鑹惧娴╂柉绠楁硶銆佹暟鎹粺璁?|
+| 鏈嬪弸A | 鍔熻兘寮€鍙?| 璁＄畻鏈?| 鐢熻瘝鏈€佽缃€佹祴璇?|
+| 鏈嬪弸B | 浜у搧杩愯惀 | 浜虹 | 杩愯惀銆丅P銆佽棰戙€佹帹骞?|
 
-**指导老师**：已联系，计算机学院副教授
-
----
-
-## 💻 技术栈
-
-### Android客户端
-```
-语言：Kotlin 1.9.20
-SDK：API 26-34 (Android 8.0-14)
-架构：MVVM + Repository
-数据库：SQLite (原生)
-核心依赖：WorkManager, Coroutines, Material Design 3
-```
-
-### 后端服务（Spring Boot）
-```
-语言：Java 17
-框架：Spring Boot 3.3.4
-数据库：MySQL 8.0+
-ORM：MyBatis-Plus 3.5.6
-API文档：SpringDoc 2.4.0
-```
+**鎸囧鑰佸笀**锛氬凡鑱旂郴锛岃绠楁満瀛﹂櫌鍓暀鎺?
 
 ---
 
-## ✅ 当前状态
+## 馃捇 鎶€鏈爤
 
-### 已完成功能
-- [x] 锁屏通知显示单词卡片
-- [x] 三大按钮交互（认识/不认识/下一个）
-- [x] 生词本管理
-- [x] 多词库选择（CET4/6/IELTS/TOEFL/GRE）
-- [x] 前台服务（确保常驻）
-- [x] WorkManager定时任务
-- [x] 开机自启动
-- [x] 40个单词的测试词库
-
-### 待开发功能（优先级）
-1. ⭐⭐⭐⭐⭐ 后端集成艾宾浩斯算法（Android端已实现）
-2. ⭐⭐⭐⭐⭐ 扩展词库到5000+单词
-3. ⭐⭐⭐⭐ Android客户端对接后端API
-4. ⭐⭐⭐⭐ 数据统计模块
-5. ⭐⭐⭐ 语音朗读（TTS）
-6. ⭐⭐ 用户注册/登录系统
-
----
-
-## 📅 10周开发计划
-
+### Android瀹㈡埛绔?
 ```
-Week 1-3: 核心开发
-  - 你：架构 + 数据库 + UI框架
-  - 朋友C：艾宾浩斯算法 + 词库导入
-  - 朋友A：生词本 + 设置
-  - 朋友B：竞品研究 + 联系老师
+璇█锛欿otlin 1.9.20
+SDK锛欰PI 26-34 (Android 8.0-14)
+鏋舵瀯锛歁VVM + Repository
+鏁版嵁搴擄細SQLite (鍘熺敓)
+鏍稿績渚濊禆锛歐orkManager, Coroutines, Material Design 3
+```
 
-Week 4-5: 测试与内测
-  - 全员：测试 + Bug修复
-  - 朋友B：推广，获取50-100用户
-
-Week 6: 数据分析
-  - 朋友B：数据分析 + BP框架
-  - 其他人：技术文档
-
-Week 7: 材料制作 ⭐
-  - 朋友B：录制视频 + 制作BP
-  - 全员：协助
-
-Week 8: 资质申请
-  - 朋友A：申请软著
-  - 朋友B：模拟答辩
-
-Week 9-10: 最终冲刺
-  - 全员：查漏补缺 + 演练
+### 鍚庣鏈嶅姟锛圫pring Boot锛?
+```
+璇█锛欽ava 17
+妗嗘灦锛歋pring Boot 3.3.4
+鏁版嵁搴擄細MySQL 8.0+
+ORM锛歁yBatis-Plus 3.5.6
+API鏂囨。锛歋pringDoc 2.4.0
 ```
 
 ---
 
-## 🏆 大赛目标
+## 鉁?褰撳墠鐘舵€?
 
-**目标奖项**：省级创新创业大赛金奖
-**获奖概率**：完美执行后 75-80%
+### 宸插畬鎴愬姛鑳?
+- [x] 閿佸睆閫氱煡鏄剧ず鍗曡瘝鍗＄墖
+- [x] 涓夊ぇ鎸夐挳浜や簰锛堣璇?涓嶈璇?涓嬩竴涓級
+- [x] 鐢熻瘝鏈鐞?
+- [x] 澶氳瘝搴撻€夋嫨锛圕ET4/6/IELTS/TOEFL/GRE锛?
+- [x] 鍓嶅彴鏈嶅姟锛堢‘淇濆父椹伙級
+- [x] WorkManager瀹氭椂浠诲姟
+- [x] 寮€鏈鸿嚜鍚姩
+- [x] 40涓崟璇嶇殑娴嬭瘯璇嶅簱
 
-**评分重点**：
-- 创新性（30%）：锁屏交互 + 艾宾浩斯算法
-- 商业价值（25%）：需要100+用户数据验证
-- 技术深度（20%）：算法实现
-- 团队能力（15%）：4人 + 指导老师 ✅
-- 项目成熟度（10%）：需要真实用户
+### 寰呭紑鍙戝姛鑳斤紙浼樺厛绾э級
+1. 猸愨瓙猸愨瓙猸?鍚庣闆嗘垚鑹惧娴╂柉绠楁硶锛圓ndroid绔凡瀹炵幇锛?
+2. 猸愨瓙猸愨瓙猸?鎵╁睍璇嶅簱鍒?000+鍗曡瘝
+3. 猸愨瓙猸愨瓙 Android瀹㈡埛绔鎺ュ悗绔疉PI
+4. 猸愨瓙猸愨瓙 鏁版嵁缁熻妯″潡
+5. 猸愨瓙猸?璇煶鏈楄锛圱TS锛?
+6. 猸愨瓙 鐢ㄦ埛娉ㄥ唽/鐧诲綍绯荤粺
 
 ---
 
-## 📊 关键指标（需达成）
+## 馃搮 10鍛ㄥ紑鍙戣鍒?
 
 ```
-用户数据：
-- 注册用户：100+
-- 日活（DAU）：30+
-- 次日留存：40%
-- 七日留存：25%
-- 日均使用：15分钟
+Week 1-3: 鏍稿績寮€鍙?
+  - 浣狅細鏋舵瀯 + 鏁版嵁搴?+ UI妗嗘灦
+  - 鏈嬪弸C锛氳壘瀹炬旦鏂畻娉?+ 璇嶅簱瀵煎叆
+  - 鏈嬪弸A锛氱敓璇嶆湰 + 璁剧疆
+  - 鏈嬪弸B锛氱珵鍝佺爺绌?+ 鑱旂郴鑰佸笀
 
-学习效果：
-- 月增词汇量：800词
-- 记忆效率提升：3倍
-- 用户满意度：4.5/5分
+Week 4-5: 娴嬭瘯涓庡唴娴?
+  - 鍏ㄥ憳锛氭祴璇?+ Bug淇
+  - 鏈嬪弸B锛氭帹骞匡紝鑾峰彇50-100鐢ㄦ埛
+
+Week 6: 鏁版嵁鍒嗘瀽
+  - 鏈嬪弸B锛氭暟鎹垎鏋?+ BP妗嗘灦
+  - 鍏朵粬浜猴細鎶€鏈枃妗?
+
+Week 7: 鏉愭枡鍒朵綔 猸?
+  - 鏈嬪弸B锛氬綍鍒惰棰?+ 鍒朵綔BP
+  - 鍏ㄥ憳锛氬崗鍔?
+
+Week 8: 璧勮川鐢宠
+  - 鏈嬪弸A锛氱敵璇疯蒋钁?
+  - 鏈嬪弸B锛氭ā鎷熺瓟杈?
+
+Week 9-10: 鏈€缁堝啿鍒?
+  - 鍏ㄥ憳锛氭煡婕忚ˉ缂?+ 婕旂粌
 ```
 
 ---
 
-## 📝 会话历史
+## 馃弳 澶ц禌鐩爣
 
-### 会话 #1（2025-01-XX）
+**鐩爣濂栭」**锛氱渷绾у垱鏂板垱涓氬ぇ璧涢噾濂?
+**鑾峰姒傜巼**锛氬畬缇庢墽琛屽悗 75-80%
 
-**本次对话内容**：
-1. ✅ 评估项目价值（7.2/10分）
-2. ✅ 分析省级金奖获奖概率（75-80%）
-3. ✅ 制定10周开发计划
-4. ✅ 优化4人团队分工
-5. ✅ 创建完整开发文档（Desktop/锁屏背单词开发文档.md）
-6. ✅ 创建项目介绍话术（Desktop/项目介绍话术.md）
-
-**核心决策**：
-- 将计划从8周调整为10周（适应团队时间投入）
-- 确定艾宾浩斯算法为最关键技术壁垒
-- 确认必须找指导老师（已有资源）
-- 确定第7周为关键周（视频+BP制作）
-
-**下次待办**：
-- [ ] 第1周：扩展词库到5000+单词
-- [ ] 第1周：实现艾宾浩斯遗忘曲线算法
-- [ ] 本周：联系指导老师，正式邀请
-- [ ] 本周：召开团队启动会
-
-**文件变更**：
-- 创建：C:\Users\Andrew\Desktop\锁屏背单词开发文档.md
-- 创建：C:\Users\Andrew\Desktop\项目介绍话术.md
-- 创建：D:\workspace\app\SESSION_LOG.md (本文件)
+**璇勫垎閲嶇偣**锛?
+- 鍒涙柊鎬э紙30%锛夛細閿佸睆浜や簰 + 鑹惧娴╂柉绠楁硶
+- 鍟嗕笟浠峰€硷紙25%锛夛細闇€瑕?00+鐢ㄦ埛鏁版嵁楠岃瘉
+- 鎶€鏈繁搴︼紙20%锛夛細绠楁硶瀹炵幇
+- 鍥㈤槦鑳藉姏锛?5%锛夛細4浜?+ 鎸囧鑰佸笀 鉁?
+- 椤圭洰鎴愮啛搴︼紙10%锛夛細闇€瑕佺湡瀹炵敤鎴?
 
 ---
 
-### 会话 #2（2025-01-11）
+## 馃搳 鍏抽敭鎸囨爣锛堥渶杈炬垚锛?
 
-**本次对话内容**：
-1. ✅ 实现艾宾浩斯遗忘曲线算法（8个复习节点）
-2. ✅ 扩展词库系统（支持从JSON文件加载）
-3. ✅ 创建150个CET4核心词汇的JSON词库
-4. ✅ 升级数据库版本（v3 → v4）支持学习进度追踪
-5. ✅ 集成艾宾浩斯算法到学习流程
-6. ✅ 创建词库扩展指南
+```
+鐢ㄦ埛鏁版嵁锛?
+- 娉ㄥ唽鐢ㄦ埛锛?00+
+- 鏃ユ椿锛圖AU锛夛細30+
+- 娆℃棩鐣欏瓨锛?0%
+- 涓冩棩鐣欏瓨锛?5%
+- 鏃ュ潎浣跨敤锛?5鍒嗛挓
 
-**核心决策**：
-- 艾宾浩斯算法作为核心竞争壁垒，必须完美实现
-- 词库扩展采用JSON文件方式，便于后续扩展到5000+词汇
-- 优先推荐需要复习的单词，而非随机显示
-- 数据库新增learning_progress表追踪学习进度
-
-**艾宾浩斯算法说明**：
-- **作用**：提升3倍记忆效率，科学证明在最佳时间点复习记忆保持率从20%提升到80%
-- **8个复习节点**：5分钟、30分钟、12小时、1天、2天、4天、7天、15天
-- **复习逻辑**：
-  - 用户点击"认识" → 进入下一个复习节点
-  - 用户点击"不认识" → 重置回第1个节点（5分钟后再复习）
-  - 完成所有8个节点 → 单词已掌握
-- **大赛价值**：这是项目的核心创新点，评分的"创新性"关键（占30%）
-
-**下次待办**：
-- [ ] 继续扩展词库（使用ChatGPT生成更多CET4/6词汇）
-- [ ] 实现数据统计模块（显示学习进度、记忆保持率等）
-- [ ] 添加语音朗读（TTS）功能
-- [ ] 测试艾宾浩斯算法的实际效果
-
-**文件变更**：
-- 创建：app/src/main/java/com/fragmentwords/manager/EbbinghausManager.kt（艾宾浩斯算法核心）
-- 创建：app/src/main/java/com/fragmentwords/manager/LearningManager.kt（学习管理器）
-- 创建：app/src/main/assets/data/cet4_words.json（150个CET4核心词汇）
-- 修改：app/src/main/java/com/fragmentwords/database/WordDatabase.kt（升级到v4，新增learning_progress表）
-- 修改：app/src/main/java/com/fragmentwords/data/WordRepository.kt（支持JSON词库加载）
-- 修改：app/src/main/java/com/fragmentwords/service/WordService.kt（集成LearningManager）
-- 修改：app/src/main/java/com/fragmentwords/receiver/WordActionReceiver.kt（记录学习反馈）
-- 创建：词库扩展指南.md
-
-**新增功能**：
-- ✅ 智能复习系统：优先推荐需要复习的单词
-- ✅ 学习进度追踪：记录每个单词的复习阶段
-- ✅ 学习统计数据：总学习数、已掌握数、待复习数、掌握率等
-- ✅ 灵活词库扩展：通过JSON文件轻松添加新词汇
-
-**技术要点**：
-- 数据库版本升级（ALTER TABLE兼容旧数据）
-- 协程（Coroutines）处理异步操作
-- SharedPreferences保存当前单词
-- 前台服务集成学习管理器
-- JSON序列化/反序列化（Gson）
+瀛︿範鏁堟灉锛?
+- 鏈堝璇嶆眹閲忥細800璇?
+- 璁板繂鏁堢巼鎻愬崌锛?鍊?
+- 鐢ㄦ埛婊℃剰搴︼細4.5/5鍒?
+```
 
 ---
 
-### 会话 #3（2026-03-13）
+## 馃摑 浼氳瘽鍘嗗彶
 
-**本次对话内容**：
-1. ✅ 分析同事改写的后端代码（Spring Boot项目）
-2. ✅ 将后端项目迁移到主项目 `D:\workspace\app\backend`
-3. ✅ 创建完整的数据库设计（6张核心表）
-4. ✅ 整合MySQL数据库脚本
-5. ✅ 配置后端服务（application.yml）
-6. ✅ 创建后端启动脚本（start.bat）
-7. ✅ 编写后端README文档
+### 浼氳瘽 #1锛?025-01-XX锛?
 
-**核心决策**：
-- 采用**前后端分离架构**：Android客户端 + Spring Boot后端
-- 后端作为主项目的一个**子模块**，统一管理代码版本
-- 数据库从**SQLite迁移到MySQL**，支持多设备数据同步
-- 保留Android端的**艾宾浩斯算法实现**，后续迁移到后端
+**鏈瀵硅瘽鍐呭**锛?
+1. 鉁?璇勪及椤圭洰浠峰€硷紙7.2/10鍒嗭級
+2. 鉁?鍒嗘瀽鐪佺骇閲戝鑾峰姒傜巼锛?5-80%锛?
+3. 鉁?鍒跺畾10鍛ㄥ紑鍙戣鍒?
+4. 鉁?浼樺寲4浜哄洟闃熷垎宸?
+5. 鉁?鍒涘缓瀹屾暣寮€鍙戞枃妗ｏ紙Desktop/閿佸睆鑳屽崟璇嶅紑鍙戞枃妗?md锛?
+6. 鉁?鍒涘缓椤圭洰浠嬬粛璇濇湳锛圖esktop/椤圭洰浠嬬粛璇濇湳.md锛?
 
-**项目结构调整**：
+**鏍稿績鍐崇瓥**锛?
+- 灏嗚鍒掍粠8鍛ㄨ皟鏁翠负10鍛紙閫傚簲鍥㈤槦鏃堕棿鎶曞叆锛?
+- 纭畾鑹惧娴╂柉绠楁硶涓烘渶鍏抽敭鎶€鏈鍨?
+- 纭蹇呴』鎵炬寚瀵艰€佸笀锛堝凡鏈夎祫婧愶級
+- 纭畾绗?鍛ㄤ负鍏抽敭鍛紙瑙嗛+BP鍒朵綔锛?
+
+**涓嬫寰呭姙**锛?
+- [ ] 绗?鍛細鎵╁睍璇嶅簱鍒?000+鍗曡瘝
+- [ ] 绗?鍛細瀹炵幇鑹惧娴╂柉閬楀繕鏇茬嚎绠楁硶
+- [ ] 鏈懆锛氳仈绯绘寚瀵艰€佸笀锛屾寮忛個璇?
+- [ ] 鏈懆锛氬彫寮€鍥㈤槦鍚姩浼?
+
+**鏂囦欢鍙樻洿**锛?
+- 鍒涘缓锛欳:\Users\Andrew\Desktop\閿佸睆鑳屽崟璇嶅紑鍙戞枃妗?md
+- 鍒涘缓锛欳:\Users\Andrew\Desktop\椤圭洰浠嬬粛璇濇湳.md
+- 鍒涘缓锛欴:\workspace\app\SESSION_LOG.md (鏈枃浠?
+
+---
+
+### 浼氳瘽 #2锛?025-01-11锛?
+
+**鏈瀵硅瘽鍐呭**锛?
+1. 鉁?瀹炵幇鑹惧娴╂柉閬楀繕鏇茬嚎绠楁硶锛?涓涔犺妭鐐癸級
+2. 鉁?鎵╁睍璇嶅簱绯荤粺锛堟敮鎸佷粠JSON鏂囦欢鍔犺浇锛?
+3. 鉁?鍒涘缓150涓狢ET4鏍稿績璇嶆眹鐨凧SON璇嶅簱
+4. 鉁?鍗囩骇鏁版嵁搴撶増鏈紙v3 鈫?v4锛夋敮鎸佸涔犺繘搴﹁拷韪?
+5. 鉁?闆嗘垚鑹惧娴╂柉绠楁硶鍒板涔犳祦绋?
+6. 鉁?鍒涘缓璇嶅簱鎵╁睍鎸囧崡
+
+**鏍稿績鍐崇瓥**锛?
+- 鑹惧娴╂柉绠楁硶浣滀负鏍稿績绔炰簤澹佸瀿锛屽繀椤诲畬缇庡疄鐜?
+- 璇嶅簱鎵╁睍閲囩敤JSON鏂囦欢鏂瑰紡锛屼究浜庡悗缁墿灞曞埌5000+璇嶆眹
+- 浼樺厛鎺ㄨ崘闇€瑕佸涔犵殑鍗曡瘝锛岃€岄潪闅忔満鏄剧ず
+- 鏁版嵁搴撴柊澧瀕earning_progress琛ㄨ拷韪涔犺繘搴?
+
+**鑹惧娴╂柉绠楁硶璇存槑**锛?
+- **浣滅敤**锛氭彁鍗?鍊嶈蹇嗘晥鐜囷紝绉戝璇佹槑鍦ㄦ渶浣虫椂闂寸偣澶嶄範璁板繂淇濇寔鐜囦粠20%鎻愬崌鍒?0%
+- **8涓涔犺妭鐐?*锛?鍒嗛挓銆?0鍒嗛挓銆?2灏忔椂銆?澶┿€?澶┿€?澶┿€?澶┿€?5澶?
+- **澶嶄範閫昏緫**锛?
+  - 鐢ㄦ埛鐐瑰嚮"璁よ瘑" 鈫?杩涘叆涓嬩竴涓涔犺妭鐐?
+  - 鐢ㄦ埛鐐瑰嚮"涓嶈璇? 鈫?閲嶇疆鍥炵1涓妭鐐癸紙5鍒嗛挓鍚庡啀澶嶄範锛?
+  - 瀹屾垚鎵€鏈?涓妭鐐?鈫?鍗曡瘝宸叉帉鎻?
+- **澶ц禌浠峰€?*锛氳繖鏄」鐩殑鏍稿績鍒涙柊鐐癸紝璇勫垎鐨?鍒涙柊鎬?鍏抽敭锛堝崰30%锛?
+
+**涓嬫寰呭姙**锛?
+- [ ] 缁х画鎵╁睍璇嶅簱锛堜娇鐢–hatGPT鐢熸垚鏇村CET4/6璇嶆眹锛?
+- [ ] 瀹炵幇鏁版嵁缁熻妯″潡锛堟樉绀哄涔犺繘搴︺€佽蹇嗕繚鎸佺巼绛夛級
+- [ ] 娣诲姞璇煶鏈楄锛圱TS锛夊姛鑳?
+- [ ] 娴嬭瘯鑹惧娴╂柉绠楁硶鐨勫疄闄呮晥鏋?
+
+**鏂囦欢鍙樻洿**锛?
+- 鍒涘缓锛歛pp/src/main/java/com/fragmentwords/manager/EbbinghausManager.kt锛堣壘瀹炬旦鏂畻娉曟牳蹇冿級
+- 鍒涘缓锛歛pp/src/main/java/com/fragmentwords/manager/LearningManager.kt锛堝涔犵鐞嗗櫒锛?
+- 鍒涘缓锛歛pp/src/main/assets/data/cet4_words.json锛?50涓狢ET4鏍稿績璇嶆眹锛?
+- 淇敼锛歛pp/src/main/java/com/fragmentwords/database/WordDatabase.kt锛堝崌绾у埌v4锛屾柊澧瀕earning_progress琛級
+- 淇敼锛歛pp/src/main/java/com/fragmentwords/data/WordRepository.kt锛堟敮鎸丣SON璇嶅簱鍔犺浇锛?
+- 淇敼锛歛pp/src/main/java/com/fragmentwords/service/WordService.kt锛堥泦鎴怢earningManager锛?
+- 淇敼锛歛pp/src/main/java/com/fragmentwords/receiver/WordActionReceiver.kt锛堣褰曞涔犲弽棣堬級
+- 鍒涘缓锛氳瘝搴撴墿灞曟寚鍗?md
+
+**鏂板鍔熻兘**锛?
+- 鉁?鏅鸿兘澶嶄範绯荤粺锛氫紭鍏堟帹鑽愰渶瑕佸涔犵殑鍗曡瘝
+- 鉁?瀛︿範杩涘害杩借釜锛氳褰曟瘡涓崟璇嶇殑澶嶄範闃舵
+- 鉁?瀛︿範缁熻鏁版嵁锛氭€诲涔犳暟銆佸凡鎺屾彙鏁般€佸緟澶嶄範鏁般€佹帉鎻＄巼绛?
+- 鉁?鐏垫椿璇嶅簱鎵╁睍锛氶€氳繃JSON鏂囦欢杞绘澗娣诲姞鏂拌瘝姹?
+
+**鎶€鏈鐐?*锛?
+- 鏁版嵁搴撶増鏈崌绾э紙ALTER TABLE鍏煎鏃ф暟鎹級
+- 鍗忕▼锛圕oroutines锛夊鐞嗗紓姝ユ搷浣?
+- SharedPreferences淇濆瓨褰撳墠鍗曡瘝
+- 鍓嶅彴鏈嶅姟闆嗘垚瀛︿範绠＄悊鍣?
+- JSON搴忓垪鍖?鍙嶅簭鍒楀寲锛圙son锛?
+
+---
+
+### 浼氳瘽 #3锛?026-03-13锛?
+
+**鏈瀵硅瘽鍐呭**锛?
+1. 鉁?鍒嗘瀽鍚屼簨鏀瑰啓鐨勫悗绔唬鐮侊紙Spring Boot椤圭洰锛?
+2. 鉁?灏嗗悗绔」鐩縼绉诲埌涓婚」鐩?`D:\workspace\app\backend`
+3. 鉁?鍒涘缓瀹屾暣鐨勬暟鎹簱璁捐锛?寮犳牳蹇冭〃锛?
+4. 鉁?鏁村悎MySQL鏁版嵁搴撹剼鏈?
+5. 鉁?閰嶇疆鍚庣鏈嶅姟锛坅pplication.yml锛?
+6. 鉁?鍒涘缓鍚庣鍚姩鑴氭湰锛坰tart.bat锛?
+7. 鉁?缂栧啓鍚庣README鏂囨。
+
+**鏍稿績鍐崇瓥**锛?
+- 閲囩敤**鍓嶅悗绔垎绂绘灦鏋?*锛欰ndroid瀹㈡埛绔?+ Spring Boot鍚庣
+- 鍚庣浣滀负涓婚」鐩殑涓€涓?*瀛愭ā鍧?*锛岀粺涓€绠＄悊浠ｇ爜鐗堟湰
+- 鏁版嵁搴撲粠**SQLite杩佺Щ鍒癕ySQL**锛屾敮鎸佸璁惧鏁版嵁鍚屾
+- 淇濈暀Android绔殑**鑹惧娴╂柉绠楁硶瀹炵幇**锛屽悗缁縼绉诲埌鍚庣
+
+**椤圭洰缁撴瀯璋冩暣**锛?
 ```
 D:\workspace\app\
-├── app/                    # Android客户端模块（已存在）
-├── backend/                # Spring Boot后端模块（新建）⭐
-│   ├── src/main/java/com/fragmentwords/
-│   │   ├── controller/     # REST API控制器
-│   │   ├── service/        # 业务逻辑层
-│   │   ├── model/          # 实体类和DTO
-│   │   └── mapper/         # MyBatis Mapper
-│   ├── src/main/resources/
-│   │   ├── application.yml # 配置文件
-│   │   └── sql/init.sql    # 数据库初始化脚本
-│   ├── pom.xml             # Maven配置
-│   ├── start.bat           # 启动脚本
-│   └── README.md           # 后端文档
-└── fragment-words/         # 旧的uni-app项目（可忽略）
+鈹溾攢鈹€ app/                    # Android瀹㈡埛绔ā鍧楋紙宸插瓨鍦級
+鈹溾攢鈹€ backend/                # Spring Boot鍚庣妯″潡锛堟柊寤猴級猸?
+鈹?  鈹溾攢鈹€ src/main/java/com/fragmentwords/
+鈹?  鈹?  鈹溾攢鈹€ controller/     # REST API鎺у埗鍣?
+鈹?  鈹?  鈹溾攢鈹€ service/        # 涓氬姟閫昏緫灞?
+鈹?  鈹?  鈹溾攢鈹€ model/          # 瀹炰綋绫诲拰DTO
+鈹?  鈹?  鈹斺攢鈹€ mapper/         # MyBatis Mapper
+鈹?  鈹溾攢鈹€ src/main/resources/
+鈹?  鈹?  鈹溾攢鈹€ application.yml # 閰嶇疆鏂囦欢
+鈹?  鈹?  鈹斺攢鈹€ sql/init.sql    # 鏁版嵁搴撳垵濮嬪寲鑴氭湰
+鈹?  鈹溾攢鈹€ pom.xml             # Maven閰嶇疆
+鈹?  鈹溾攢鈹€ start.bat           # 鍚姩鑴氭湰
+鈹?  鈹斺攢鈹€ README.md           # 鍚庣鏂囨。
+鈹斺攢鈹€ fragment-words/         # 鏃х殑uni-app椤圭洰锛堝彲蹇界暐锛?
 ```
 
-**数据库设计**（6张核心表）：
-1. `user` - 用户表（未来扩展用户系统）
-2. `vocab` - 词库表（CET4/6/IELTS/TOEFL/GRE）
-3. `word` - 单词表（词汇数据）
-4. `unknown_word` - 生词本表
-5. `learning_progress` - 学习进度表（艾宾浩斯算法核心）
-6. `device_preference` - 设备偏好表
+**鏁版嵁搴撹璁?*锛?寮犳牳蹇冭〃锛夛細
+1. `user` - 鐢ㄦ埛琛紙鏈潵鎵╁睍鐢ㄦ埛绯荤粺锛?
+2. `vocab` - 璇嶅簱琛紙CET4/6/IELTS/TOEFL/GRE锛?
+3. `word` - 鍗曡瘝琛紙璇嶆眹鏁版嵁锛?
+4. `unknown_word` - 鐢熻瘝鏈〃
+5. `learning_progress` - 瀛︿範杩涘害琛紙鑹惧娴╂柉绠楁硶鏍稿績锛?
+6. `device_preference` - 璁惧鍋忓ソ琛?
 
-**后端API接口**（已实现）：
-- `GET /api/vocab/list` - 获取所有词库
-- `GET /api/word/random?vocabId=1` - 随机获取单词
-- `POST /api/unknown/add` - 添加生词
-- 更多接口见 `backend/README.md`
+**鍚庣API鎺ュ彛**锛堝凡瀹炵幇锛夛細
+- `GET /api/vocab/list` - 鑾峰彇鎵€鏈夎瘝搴?
+- `GET /api/word/random?vocabId=1` - 闅忔満鑾峰彇鍗曡瘝
+- `POST /api/unknown/add` - 娣诲姞鐢熻瘝
+- 鏇村鎺ュ彛瑙?`backend/README.md`
 
-**同事后端代码分析**：
-- ✅ 标准的Spring Boot + MyBatis-Plus架构
-- ✅ RESTful API设计规范
-- ❌ **缺少艾宾浩斯算法实现**（只有简单随机）
-- ❌ 缺少用户系统（使用deviceId临时方案）
-- ❌ 缺少学习统计功能
+**鍚屼簨鍚庣浠ｇ爜鍒嗘瀽**锛?
+- 鉁?鏍囧噯鐨凷pring Boot + MyBatis-Plus鏋舵瀯
+- 鉁?RESTful API璁捐瑙勮寖
+- 鉂?**缂哄皯鑹惧娴╂柉绠楁硶瀹炵幇**锛堝彧鏈夌畝鍗曢殢鏈猴級
+- 鉂?缂哄皯鐢ㄦ埛绯荤粺锛堜娇鐢╠eviceId涓存椂鏂规锛?
+- 鉂?缂哄皯瀛︿範缁熻鍔熻兘
 
-**下次待办**：
-- [ ] 启动MySQL数据库，执行init.sql脚本
-- [ ] 启动后端服务，测试API接口
-- [ ] 将Android端的艾宾浩斯算法迁移到后端
-- [ ] Android客户端对接后端API（替换本地SQLite）
-- [ ] 实现用户注册/登录功能
-- [ ] 扩展词库数据（导入5000+词汇）
+**涓嬫寰呭姙**锛?
+- [ ] 鍚姩MySQL鏁版嵁搴擄紝鎵цinit.sql鑴氭湰
+- [ ] 鍚姩鍚庣鏈嶅姟锛屾祴璇旳PI鎺ュ彛
+- [ ] 灏咥ndroid绔殑鑹惧娴╂柉绠楁硶杩佺Щ鍒板悗绔?
+- [ ] Android瀹㈡埛绔鎺ュ悗绔疉PI锛堟浛鎹㈡湰鍦癝QLite锛?
+- [ ] 瀹炵幇鐢ㄦ埛娉ㄥ唽/鐧诲綍鍔熻兘
+- [ ] 鎵╁睍璇嶅簱鏁版嵁锛堝鍏?000+璇嶆眹锛?
 
-**文件变更**：
-- 创建：D:\workspace\app\backend\（完整后端模块）
-- 创建：backend/src/main/resources/sql/init.sql（数据库脚本）
-- 创建：backend/start.bat（启动脚本）
-- 创建：backend/README.md（后端文档）
-- 修改：SESSION_LOG.md（本文件）
+**鏂囦欢鍙樻洿**锛?
+- 鍒涘缓锛欴:\workspace\app\backend\锛堝畬鏁村悗绔ā鍧楋級
+- 鍒涘缓锛歜ackend/src/main/resources/sql/init.sql锛堟暟鎹簱鑴氭湰锛?
+- 鍒涘缓锛歜ackend/start.bat锛堝惎鍔ㄨ剼鏈級
+- 鍒涘缓锛歜ackend/README.md锛堝悗绔枃妗ｏ級
+- 淇敼锛歋ESSION_LOG.md锛堟湰鏂囦欢锛?
 
-**技术要点**：
+**鎶€鏈鐐?*锛?
 - Spring Boot 3.3.4 + Java 17
-- MySQL 8.0数据库设计
-- RESTful API规范
-- 前后端分离架构
-- MyBatis-Plus ORM框架
+- MySQL 8.0鏁版嵁搴撹璁?
+- RESTful API瑙勮寖
+- 鍓嶅悗绔垎绂绘灦鏋?
+- MyBatis-Plus ORM妗嗘灦
 
 ---
 
-## 🔑 快速速查
+## 馃攽 蹇€熼€熸煡
 
-### 核心数据（背诵）
-- 3亿英语学习者
-- 每天看手机150次
-- 艾宾浩斯8个复习节点
-- 记忆效率提升3倍
-- 次日留存40%（行业20%）
-- 月增词汇800词
+### 鏍稿績鏁版嵁锛堣儗璇碉級
+- 3浜胯嫳璇涔犺€?
+- 姣忓ぉ鐪嬫墜鏈?50娆?
+- 鑹惧娴╂柉8涓涔犺妭鐐?
+- 璁板繂鏁堢巼鎻愬崌3鍊?
+- 娆℃棩鐣欏瓨40%锛堣涓?0%锛?
+- 鏈堝璇嶆眹800璇?
 
-### 核心文件
+### 鏍稿績鏂囦欢
 ```
 D:\workspace\app\
-├── app/src/main/java/com/fragmentwords/
-│   ├── MainActivity.kt              # 主界面
-│   ├── database/WordDatabase.kt     # 数据库
-│   ├── service/WordService.kt       # 前台服务
-│   ├── manager/EbbinghausManager.kt # 艾宾浩斯算法
-│   └── model/Word.kt                # 数据模型
-├── backend/                         # Spring Boot后端（新增）⭐
-│   ├── src/main/java/com/fragmentwords/
-│   │   ├── controller/              # REST API控制器
-│   │   ├── service/                 # 业务逻辑层
-│   │   └── model/                   # 实体类
-│   ├── src/main/resources/
-│   │   ├── application.yml          # 配置文件
-│   │   └── sql/init.sql             # 数据库脚本
-│   ├── start.bat                    # 启动脚本
-│   └── README.md                    # 后端文档
+鈹溾攢鈹€ app/src/main/java/com/fragmentwords/
+鈹?  鈹溾攢鈹€ MainActivity.kt              # 涓荤晫闈?
+鈹?  鈹溾攢鈹€ database/WordDatabase.kt     # 鏁版嵁搴?
+鈹?  鈹溾攢鈹€ service/WordService.kt       # 鍓嶅彴鏈嶅姟
+鈹?  鈹溾攢鈹€ manager/EbbinghausManager.kt # 鑹惧娴╂柉绠楁硶
+鈹?  鈹斺攢鈹€ model/Word.kt                # 鏁版嵁妯″瀷
+鈹溾攢鈹€ backend/                         # Spring Boot鍚庣锛堟柊澧烇級猸?
+鈹?  鈹溾攢鈹€ src/main/java/com/fragmentwords/
+鈹?  鈹?  鈹溾攢鈹€ controller/              # REST API鎺у埗鍣?
+鈹?  鈹?  鈹溾攢鈹€ service/                 # 涓氬姟閫昏緫灞?
+鈹?  鈹?  鈹斺攢鈹€ model/                   # 瀹炰綋绫?
+鈹?  鈹溾攢鈹€ src/main/resources/
+鈹?  鈹?  鈹溾攢鈹€ application.yml          # 閰嶇疆鏂囦欢
+鈹?  鈹?  鈹斺攢鈹€ sql/init.sql             # 鏁版嵁搴撹剼鏈?
+鈹?  鈹溾攢鈹€ start.bat                    # 鍚姩鑴氭湰
+鈹?  鈹斺攢鈹€ README.md                    # 鍚庣鏂囨。
 ```
 
-### 下次对话启动指令
+### 涓嬫瀵硅瘽鍚姩鎸囦护
 ```
-"我在做锁屏背单词项目，路径是 D:\workspace\app
-请读取 SESSION_LOG.md 恢复上下文，
-然后我想要：[具体需求]"
+"鎴戝湪鍋氶攣灞忚儗鍗曡瘝椤圭洰锛岃矾寰勬槸 D:\workspace\app
+璇疯鍙?SESSION_LOG.md 鎭㈠涓婁笅鏂囷紝
+鐒跺悗鎴戞兂瑕侊細[鍏蜂綋闇€姹俔"
 ```
 
 ---
 
-## 📚 相关文档
+## 馃摎 鐩稿叧鏂囨。
 
 ```
 C:\Users\Andrew\Desktop\
-├── 锁屏背单词开发文档.md          (完整技术文档)
-├── 项目介绍话术.md                (介绍话术集锦)
-└── (本文件已在项目文件夹中)
+鈹溾攢鈹€ 閿佸睆鑳屽崟璇嶅紑鍙戞枃妗?md          (瀹屾暣鎶€鏈枃妗?
+鈹溾攢鈹€ 椤圭洰浠嬬粛璇濇湳.md                (浠嬬粛璇濇湳闆嗛敠)
+鈹斺攢鈹€ (鏈枃浠跺凡鍦ㄩ」鐩枃浠跺す涓?
 ```
 
 ---
 
 ---
 
-### 会话 #4（2026-03-13）
+### 浼氳瘽 #4锛?026-03-13锛?
 
-**本次对话内容**：
-1. ✅ 将艾宾浩斯算法迁移到后端（Java实现）
-2. ✅ 实现完整的用户注册/登录功能（JWT认证）
-3. ✅ 扩展词库数据（导入110个CET4核心词汇）
-4. ✅ 创建Android端API客户端（Retrofit + OkHttp）
-5. ✅ 创建API学习管理器（ApiLearningManager）
-6. ✅ 创建SharedPreferences管理器（PreferencesManager）
+**鏈瀵硅瘽鍐呭**锛?
+1. 鉁?灏嗚壘瀹炬旦鏂畻娉曡縼绉诲埌鍚庣锛圝ava瀹炵幇锛?
+2. 鉁?瀹炵幇瀹屾暣鐨勭敤鎴锋敞鍐?鐧诲綍鍔熻兘锛圝WT璁よ瘉锛?
+3. 鉁?鎵╁睍璇嶅簱鏁版嵁锛堝鍏?10涓狢ET4鏍稿績璇嶆眹锛?
+4. 鉁?鍒涘缓Android绔疉PI瀹㈡埛绔紙Retrofit + OkHttp锛?
+5. 鉁?鍒涘缓API瀛︿範绠＄悊鍣紙ApiLearningManager锛?
+6. 鉁?鍒涘缓SharedPreferences绠＄悊鍣紙PreferencesManager锛?
 
-**核心决策**：
-- 采用**JWT Token认证**方式，有效期7天
-- 支持未登录用户使用（基于deviceId）
-- Android端使用Retrofit进行网络请求
-- 保留本地SQLite作为备份（可切换使用）
-- 前后端完全分离，支持多端访问
+**鏍稿績鍐崇瓥**锛?
+- 閲囩敤**JWT Token璁よ瘉**鏂瑰紡锛屾湁鏁堟湡7澶?
+- 鏀寔鏈櫥褰曠敤鎴蜂娇鐢紙鍩轰簬deviceId锛?
+- Android绔娇鐢≧etrofit杩涜缃戠粶璇锋眰
+- 淇濈暀鏈湴SQLite浣滀负澶囦唤锛堝彲鍒囨崲浣跨敤锛?
+- 鍓嶅悗绔畬鍏ㄥ垎绂伙紝鏀寔澶氱璁块棶
 
-**后端新增功能**：
-- ✅ 艾宾浩斯算法工具类（`EbbinghausUtil.java`）
-- ✅ 用户注册/登录API（`UserController`）
-- ✅ 学习进度API（`LearningController`）
-  - `POST /api/learning/next` - 获取下一个单词（智能推荐）
-  - `POST /api/learning/feedback` - 提交学习反馈
-  - `GET /api/learning/stats` - 获取学习统计
-- ✅ JWT工具类（`JwtUtil.java`）
-- ✅ 学习进度Service（`LearningProgressService`）
-- ✅ 用户Service（`UserService`）
+**鍚庣鏂板鍔熻兘**锛?
+- 鉁?鑹惧娴╂柉绠楁硶宸ュ叿绫伙紙`EbbinghausUtil.java`锛?
+- 鉁?鐢ㄦ埛娉ㄥ唽/鐧诲綍API锛坄UserController`锛?
+- 鉁?瀛︿範杩涘害API锛坄LearningController`锛?
+  - `POST /api/learning/next` - 鑾峰彇涓嬩竴涓崟璇嶏紙鏅鸿兘鎺ㄨ崘锛?
+  - `POST /api/learning/feedback` - 鎻愪氦瀛︿範鍙嶉
+  - `GET /api/learning/stats` - 鑾峰彇瀛︿範缁熻
+- 鉁?JWT宸ュ叿绫伙紙`JwtUtil.java`锛?
+- 鉁?瀛︿範杩涘害Service锛坄LearningProgressService`锛?
+- 鉁?鐢ㄦ埛Service锛坄UserService`锛?
 
-**Android端新增功能**：
-- ✅ 网络层完整实现：
-  - `ApiConfig.kt` - API配置
-  - `RetrofitClient.kt` - Retrofit客户端
-  - `ApiService.kt` - API接口定义
-  - `ApiRepository.kt` - API仓库（封装网络请求）
-  - `ApiResponse.kt` - 数据模型（DTO）
-- ✅ `PreferencesManager.kt` - SharedPreferences管理器
-- ✅ `ApiLearningManager.kt` - API学习管理器
+**Android绔柊澧炲姛鑳?*锛?
+- 鉁?缃戠粶灞傚畬鏁村疄鐜帮細
+  - `ApiConfig.kt` - API閰嶇疆
+  - `RetrofitClient.kt` - Retrofit瀹㈡埛绔?
+  - `ApiService.kt` - API鎺ュ彛瀹氫箟
+  - `ApiRepository.kt` - API浠撳簱锛堝皝瑁呯綉缁滆姹傦級
+  - `ApiResponse.kt` - 鏁版嵁妯″瀷锛圖TO锛?
+- 鉁?`PreferencesManager.kt` - SharedPreferences绠＄悊鍣?
+- 鉁?`ApiLearningManager.kt` - API瀛︿範绠＄悊鍣?
 
-**技术栈更新**：
+**鎶€鏈爤鏇存柊**锛?
 ```
-后端：
+鍚庣锛?
 - Spring Boot 3.3.4 + Java 17
-- JWT 0.12.3（Token认证）
+- JWT 0.12.3锛圱oken璁よ瘉锛?
 - MyBatis-Plus 3.5.6
 - MySQL 8.0
 
-Android：
-- Retrofit 2.9.0（网络请求）
-- OkHttp 4.12.0（HTTP客户端）
-- Gson 2.10.1（JSON解析）
-- Kotlin Coroutines 1.7.3（协程）
+Android锛?
+- Retrofit 2.9.0锛堢綉缁滆姹傦級
+- OkHttp 4.12.0锛圚TTP瀹㈡埛绔級
+- Gson 2.10.1锛圝SON瑙ｆ瀽锛?
+- Kotlin Coroutines 1.7.3锛堝崗绋嬶級
 ```
 
-**数据库更新**：
-- 导入110个CET4核心词汇（可继续扩展）
-- 支持5个词库：CET4/6/IELTS/TOEFL/GRE
-- 词库统计已更新
+**鏁版嵁搴撴洿鏂?*锛?
+- 瀵煎叆110涓狢ET4鏍稿績璇嶆眹锛堝彲缁х画鎵╁睍锛?
+- 鏀寔5涓瘝搴擄細CET4/6/IELTS/TOEFL/GRE
+- 璇嶅簱缁熻宸叉洿鏂?
 
-**下次待办**：
-- [ ] 测试整个系统（启动后端 + 运行Android应用）
-- [ ] 扩展词库到5000+词汇
-- [ ] 实现语音朗读（TTS）功能
-- [ ] 实现数据统计UI展示
-- [ ] 优化用户体验
+**涓嬫寰呭姙**锛?
+- [ ] 娴嬭瘯鏁翠釜绯荤粺锛堝惎鍔ㄥ悗绔?+ 杩愯Android搴旂敤锛?
+- [ ] 鎵╁睍璇嶅簱鍒?000+璇嶆眹
+- [ ] 瀹炵幇璇煶鏈楄锛圱TS锛夊姛鑳?
+- [ ] 瀹炵幇鏁版嵁缁熻UI灞曠ず
+- [ ] 浼樺寲鐢ㄦ埛浣撻獙
 
-**文件变更**：
-- 创建：`backend/src/main/java/com/fragmentwords/util/EbbinghausUtil.java`
-- 创建：`backend/src/main/java/com/fragmentwords/util/JwtUtil.java`
-- 创建：`backend/src/main/java/com/fragmentwords/controller/UserController.java`
-- 创建：`backend/src/main/java/com/fragmentwords/controller/LearningController.java`
-- 创建：`backend/src/main/java/com/fragmentwords/service/LearningProgressService.java`
-- 创建：`backend/src/main/java/com/fragmentwords/service/UserService.java`
-- 创建：`backend/src/main/java/com/fragmentwords/model/entity/User.java`
-- 创建：`backend/src/main/java/com/fragmentwords/model/entity/LearningProgress.java`
-- 创建：`backend/src/main/java/com/fragmentwords/mapper/UserMapper.java`
-- 创建：`backend/src/main/java/com/fragmentwords/mapper/LearningProgressMapper.java`
-- 创建：`backend/src/main/java/com/fragmentwords/model/dto/*（多个DTO类）`
-- 修改：`backend/pom.xml`（添加JWT依赖）
-- 创建：`backend/generate_words.py`（词库导入脚本）
-- 创建：`app/src/main/java/com/fragmentwords/network/*`（网络层）
-- 创建：`app/src/main/java/com/fragmentwords/utils/PreferencesManager.kt`
-- 创建：`app/src/main/java/com/fragmentwords/manager/ApiLearningManager.kt`
-- 修改：`app/build.gradle.kts`（添加Retrofit依赖）
-- 修改：`SESSION_LOG.md`（本文件）
+**鏂囦欢鍙樻洿**锛?
+- 鍒涘缓锛歚backend/src/main/java/com/fragmentwords/util/EbbinghausUtil.java`
+- 鍒涘缓锛歚backend/src/main/java/com/fragmentwords/util/JwtUtil.java`
+- 鍒涘缓锛歚backend/src/main/java/com/fragmentwords/controller/UserController.java`
+- 鍒涘缓锛歚backend/src/main/java/com/fragmentwords/controller/LearningController.java`
+- 鍒涘缓锛歚backend/src/main/java/com/fragmentwords/service/LearningProgressService.java`
+- 鍒涘缓锛歚backend/src/main/java/com/fragmentwords/service/UserService.java`
+- 鍒涘缓锛歚backend/src/main/java/com/fragmentwords/model/entity/User.java`
+- 鍒涘缓锛歚backend/src/main/java/com/fragmentwords/model/entity/LearningProgress.java`
+- 鍒涘缓锛歚backend/src/main/java/com/fragmentwords/mapper/UserMapper.java`
+- 鍒涘缓锛歚backend/src/main/java/com/fragmentwords/mapper/LearningProgressMapper.java`
+- 鍒涘缓锛歚backend/src/main/java/com/fragmentwords/model/dto/*锛堝涓狣TO绫伙級`
+- 淇敼锛歚backend/pom.xml`锛堟坊鍔燡WT渚濊禆锛?
+- 鍒涘缓锛歚backend/generate_words.py`锛堣瘝搴撳鍏ヨ剼鏈級
+- 鍒涘缓锛歚app/src/main/java/com/fragmentwords/network/*`锛堢綉缁滃眰锛?
+- 鍒涘缓锛歚app/src/main/java/com/fragmentwords/utils/PreferencesManager.kt`
+- 鍒涘缓锛歚app/src/main/java/com/fragmentwords/manager/ApiLearningManager.kt`
+- 淇敼锛歚app/build.gradle.kts`锛堟坊鍔燫etrofit渚濊禆锛?
+- 淇敼锛歚SESSION_LOG.md`锛堟湰鏂囦欢锛?
 
 ---
 
-### 会话 #5（2026-03-13）
+### 浼氳瘽 #5锛?026-03-13锛?
 
-**本次对话内容**：
-1. ✅ 完成后端API测试（100%通过）
-2. ✅ 测试用户注册/登录功能
-3. ✅ 测试艾宾浩斯算法API
-4. ✅ 修复context-path配置问题
-5. ✅ 代码提交到Git仓库
-6. ✅ 推送到GitHub (commit: 654401b)
+**鏈瀵硅瘽鍐呭**锛?
+1. 鉁?瀹屾垚鍚庣API娴嬭瘯锛?00%閫氳繃锛?
+2. 鉁?娴嬭瘯鐢ㄦ埛娉ㄥ唽/鐧诲綍鍔熻兘
+3. 鉁?娴嬭瘯鑹惧娴╂柉绠楁硶API
+4. 鉁?淇context-path閰嶇疆闂
+5. 鉁?浠ｇ爜鎻愪氦鍒癎it浠撳簱
+6. 鉁?鎺ㄩ€佸埌GitHub (commit: 654401b)
 
-**核心决策**：
-- 修复application.yml中的context-path配置（移除/api前缀）
-- 验证所有后端API正常工作
-- 完整的Git提交历史记录
+**鏍稿績鍐崇瓥**锛?
+- 淇application.yml涓殑context-path閰嶇疆锛堢Щ闄?api鍓嶇紑锛?
+- 楠岃瘉鎵€鏈夊悗绔疉PI姝ｅ父宸ヤ綔
+- 瀹屾暣鐨凣it鎻愪氦鍘嗗彶璁板綍
 
-**后端API测试结果**：
+**鍚庣API娴嬭瘯缁撴灉**锛?
 ```bash
-✅ POST /api/user/register - 用户注册成功
-   响应: {"code":200,"data":{"id":1,"username":"testuser"}}
+鉁?POST /api/user/register - 鐢ㄦ埛娉ㄥ唽鎴愬姛
+   鍝嶅簲: {"code":200,"data":{"id":1,"username":"testuser"}}
 
-✅ POST /api/user/login - 登录成功，获取JWT Token
-   响应: {"code":200,"data":{"userId":1,"token":"eyJhbGc..."}}
+鉁?POST /api/user/login - 鐧诲綍鎴愬姛锛岃幏鍙朖WT Token
+   鍝嶅簲: {"code":200,"data":{"userId":1,"token":"eyJhbGc..."}}
 
-✅ POST /api/learning/next - 智能推荐单词
-   响应: {"code":200,"data":{"word":"nature","stage":0,"retentionRate":20}}
+鉁?POST /api/learning/next - 鏅鸿兘鎺ㄨ崘鍗曡瘝
+   鍝嶅簲: {"code":200,"data":{"word":"nature","stage":0,"retentionRate":20}}
 
-✅ POST /api/learning/feedback - 提交学习反馈
-   响应: {"code":200,"data":{"stage":1,"retentionRate":58}}
+鉁?POST /api/learning/feedback - 鎻愪氦瀛︿範鍙嶉
+   鍝嶅簲: {"code":200,"data":{"stage":1,"retentionRate":58}}
 
-✅ GET /api/learning/stats - 学习统计
-   响应: {"code":200,"data":{"totalWords":1,"masteredWords":0}}
+鉁?GET /api/learning/stats - 瀛︿範缁熻
+   鍝嶅簲: {"code":200,"data":{"totalWords":1,"masteredWords":0}}
 ```
 
-**艾宾浩斯算法验证**：
-- ✅ Stage 0 → 1（点击"认识"后正确升级）
-- ✅ 记忆保持率：20% → 58%（正确提升）
-- ✅ 下次复习时间：立即 → 30分钟后（正确计算）
+**鑹惧娴╂柉绠楁硶楠岃瘉**锛?
+- 鉁?Stage 0 鈫?1锛堢偣鍑?璁よ瘑"鍚庢纭崌绾э級
+- 鉁?璁板繂淇濇寔鐜囷細20% 鈫?58%锛堟纭彁鍗囷級
+- 鉁?涓嬫澶嶄範鏃堕棿锛氱珛鍗?鈫?30鍒嗛挓鍚庯紙姝ｇ‘璁＄畻锛?
 
-**Git提交信息**：
+**Git鎻愪氦淇℃伅**锛?
 - Commit Hash: `654401b`
-- 提交标题: "feat: 实现前后端分离架构和艾宾浩斯算法后端实现"
-- 新增文件: 108个文件，4727行代码
-- 仓库地址: https://github.com/Andrewgutv/suipiandanci.git
+- 鎻愪氦鏍囬: "feat: 瀹炵幇鍓嶅悗绔垎绂绘灦鏋勫拰鑹惧娴╂柉绠楁硶鍚庣瀹炵幇"
+- 鏂板鏂囦欢: 108涓枃浠讹紝4727琛屼唬鐮?
+- 浠撳簱鍦板潃: https://github.com/Andrewgutv/suipiandanci.git
 
-**文件变更统计**：
-- 新增: backend/（完整Spring Boot后端）
-- 新增: app/src/main/java/com/fragmentwords/network/（网络层）
-- 新增: SESSION_LOG.md
-- 修改: app/build.gradle.kts（添加Retrofit依赖）
-- 修改: README.md
+**鏂囦欢鍙樻洿缁熻**锛?
+- 鏂板: backend/锛堝畬鏁碨pring Boot鍚庣锛?
+- 鏂板: app/src/main/java/com/fragmentwords/network/锛堢綉缁滃眰锛?
+- 鏂板: SESSION_LOG.md
+- 淇敼: app/build.gradle.kts锛堟坊鍔燫etrofit渚濊禆锛?
+- 淇敼: README.md
 
-**Bug修复**：
-- ❌ 问题：context-path=/api导致404错误
-- ✅ 解决：移除application.yml中的context-path配置
-- ✅ 验证：所有API测试通过
+**Bug淇**锛?
+- 鉂?闂锛歝ontext-path=/api瀵艰嚧404閿欒
+- 鉁?瑙ｅ喅锛氱Щ闄pplication.yml涓殑context-path閰嶇疆
+- 鉁?楠岃瘉锛氭墍鏈堿PI娴嬭瘯閫氳繃
 
-**待完成任务**（明后天）：
-1. ⏭️ 启动Android模拟器
-2. ⏭️ 编译并安装Android应用
-3. ⏭️ 测试Android端API集成
-4. ⏭️ 测试锁屏单词功能
-5. ⏭️ 验证艾宾浩斯算法在Android端的表现
-6. ⏭️ 扩展词库到5000+词汇
+**寰呭畬鎴愪换鍔?*锛堟槑鍚庡ぉ锛夛細
+1. 鈴笍 鍚姩Android妯℃嫙鍣?
+2. 鈴笍 缂栬瘧骞跺畨瑁匒ndroid搴旂敤
+3. 鈴笍 娴嬭瘯Android绔疉PI闆嗘垚
+4. 鈴笍 娴嬭瘯閿佸睆鍗曡瘝鍔熻兘
+5. 鈴笍 楠岃瘉鑹惧娴╂柉绠楁硶鍦ˋndroid绔殑琛ㄧ幇
+6. 鈴笍 鎵╁睍璇嶅簱鍒?000+璇嶆眹
 
-**技术栈确认**：
+**鎶€鏈爤纭**锛?
 ```
-后端：
+鍚庣锛?
 - Spring Boot 3.3.4 + Java 17
-- MySQL 8.0 (端口3307)
+- MySQL 8.0 (绔彛3307)
 - MyBatis-Plus 3.5.6
 - JWT 0.12.3
-- 端口: 8080
+- 绔彛: 8080
 
-Android：
+Android锛?
 - Kotlin 1.9.20
 - API 26-34 (Android 8.0-14)
 - Retrofit 2.9.0
@@ -522,25 +522,77 @@ Android：
 - Coroutines 1.7.3
 ```
 
-**数据库状态**：
-- MySQL服务: ✅ 运行中 (端口3307)
-- 数据库: fragment_words
-- 表数量: 6张核心表
-- 词库数据: 110个CET4词汇
+**鏁版嵁搴撶姸鎬?*锛?
+- MySQL鏈嶅姟: 鉁?杩愯涓?(绔彛3307)
+- 鏁版嵁搴? fragment_words
+- 琛ㄦ暟閲? 6寮犳牳蹇冭〃
+- 璇嶅簱鏁版嵁: 110涓狢ET4璇嶆眹
 
-**测试文档**：
-- backend/TESTING_GUIDE.md - 完整的API测试指南
-- 包含curl命令示例
-- 包含预期响应结果
+**娴嬭瘯鏂囨。**锛?
+- backend/TESTING_GUIDE.md - 瀹屾暣鐨凙PI娴嬭瘯鎸囧崡
+- 鍖呭惈curl鍛戒护绀轰緥
+- 鍖呭惈棰勬湡鍝嶅簲缁撴灉
 
-**下次对话启动指令**：
+**涓嬫瀵硅瘽鍚姩鎸囦护**锛?
 ```
-我在做锁屏背单词项目，路径是 D:\workspace\app
-请读取 SESSION_LOG.md 恢复上下文，
-然后继续测试Android应用。
+鎴戝湪鍋氶攣灞忚儗鍗曡瘝椤圭洰锛岃矾寰勬槸 D:\workspace\app
+璇疯鍙?SESSION_LOG.md 鎭㈠涓婁笅鏂囷紝
+鐒跺悗缁х画娴嬭瘯Android搴旂敤銆?
 ```
 
 ---
 
-**最后更新**：2026-03-13
-**会话次数**：5
+**鏈€鍚庢洿鏂?*锛?026-03-13
+**浼氳瘽娆℃暟**锛?
+
+---
+
+### 会话 #6：2026-04-10
+
+**本次会话内容：**
+1. 继续收口 Android 原生主线，重点围绕通知、生词本、前台服务和首页时序逻辑
+2. 清理主线路径中的乱码和脏字符串，保留一版可维护的 Android 代码路径
+3. 重写和整理以下关键文件：
+   - `app/src/main/java/com/fragmentwords/service/WordService.kt`
+   - `app/src/main/java/com/fragmentwords/receiver/WordActionReceiver.kt`
+   - `app/src/main/java/com/fragmentwords/receiver/ScreenUnlockReceiver.kt`
+   - `app/src/main/java/com/fragmentwords/HomeFragment.kt`
+   - `app/src/main/java/com/fragmentwords/NotebookFragment.kt`
+   - `app/src/main/java/com/fragmentwords/receiver/BootReceiver.kt`
+4. 多次执行 `:app:compileDebugKotlin` 和 `:app:installDebug`
+5. 启动并使用 Android 模拟器 `Medium_Phone_API_36` 做运行时验证
+6. 验证通知动作、写入生词本、读取生词本、切到生词本页、首页数量显示等关键路径
+
+**本次确认的结论：**
+- 当前 Android 主线已经达到本地离线学习循环的 beta-usable 状态
+- “不认识 -> 生词本” 链路已经打通，不再是主阻塞问题
+- 生词本页面已经能读取并展示真实词条，例如 `article`、`blast`
+- 首页已能显示正确的生词本数量，例如 `生词本：2 个单词`
+- `WordService` 启动时重复更新通知的问题已经被压住
+- 当前最明显的遗留问题只剩 Android 14/15 模拟器环境下的前台服务类型 warning
+
+**运行时验证结果摘要：**
+- `NotebookFragment` 日志出现：`Loaded notebook words: article, blast`
+- `NotebookFragment` 日志出现：`Displaying notebook word: article, library=CET4, pos=n.`
+- 模拟器 UI 中已看到生词本页显示 `article`，带词性、词库、释义、例句
+- 首页 UI 中已看到 `生词本：2 个单词`
+- 前台服务仍可能出现系统日志 warning：`Foreground service start ... does not have any types`
+
+**本次会话后的判断：**
+- 当前版本可以作为 Android 本地主线 beta 继续开发和真机验收
+- 不是正式完成态，但已经超过“原型不可用”阶段
+- 接下来应优先做真机短验，而不是继续大范围重构
+
+**推荐下一步：**
+1. 在真机上做最小闭环验收：
+   - 开启推送
+   - 收到通知
+   - 点击“不认识”
+   - 进入生词本确认可见
+   - 点击“认识”后确认解锁只刷新一次
+2. 如果真机也出现前台服务兼容性问题，再继续专门处理前台服务启动策略
+3. 后续再决定是否继续扩后端整合，而不是现在切回大范围功能开发
+
+**本次关键文件变更：**
+- `CURRENT_STATUS.md`：已更新为当前 Android 主线状态摘要
+- Android 主线关键文件已整理为当前可维护路径

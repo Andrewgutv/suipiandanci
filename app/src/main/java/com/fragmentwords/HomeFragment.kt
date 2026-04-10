@@ -1,36 +1,42 @@
-package com.fragmentwords
+﻿package com.fragmentwords
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.DecelerateInterpolator
 import android.widget.FrameLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.fragmentwords.data.WordRepository
 import com.fragmentwords.service.WordService
-import com.fragmentwords.utils.WorkManagerScheduler
 import com.fragmentwords.utils.AlarmScheduler
+import com.fragmentwords.utils.WorkManagerScheduler
 import kotlinx.coroutines.launch
 
-/**
- * 首页 Fragment - 单词推送控制面板
- */
 class HomeFragment : Fragment() {
 
+    companion object {
+        private const val PREFS_NAME = "word_prefs"
+        private const val KEY_NOTIFICATION_ENABLED = "notification_enabled"
+        private const val KEY_LAST_REFRESH_TIME = "last_refresh_time"
+        private const val KEY_JUST_CLICKED = "just_clicked_button"
+        private const val KEY_CLICK_TIME = "button_click_time"
+    }
+
     private lateinit var repository: WordRepository
-    private lateinit var database: com.fragmentwords.database.WordDatabase
     private lateinit var tvStatus: TextView
     private lateinit var tvLibraryInfo: TextView
     private lateinit var tvNotebookInfo: TextView
@@ -38,14 +44,25 @@ class HomeFragment : Fragment() {
     private lateinit var toggleThumb: View
 
     private var isPushEnabled = false
+    private var pendingEnableAfterPermission = false
+    private var runtimeSyncedThisView = false
 
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
-    ) { isGranted: Boolean ->
+    ) { isGranted ->
         if (isGranted) {
-            Toast.makeText(requireContext(), "通知权限已授予", Toast.LENGTH_SHORT).show()
-            startServiceIfEnabled()
+            if (pendingEnableAfterPermission) {
+                enablePush(showToast = true)
+            } else if (readPushEnabledFromPrefs()) {
+                syncPushRuntime(enabled = true)
+                runtimeSyncedThisView = true
+            }
         } else {
+            pendingEnableAfterPermission = false
+            persistPushEnabled(false)
+            isPushEnabled = false
+            updateToggleUI()
+            updateUI()
             showPermissionGuideDialog()
         }
     }
@@ -54,42 +71,32 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        try {
-            repository = WordRepository(requireContext())
-            database = com.fragmentwords.database.WordDatabase(requireContext())
+        runtimeSyncedThisView = false
+        repository = WordRepository(requireContext())
+        initViews(view)
+        setupClickListeners()
+        refreshPushStateFromPrefs()
+        updateUI()
 
-            initViews(view)
-            setupClickListeners()
+        lifecycleScope.launch {
+            repository.initializeIfNeeded()
             updateUI()
-
-            // 延迟初始化，避免阻塞主线程
-            view.post {
-                try {
-                    lifecycleScope.launch {
-                        try {
-                            repository.initializeIfNeeded()
-                            updateUI()
-                        } catch (e: Exception) {
-                            Log.e("HomeFragment", "Error initializing: ${e.message}", e)
-                        }
-                    }
-                } catch (e: Exception) {
-                    Log.e("HomeFragment", "Error in post: ${e.message}", e)
-                }
-            }
-
-            checkAndRequestNotificationPermission()
-        } catch (e: Exception) {
-            Log.e("HomeFragment", "Error in onViewCreated: ${e.message}", e)
-            Toast.makeText(requireContext(), "初始化失败: ${e.message}", Toast.LENGTH_SHORT).show()
         }
+
+        ensurePermissionStateOnEntry()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        refreshPushStateFromPrefs()
+        updateUI()
     }
 
     private fun initViews(view: View) {
@@ -98,55 +105,142 @@ class HomeFragment : Fragment() {
         tvNotebookInfo = view.findViewById(R.id.tv_notebook_info)
         toggleContainer = view.findViewById(R.id.toggle_container)
         toggleThumb = view.findViewById(R.id.toggle_thumb)
-
-        val prefs = requireContext().getSharedPreferences("word_prefs", android.content.Context.MODE_PRIVATE)
-        isPushEnabled = prefs.getBoolean("notification_enabled", false)
-        updateToggleUI()
     }
 
     private fun setupClickListeners() {
         toggleContainer.setOnClickListener {
-            isPushEnabled = !isPushEnabled
-            updateToggleUI()
-
-            requireContext().getSharedPreferences("word_prefs", android.content.Context.MODE_PRIVATE).edit()
-                .putBoolean("notification_enabled", isPushEnabled)
-                .apply()
-
             if (isPushEnabled) {
-                WordService.startService(requireContext())
-                AlarmScheduler.schedulePeriodicAlarm(requireContext())
-                WorkManagerScheduler.cancelRefresh(requireContext())
-                Toast.makeText(requireContext(), "已开启单词推送", Toast.LENGTH_SHORT).show()
+                disablePush(showToast = true)
             } else {
-                WordService.stopService(requireContext())
-                AlarmScheduler.cancelAlarms(requireContext())
-                WorkManagerScheduler.cancelRefresh(requireContext())
-                Toast.makeText(requireContext(), "已关闭单词推送", Toast.LENGTH_SHORT).show()
+                requestEnablePush()
             }
-            updateUI()
         }
     }
 
+    private fun requestEnablePush() {
+        if (hasNotificationPermission()) {
+            enablePush(showToast = true)
+            return
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            pendingEnableAfterPermission = true
+            requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+        } else {
+            enablePush(showToast = true)
+        }
+    }
+
+    private fun enablePush(showToast: Boolean) {
+        pendingEnableAfterPermission = false
+        isPushEnabled = true
+        persistPushEnabled(true)
+        updateToggleUI()
+        syncPushRuntime(enabled = true)
+        runtimeSyncedThisView = true
+        updateUI()
+
+        if (showToast) {
+            Toast.makeText(requireContext(), "已开启单词推送", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun disablePush(showToast: Boolean) {
+        pendingEnableAfterPermission = false
+        isPushEnabled = false
+        persistPushEnabled(false)
+        updateToggleUI()
+        syncPushRuntime(enabled = false)
+        runtimeSyncedThisView = false
+        updateUI()
+
+        if (showToast) {
+            Toast.makeText(requireContext(), "已关闭单词推送", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun syncPushRuntime(enabled: Boolean) {
+        if (enabled) {
+            WordService.startService(requireContext())
+            AlarmScheduler.schedulePeriodicAlarm(requireContext())
+            WorkManagerScheduler.cancelRefresh(requireContext())
+        } else {
+            WordService.stopService(requireContext())
+            AlarmScheduler.cancelAlarms(requireContext())
+            WorkManagerScheduler.cancelRefresh(requireContext())
+            repository.clearCurrentWord()
+            clearRuntimeFlags()
+        }
+    }
+
+    private fun clearRuntimeFlags() {
+        prefs().edit()
+            .remove(KEY_LAST_REFRESH_TIME)
+            .remove(KEY_JUST_CLICKED)
+            .remove(KEY_CLICK_TIME)
+            .apply()
+    }
+
+    private fun ensurePermissionStateOnEntry() {
+        if (!isPushEnabled || runtimeSyncedThisView) {
+            return
+        }
+
+        if (hasNotificationPermission()) {
+            syncPushRuntime(enabled = true)
+            runtimeSyncedThisView = true
+            return
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+        }
+    }
+
+    private fun hasNotificationPermission(): Boolean {
+        return Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU ||
+            ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.POST_NOTIFICATIONS
+            ) == PackageManager.PERMISSION_GRANTED
+    }
+
+    private fun refreshPushStateFromPrefs() {
+        isPushEnabled = readPushEnabledFromPrefs()
+        updateToggleUI()
+    }
+
+    private fun readPushEnabledFromPrefs(): Boolean {
+        return prefs().getBoolean(KEY_NOTIFICATION_ENABLED, false)
+    }
+
+    private fun persistPushEnabled(enabled: Boolean) {
+        prefs().edit().putBoolean(KEY_NOTIFICATION_ENABLED, enabled).apply()
+    }
+
+    private fun prefs() = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+
     private fun updateToggleUI() {
-        // 取消之前的动画
         toggleThumb.animate().cancel()
 
         if (isPushEnabled) {
             toggleContainer.setBackgroundResource(R.drawable.toggle_track_on)
             toggleThumb.setBackgroundResource(R.drawable.toggle_thumb_on)
-            // 滑动到右侧：使用30dp确保到达最右侧
-            toggleThumb.animate()
-                .translationX(30f)
-                .setDuration(300)
-                .start()
+            toggleContainer.post {
+                val maxDistance = (toggleContainer.width - toggleThumb.width).toFloat().coerceAtLeast(0f)
+                toggleThumb.animate()
+                    .translationX(maxDistance)
+                    .setDuration(250)
+                    .setInterpolator(DecelerateInterpolator())
+                    .start()
+            }
         } else {
             toggleContainer.setBackgroundResource(R.drawable.toggle_track_off)
             toggleThumb.setBackgroundResource(R.drawable.toggle_thumb)
-            // 滑动到左侧
             toggleThumb.animate()
                 .translationX(0f)
-                .setDuration(300)
+                .setDuration(250)
+                .setInterpolator(DecelerateInterpolator())
                 .start()
         }
     }
@@ -154,95 +248,56 @@ class HomeFragment : Fragment() {
     private fun updateUI() {
         lifecycleScope.launch {
             val notebookCount = repository.getNotebookCount()
-
             val selectedLibraries = repository.getSelectedLibraries()
-            val libraryName = when {
-                selectedLibraries.size == 1 && selectedLibraries[0] == "ADVANCED" -> "四级词库"
-                selectedLibraries.size == 1 && selectedLibraries[0] == "CET4" -> "四级词库"
-                selectedLibraries.size == 1 && selectedLibraries[0] == "CET6" -> "六级词库"
-                selectedLibraries.size == 1 && selectedLibraries[0] == "IELTS" -> "雅思托福"
-                selectedLibraries.size == 1 && selectedLibraries[0] == "TOEFL" -> "托福词库"
-                selectedLibraries.size == 1 && selectedLibraries[0] == "GRE" -> "考研英语"
-                selectedLibraries.size > 1 -> "多个词库"
-                else -> "四级词库"
-            }
+            val libraryName = getLibraryDisplayName(selectedLibraries)
 
             tvStatus.text = if (isPushEnabled) {
                 "单词推送已开启"
             } else {
                 "单词推送未开启"
             }
-
-            tvLibraryInfo.text = "词库: $libraryName"
-            tvNotebookInfo.text = "生词本: ${notebookCount}个单词"
+            tvLibraryInfo.text = "当前词库：$libraryName"
+            tvNotebookInfo.text = "生词本：$notebookCount 个单词"
         }
     }
 
-    private fun checkAndRequestNotificationPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (ContextCompat.checkSelfPermission(
-                    requireContext(),
-                    Manifest.permission.POST_NOTIFICATIONS
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-                requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
-            } else {
-                startServiceIfEnabled()
-            }
-        } else {
-            startServiceIfEnabled()
+    private fun getLibraryDisplayName(selectedLibraries: List<String>): String {
+        return when {
+            selectedLibraries.isEmpty() -> "四级词库"
+            selectedLibraries.size > 1 -> "多个词库"
+            selectedLibraries[0] == "ADVANCED" -> "高级词库"
+            selectedLibraries[0] == "CET4" -> "四级词库"
+            selectedLibraries[0] == "CET6" -> "六级词库"
+            selectedLibraries[0] == "IELTS" -> "雅思词库"
+            selectedLibraries[0] == "TOEFL" -> "托福词库"
+            selectedLibraries[0] == "GRE" -> "GRE 词库"
+            else -> selectedLibraries[0]
         }
     }
 
     private fun showPermissionGuideDialog() {
-        androidx.appcompat.app.AlertDialog.Builder(requireContext())
+        AlertDialog.Builder(requireContext())
             .setTitle("需要通知权限")
-            .setMessage("碎片单词需要通知权限才能在锁屏显示单词卡片。\n\n请在设置中允许通知权限。")
-            .setPositiveButton("去设置") { _, _ ->
-                openNotificationSettings()
-            }
-            .setNegativeButton("取消") { _, _ ->
-                isPushEnabled = false
-                updateToggleUI()
-                val prefs = requireContext().getSharedPreferences("word_prefs", android.content.Context.MODE_PRIVATE)
-                prefs.edit().putBoolean("notification_enabled", false).apply()
-                updateUI()
-            }
-            .setCancelable(false)
+            .setMessage("碎片单词需要通知权限才能在锁屏和通知栏展示单词卡片。")
+            .setPositiveButton("去设置") { _, _ -> openNotificationSettings() }
+            .setNegativeButton("取消", null)
             .show()
     }
 
     private fun openNotificationSettings() {
         try {
-            val intent = Intent()
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                intent.action = Settings.ACTION_APP_NOTIFICATION_SETTINGS
-                intent.putExtra(Settings.EXTRA_APP_PACKAGE, requireContext().packageName)
-            } else {
-                intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
-                intent.data = Uri.parse("package:${requireContext().packageName}")
+            val intent = Intent().apply {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    action = Settings.ACTION_APP_NOTIFICATION_SETTINGS
+                    putExtra(Settings.EXTRA_APP_PACKAGE, requireContext().packageName)
+                } else {
+                    action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+                    data = Uri.parse("package:${requireContext().packageName}")
+                }
             }
             startActivity(intent)
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             Toast.makeText(requireContext(), "无法打开设置页面", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    private fun startServiceIfEnabled() {
-        val prefs = requireContext().getSharedPreferences("word_prefs", android.content.Context.MODE_PRIVATE)
-        val enabled = prefs.getBoolean("notification_enabled", false)
-        if (enabled) {
-            toggleContainer.postDelayed({
-                try {
-                    WordService.startService(requireContext())
-                    AlarmScheduler.schedulePeriodicAlarm(requireContext())
-                    WorkManagerScheduler.cancelRefresh(requireContext())
-                    Toast.makeText(requireContext(), "单词推送已开启", Toast.LENGTH_LONG).show()
-                } catch (e: Exception) {
-                    Log.e("HomeFragment", "Failed to start service: ${e.message}", e)
-                    Toast.makeText(requireContext(), "启动服务失败: ${e.message}", Toast.LENGTH_SHORT).show()
-                }
-            }, 500)
         }
     }
 }

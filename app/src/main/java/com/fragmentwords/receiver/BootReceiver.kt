@@ -1,14 +1,12 @@
-package com.fragmentwords.receiver
+﻿package com.fragmentwords.receiver
 
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import com.fragmentwords.service.WordService
+import com.fragmentwords.utils.AlarmScheduler
+import com.fragmentwords.utils.WorkManagerScheduler
 
-/**
- * 开机启动接收器 - 自动启动前台服务
- */
 class BootReceiver : BroadcastReceiver() {
 
     companion object {
@@ -16,19 +14,17 @@ class BootReceiver : BroadcastReceiver() {
     }
 
     override fun onReceive(context: Context, intent: Intent) {
-        Log.d(TAG, "Boot completed, starting WordService")
+        Log.d(TAG, "Boot completed, restoring schedules if needed")
 
         when (intent.action) {
             Intent.ACTION_BOOT_COMPLETED,
             "android.intent.action.QUICKBOOT_POWERON" -> {
-                // 检查用户是否启用了通知功能
                 val prefs = context.getSharedPreferences("word_prefs", Context.MODE_PRIVATE)
-                val enabled = prefs.getBoolean("notification_enabled", true)
-
+                val enabled = prefs.getBoolean("notification_enabled", false)
                 if (enabled) {
-                    // 启动前台服务
-                    WordService.startService(context)
-                    Log.d(TAG, "WordService started successfully")
+                    AlarmScheduler.schedulePeriodicAlarm(context)
+                    WorkManagerScheduler.cancelRefresh(context)
+                    Log.d(TAG, "Schedules restored after boot")
                 }
             }
         }
