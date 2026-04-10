@@ -35,12 +35,6 @@
             android:exported='false'
             android:theme='@style/Theme.FragmentWords' />
 
-        <activity
-            android:name='.LibraryStoreActivity'
-            android:exported='false'
-            android:theme='@style/Theme.FragmentWords'
-            android:configChanges='orientation|screenSize' />
-
 
         <service
             android:name='.service.WordService'
@@ -80,6 +74,7 @@
     </application>
 
 </manifest>
+
 
 
 
