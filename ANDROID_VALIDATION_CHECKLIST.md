@@ -1,6 +1,6 @@
-# Android Validation Checklist
+﻿# Android Validation Checklist
 
-This checklist is for the current native Android mainline in pp/.
+This checklist is for the current native Android mainline in `app/`.
 
 Goal:
 
@@ -32,8 +32,8 @@ It covers only the most important user-facing loop:
 The build can be treated as functionally acceptable if all of the following are true:
 
 - a word notification appears after push is enabled
-- tapping 不认识 causes the word to appear in the notebook
-- tapping 认识 does not cause repeated notification spam
+- tapping `不认识` causes the word to appear in the notebook
+- tapping `认识` does not cause repeated notification spam
 - unlocking the device refreshes at most once per expected cycle
 - disabling push stops new notifications
 
@@ -54,7 +54,7 @@ Expected:
 
 Record:
 
-- Pass or Fail
+- `Pass` or `Fail`
 - note the displayed notebook count
 
 ## Test 2: Enable Push
@@ -69,7 +69,7 @@ Expected:
 - a success message appears
 - a word notification is posted
 - the current word is readable in the notification
-- the notification contains 认识 and 不认识
+- the notification contains `认识` and `不认识`
 
 Record:
 
@@ -80,7 +80,7 @@ Record:
 
 Steps:
 
-1. In the notification, tap 不认识.
+1. In the notification, tap `不认识`.
 2. Return to the app.
 3. Switch to the notebook page.
 
@@ -122,7 +122,7 @@ Record:
 Steps:
 
 1. Go back to a live word notification.
-2. Tap 认识.
+2. Tap `认识`.
 3. Lock the device.
 4. Unlock the device once.
 
@@ -200,23 +200,23 @@ At the time of writing, the emulator may still show a foreground-service-type wa
 Interpretation:
 
 - if user-visible behavior is normal on a real device, this warning should be treated as a compatibility tail rather than immediate product failure
-- if the same warning appears on a real device and causes notification instability, WordService startup remains the next engineering priority
+- if the same warning appears on a real device and causes notification instability, `WordService` startup remains the next engineering priority
 
 ## Final Decision Template
 
 Use this summary after testing:
 
-- Home screen: Pass / Fail
-- Enable push: Pass / Fail
-- Unknown -> notebook: Pass / Fail
-- Notebook display: Pass / Fail
-- Known -> unlock refresh: Pass / Fail
-- Screen wake / unlock timing: Pass / Fail
-- Disable push: Pass / Fail
-- Reboot recovery: Pass / Fail
+- Home screen: `Pass` / `Fail`
+- Enable push: `Pass` / `Fail`
+- Unknown -> notebook: `Pass` / `Fail`
+- Notebook display: `Pass` / `Fail`
+- Known -> unlock refresh: `Pass` / `Fail`
+- Screen wake / unlock timing: `Pass` / `Fail`
+- Disable push: `Pass` / `Fail`
+- Reboot recovery: `Pass` / `Fail`
 
 Overall release judgment:
 
-- Accept for beta
-- Accept with known warning
-- Do not accept yet
+- `Accept for beta`
+- `Accept with known warning`
+- `Do not accept yet`
