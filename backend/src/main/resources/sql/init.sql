@@ -142,6 +142,70 @@ INSERT INTO `word` (`word`, `phonetic`, `translation`, `example`, `vocab_id`, `d
 ('absence', '/ˈæbsəns/', 'n. 缺席，不在场', 'His absence was noticed.', 1, 2)
 ON DUPLICATE KEY UPDATE `word`=VALUES(`word`);
 
+INSERT INTO `vocab` (`id`, `name`, `word_count`, `description`) VALUES
+(6, 'GRADUATE', 8, 'Graduate exam sample vocabulary')
+ON DUPLICATE KEY UPDATE `name`=VALUES(`name`);
+
+INSERT INTO `word` (`word`, `phonetic`, `translation`, `example`, `vocab_id`, `difficulty`) VALUES
+('abstain', '/əbˈsteɪn/', 'v. avoid doing something', 'He chose to abstain from the vote.', 2, 4),
+('adversity', '/ədˈvɜːsəti/', 'n. hardship', 'Adversity often reveals true character.', 2, 4),
+('concise', '/kənˈsaɪs/', 'adj. brief but clear', 'Her answer was concise and accurate.', 2, 3),
+('pervasive', '/pəˈveɪsɪv/', 'adj. spreading widely', 'Smartphones have a pervasive influence on daily life.', 2, 4),
+('robust', '/rəʊˈbʌst/', 'adj. strong and effective', 'The team built a robust testing process.', 2, 3),
+('tentative', '/ˈtentətɪv/', 'adj. uncertain or not final', 'We made a tentative schedule for next week.', 2, 3),
+('versatile', '/ˈvɜːsətaɪl/', 'adj. able to do many things', 'A versatile vocabulary helps in formal writing.', 2, 3),
+('yielding', '/ˈjiːldɪŋ/', 'adj. inclined to give way', 'The material is soft but not too yielding.', 2, 4)
+ON DUPLICATE KEY UPDATE `word`=VALUES(`word`);
+
+INSERT INTO `word` (`word`, `phonetic`, `translation`, `example`, `vocab_id`, `difficulty`) VALUES
+('cohesion', '/kəʊˈhiːʒn/', 'n. unity and connection', 'Good cohesion makes an essay easier to follow.', 3, 4),
+('feasible', '/ˈfiːzəbl/', 'adj. possible and practical', 'The committee discussed whether the plan was feasible.', 3, 4),
+('infrastructure', '/ˈɪnfrəstrʌktʃə(r)/', 'n. basic systems and facilities', 'Rural infrastructure still needs investment.', 3, 4),
+('literacy', '/ˈlɪtərəsi/', 'n. ability to read and write', 'Digital literacy is increasingly important.', 3, 3),
+('metropolitan', '/ˌmetrəˈpɒlɪtən/', 'adj. related to a large city', 'Metropolitan transport systems are often crowded.', 3, 4),
+('sustainable', '/səˈsteɪnəbl/', 'adj. able to continue long-term', 'The city wants a more sustainable energy policy.', 3, 3),
+('tangible', '/ˈtændʒəbl/', 'adj. clear and concrete', 'The project delivered tangible benefits.', 3, 3),
+('urbanization', '/ˌɜːbənaɪˈzeɪʃn/', 'n. growth of cities', 'Rapid urbanization changed the region quickly.', 3, 4)
+ON DUPLICATE KEY UPDATE `word`=VALUES(`word`);
+
+INSERT INTO `word` (`word`, `phonetic`, `translation`, `example`, `vocab_id`, `difficulty`) VALUES
+('biodiversity', '/ˌbaɪəʊdaɪˈvɜːsəti/', 'n. variety of living species', 'The island is famous for its biodiversity.', 4, 4),
+('catalyst', '/ˈkætəlɪst/', 'n. trigger for change', 'The policy became a catalyst for reform.', 4, 4),
+('erosion', '/ɪˈrəʊʒn/', 'n. gradual wearing away', 'Wind erosion damaged the farmland.', 4, 4),
+('habitat', '/ˈhæbɪtæt/', 'n. natural home of an animal or plant', 'Wetlands provide habitat for many birds.', 4, 3),
+('isotope', '/ˈaɪsətəʊp/', 'n. form of a chemical element', 'The lab measured the isotope in the sample.', 4, 5),
+('sedimentary', '/ˌsedɪˈmentri/', 'adj. formed by sediment', 'Sedimentary rocks preserve many fossils.', 4, 4),
+('terrestrial', '/təˈrestriəl/', 'adj. related to land', 'The telescope compared marine and terrestrial climates.', 4, 4),
+('turbulence', '/ˈtɜːbjələns/', 'n. violent movement or instability', 'The aircraft entered a zone of turbulence.', 4, 4)
+ON DUPLICATE KEY UPDATE `word`=VALUES(`word`);
+
+INSERT INTO `word` (`word`, `phonetic`, `translation`, `example`, `vocab_id`, `difficulty`) VALUES
+('abstruse', '/əbˈstruːs/', 'adj. difficult to understand', 'The article was too abstruse for beginners.', 5, 5),
+('adamant', '/ˈædəmənt/', 'adj. refusing to change', 'She was adamant that the experiment needed more evidence.', 5, 5),
+('austere', '/ɒˈstɪə(r)/', 'adj. severe and plain', 'The room had an austere but elegant design.', 5, 5),
+('bolster', '/ˈbəʊlstə(r)/', 'v. support or strengthen', 'New data may bolster the author’s claim.', 5, 4),
+('cacophony', '/kəˈkɒfəni/', 'n. harsh mixture of sounds', 'The market was filled with a cacophony of voices.', 5, 5),
+('deleterious', '/ˌdelɪˈtɪəriəs/', 'adj. harmful', 'Sleep deprivation has deleterious effects on memory.', 5, 5),
+('obdurate', '/ˈɒbdjərət/', 'adj. stubbornly refusing to change', 'The committee remained obdurate despite the criticism.', 5, 5),
+('sagacious', '/səˈɡeɪʃəs/', 'adj. wise and thoughtful', 'Her sagacious advice prevented a costly mistake.', 5, 5)
+ON DUPLICATE KEY UPDATE `word`=VALUES(`word`);
+
+INSERT INTO `word` (`word`, `phonetic`, `translation`, `example`, `vocab_id`, `difficulty`) VALUES
+('comprehend', '/ˌkɒmprɪˈhend/', 'v. understand fully', 'It takes time to comprehend the whole argument.', 6, 3),
+('crucial', '/ˈkruːʃl/', 'adj. extremely important', 'Vocabulary retention is crucial for exam performance.', 6, 3),
+('derive', '/dɪˈraɪv/', 'v. obtain from a source', 'Several conclusions derive from these early results.', 6, 3),
+('empirical', '/ɪmˈpɪrɪkl/', 'adj. based on observation', 'The paper offers strong empirical evidence.', 6, 4),
+('formulate', '/ˈfɔːmjəleɪt/', 'v. express systematically', 'You need to formulate a clearer research question.', 6, 4),
+('inhibit', '/ɪnˈhɪbɪt/', 'v. hold back', 'Anxiety can inhibit language production.', 6, 4),
+('notion', '/ˈnəʊʃn/', 'n. idea or belief', 'The author challenges the notion of fixed ability.', 6, 3),
+('subsequent', '/ˈsʌbsɪkwənt/', 'adj. following later', 'Subsequent chapters focus on practical examples.', 6, 4)
+ON DUPLICATE KEY UPDATE `word`=VALUES(`word`);
+
+UPDATE `vocab` v
+SET v.word_count = (
+    SELECT COUNT(*) FROM `word` w WHERE w.vocab_id = v.id
+);
+
 -- ============================================
 -- 艾宾浩斯复习间隔说明（8个阶段）
 -- ============================================
