@@ -37,16 +37,25 @@ function Read-AppXmlValue {
     param(
         [string]$Serial,
         [string]$PrefsFile,
-        [string]$Key
+        [string]$Key,
+        [int]$Attempts = 1,
+        [int]$DelaySeconds = 1
     )
 
-    $raw = & $adb -s $Serial shell run-as com.fragmentwords cat "/data/data/com.fragmentwords/shared_prefs/$PrefsFile"
-    [xml]$xml = ($raw -join [Environment]::NewLine)
-    $node = $xml.map.string | Where-Object { $_.name -eq $Key } | Select-Object -First 1
-    if (-not $node) {
-        throw "Could not read '$Key' from $PrefsFile."
+    for ($attempt = 1; $attempt -le $Attempts; $attempt++) {
+        $raw = & $adb -s $Serial shell run-as com.fragmentwords cat "/data/data/com.fragmentwords/shared_prefs/$PrefsFile"
+        [xml]$xml = ($raw -join [Environment]::NewLine)
+        $node = $xml.map.string | Where-Object { $_.name -eq $Key } | Select-Object -First 1
+        if ($node) {
+            return $node.'#text'
+        }
+
+        if ($attempt -lt $Attempts) {
+            Start-Sleep -Seconds $DelaySeconds
+        }
     }
-    return $node.'#text'
+
+    throw "Could not read '$Key' from $PrefsFile."
 }
 
 function Get-UiDumpXml {
@@ -61,30 +70,6 @@ function Get-UiDumpXml {
     }
     $xmlText = $rawText.Substring($startIndex, ($endIndex - $startIndex) + "</hierarchy>".Length)
     return [xml]$xmlText
-}
-
-function Tap-UiNode {
-    param(
-        [string]$Serial,
-        [string]$XPath,
-        [string]$Description
-    )
-
-    $xml = Get-UiDumpXml -Serial $Serial
-    $node = $xml.SelectSingleNode($XPath)
-    if (-not $node) {
-        throw "Could not find UI node for $Description."
-    }
-
-    $bounds = $node.GetAttribute("bounds")
-    if ($bounds -notmatch "\[(\d+),(\d+)\]\[(\d+),(\d+)\]") {
-        throw "Could not parse bounds for $Description."
-    }
-
-    $x = [int](($Matches[1] + $Matches[3]) / 2)
-    $y = [int](($Matches[2] + $Matches[4]) / 2)
-    & $adb -s $Serial shell input tap $x $y | Out-Null
-    Start-Sleep -Milliseconds 800
 }
 
 function Ensure-BackendBackedWord {
@@ -103,12 +88,12 @@ function Read-CurrentWord {
     Write-Host ""
     Write-Host "[4/7] Reading app device_id and current word..."
     $deviceId = Read-AppXmlValue -Serial $Serial -PrefsFile "fragment_words_prefs.xml" -Key "device_id"
-    $currentWordJson = Read-AppXmlValue -Serial $Serial -PrefsFile "word_prefs.xml" -Key "current_word"
+    $currentWordJson = Read-AppXmlValue -Serial $Serial -PrefsFile "word_prefs.xml" -Key "current_word" -Attempts 5 -DelaySeconds 2
     $currentWord = $currentWordJson | ConvertFrom-Json
 
     if (-not $currentWord.PSObject.Properties.Name.Contains("id")) {
         Ensure-BackendBackedWord -Serial $Serial
-        $currentWordJson = Read-AppXmlValue -Serial $Serial -PrefsFile "word_prefs.xml" -Key "current_word"
+        $currentWordJson = Read-AppXmlValue -Serial $Serial -PrefsFile "word_prefs.xml" -Key "current_word" -Attempts 5 -DelaySeconds 2
         $currentWord = $currentWordJson | ConvertFrom-Json
     }
 
@@ -155,13 +140,26 @@ function Tap-UnknownAction {
     param([string]$Serial)
 
     Write-Host ""
-    Write-Host "[6/7] Expanding notifications and tapping `"unknown`"..."
+    Write-Host '[6/7] Expanding notifications and tapping "unknown"...'
     & $adb -s $Serial shell cmd statusbar expand-notifications | Out-Null
     Start-Sleep -Seconds 2
 
-    $xml = Get-UiDumpXml -Serial $Serial
+    $node = $null
+    for ($attempt = 1; $attempt -le 5; $attempt++) {
+        $xml = Get-UiDumpXml -Serial $Serial
+        $node = $xml.SelectNodes("//node") | Where-Object {
+            $_.GetAttribute("resource-id") -eq "android:id/action1" -or
+            $_.GetAttribute("content-desc") -eq "unknown"
+        } | Select-Object -First 1
 
-    $node = $xml.SelectSingleNode("//node[@resource-id='android:id/action1' or @content-desc='unknown']")
+        if ($node) {
+            break
+        }
+
+        Start-Sleep -Seconds 2
+        & $adb -s $Serial shell cmd statusbar expand-notifications | Out-Null
+    }
+
     if (-not $node) {
         throw "Could not find the notification unknown action."
     }
