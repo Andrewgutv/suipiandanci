@@ -33,9 +33,9 @@ class LearningProgressServiceImplTest {
 
     @Test
     void getNextWordThrowsNotFoundWhenNoLearnableWordExists() {
-        when(learningProgressMapper.findWordsToReview(null, null, null, 1))
+        when(learningProgressMapper.findWordsToReview(null, null, null, 10))
             .thenReturn(Collections.emptyList());
-        when(learningProgressMapper.findRandomNewWords(null, null, null, 1))
+        when(learningProgressMapper.findRandomNewWords(null, null, null, 10))
             .thenReturn(Collections.emptyList());
         when(learningProgressMapper.selectOne(any())).thenReturn(null);
 

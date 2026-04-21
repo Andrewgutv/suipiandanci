@@ -18,12 +18,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * 学习进度Service实现
  */
 @Service
 public class LearningProgressServiceImpl implements LearningProgressService {
+    private static final int WORD_CANDIDATE_POOL_SIZE = 10;
 
     @Autowired
     private LearningProgressMapper learningProgressMapper;
@@ -35,22 +37,22 @@ public class LearningProgressServiceImpl implements LearningProgressService {
     public LearningResponseDTO getNextWord(String deviceId, Long userId, NextWordDTO request) {
         // 1. 优先获取需要复习的单词
         List<LearningProgress> reviewList = learningProgressMapper.findWordsToReview(
-            deviceId, userId, request.getVocabIds(), 1
+            deviceId, userId, request.getVocabIds(), WORD_CANDIDATE_POOL_SIZE
         );
 
         if (!reviewList.isEmpty()) {
-            LearningProgress progress = reviewList.get(0);
+            LearningProgress progress = pickRandom(reviewList);
             Word word = getWordOrThrow(progress.getWordId());
             return buildResponse(word, progress);
         }
 
         // 2. 获取随机新单词
         List<Long> newWordIds = learningProgressMapper.findRandomNewWords(
-            deviceId, userId, request.getVocabIds(), 1
+            deviceId, userId, request.getVocabIds(), WORD_CANDIDATE_POOL_SIZE
         );
 
         if (!newWordIds.isEmpty()) {
-            Long wordId = newWordIds.get(0);
+            Long wordId = pickRandom(newWordIds);
             Word word = getWordOrThrow(wordId);
 
             // 初始化学习进度
@@ -233,6 +235,10 @@ public class LearningProgressServiceImpl implements LearningProgressService {
             throw new ResourceNotFoundException("Word not found: " + wordId);
         }
         return word;
+    }
+
+    private <T> T pickRandom(List<T> items) {
+        return items.get(ThreadLocalRandom.current().nextInt(items.size()));
     }
 
     private int calculateAvgRetentionRate(String deviceId, Long userId) {

@@ -48,6 +48,10 @@ object LibrarySelection {
         return (normalizeSingle(selectionId) ?: CET4).lowercase()
     }
 
+    fun toLocalDatabaseName(selectionId: String): String {
+        return normalizeSingle(selectionId) ?: CET4
+    }
+
     fun toDatabaseName(selectionId: String): String {
         return when (normalizeSingle(selectionId) ?: CET4) {
             ADVANCED -> "GRADUATE"

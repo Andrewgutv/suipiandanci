@@ -139,7 +139,7 @@ class WordRepository(context: Context) {
         val enabledLibraryIds = libraryManager.getEnabledLibraryIds()
         return if (enabledLibraryIds.isNotEmpty()) {
             // 将词库ID转换为大写作为数据库的library字段
-            val libraryNames = enabledLibraryIds.map(LibrarySelection::toDatabaseName)
+            val libraryNames = enabledLibraryIds.map(LibrarySelection::toLocalDatabaseName)
             database.getRandomWordByLibraries(libraryNames, excludeWord)
         } else {
             // 如果没有启用任何词库，返回null
@@ -157,7 +157,7 @@ class WordRepository(context: Context) {
 
         // 根据选择的词库获取单词
         return if (selectedLibraries.isNotEmpty()) {
-            val libraryNames = selectedLibraries.map(LibrarySelection::toDatabaseName)
+            val libraryNames = selectedLibraries.map(LibrarySelection::toLocalDatabaseName)
             database.getRandomWordByLibraries(libraryNames, excludeWord)
         } else {
             database.getRandomWord(excludeWord)
@@ -330,7 +330,7 @@ class WordRepository(context: Context) {
      */
     suspend fun deleteLibraryFromDatabase(libraryId: String): Boolean {
         return try {
-            val libraryName = LibrarySelection.toDatabaseName(libraryId)
+            val libraryName = LibrarySelection.toLocalDatabaseName(libraryId)
             val deleted = database.deleteWordsByLibrary(libraryName)
             Log.d("WordRepository", "Deleted $deleted words from library: $libraryId")
             deleted > 0
@@ -347,7 +347,7 @@ class WordRepository(context: Context) {
      */
     suspend fun isLibraryLoaded(libraryId: String): Boolean {
         return try {
-            val libraryName = LibrarySelection.toDatabaseName(libraryId)
+            val libraryName = LibrarySelection.toLocalDatabaseName(libraryId)
             val count = database.getWordCountByLibrary(libraryName)
             count > 0
         } catch (e: Exception) {
@@ -359,7 +359,7 @@ class WordRepository(context: Context) {
     private fun getNextWordLocal(selectedLibraries: List<String>, excludeWord: String?): Word? {
         val normalizedLibraries = LibrarySelection.normalize(selectedLibraries)
         return if (normalizedLibraries.isNotEmpty()) {
-            val libraryNames = normalizedLibraries.map(LibrarySelection::toDatabaseName)
+            val libraryNames = normalizedLibraries.map(LibrarySelection::toLocalDatabaseName)
             database.getRandomWordByLibraries(libraryNames, excludeWord)
         } else {
             database.getRandomWord(excludeWord)

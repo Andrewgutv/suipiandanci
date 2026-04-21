@@ -1,299 +1,74 @@
 [
   {
-    "word": "abacus",
-    "phonetic": "/ˈæbəkəs/",
-    "translation": "n. 算盘",
-    "example": "use abacus",
-    "difficulty": 5,
-    "partOfSpeech": "n.",
-    "library": "GRE"
-  },
-  {
-    "word": "abate",
-    "phonetic": "/əˈbeɪt/",
-    "translation": "v. 减轻",
-    "example": "abate pain",
-    "difficulty": 5,
-    "partOfSpeech": "v.",
-    "library": "GRE"
-  },
-  {
-    "word": "abbreviate",
-    "phenetic": "/əˈbriːvieɪt/",
-    "translation": "v. 缩短",
-    "example": "abbreviate speech",
-    "difficulty": 5,
-    "partOfSpeech": "v.",
-    "library": "GRE"
-  },
-  {
-    "word": "abdicate",
-    "phonetic": "/ˈæbdɪkeɪt/",
-    "translation": "v. 退位",
-    "example": "abdicate throne",
-    "difficulty": 5,
-    "partOfSpeech": "v.",
-    "library": "GRE"
-  },
-  {
-    "word": "aberration",
-    "phonetic": "/ˌæbəˈreɪʃn/",
-    "translation": "n. 异常",
-    "example": "genetic aberration",
-    "difficulty": 5,
-    "partOfSpeech": "n.",
-    "library": "GRE"
-  },
-  {
-    "word": "abhor",
-    "phonetic": "/əbˈhɔːr/",
-    "translation": "v. 憎恨",
-    "example": "abhor violence",
-    "difficulty": 5,
-    "partOfSpeech": "v.",
-    "library": "GRE"
-  },
-  {
-    "word": "abide",
-    "phonetic": "/əˈbaɪd/",
-    "translation": "v. 遵守",
-    "example": "abide law",
-    "difficulty": 4,
-    "partOfSpeech": "v.",
-    "library": "GRE"
-  },
-  {
-    "word": "abject",
-    "phonetic": "/ˈæbdʒekt/",
-    "translation": "adj. 卑鄙的",
-    "example": "abject poverty",
-    "difficulty": 5,
-    "partOfSpeech": "adj.",
-    "library": "GRE"
-  },
-  {
-    "word": "ablution",
-    "phonetic": "/əˈbluːʃn/",
-    "translation": "n. 沐浴",
-    "example": "perform ablution",
-    "difficulty": 5,
-    "partOfSpeech": "n.",
-    "library": "GRE"
-  },
-  {
-    "word": "abnegate",
-    "phonetic": "/ˈæbnɪɡeɪt/",
-    "translation": "v. 放弃",
-    "example": "abnegate right",
-    "difficulty": 5,
-    "partOfSpeech": "v.",
-    "library": "GRE"
-  },
-  {
-    "word": "abolish",
-    "phonetic": "/əˈbɒlɪʃ/",
-    "translation": "v. 废除",
-    "example": "abolish law",
-    "difficulty": 4,
-    "partOfSpeech": "v.",
-    "library": "GRE"
-  },
-  {
-    "word": "abominate",
-    "phonetic": "/əˈbɒmɪneɪt/",
-    "translation": "v. 厌恶",
-    "example": "abominate crime",
-    "difficulty": 5,
-    "partOfSpeech": "v.",
-    "library": "GRE"
-  },
-  {
-    "word": "aboriginal",
-    "phonetic": "/ˌæbəˈrɪdʒənl/",
-    "translation": "adj. 土著的",
-    "example": "aboriginal people",
-    "difficulty": 5,
-    "partOfSpeech": "adj.",
-    "library": "GRE"
-  },
-  {
-    "word": "abortive",
-    "phonetic": "/əˈbɔːrtɪv/",
-    "translation": "adj. 失败的",
-    "example": "abortive attempt",
-    "difficulty": 5,
-    "partOfSpeech": "adj.",
-    "library": "GRE"
-  },
-  {
-    "word": "abrade",
-    "phonetic": "/əˈbreɪd/",
-    "translation": "v. 磨损",
-    "example": "abrade skin",
-    "difficulty": 5,
-    "partOfSpeech": "v.",
-    "library": "GRE"
-  },
-  {
-    "word": "abridge",
-    "phonetic": "/əˈbrɪdʒ/",
-    "translation": "v. 删节",
-    "example": "abridge book",
-    "difficulty": 5,
-    "partOfSpeech": "v.",
-    "library": "GRE"
-  },
-  {
-    "word": "abrogate",
-    "phonetic": "/ˈæbrəɡeɪt/",
-    "translation": "v. 废除",
-    "example": "abrogate treaty",
-    "difficulty": 5,
-    "partOfSpeech": "v.",
-    "library": "GRE"
-  },
-  {
-    "word": "abscond",
-    "phonetic": "/əbˈskɒnd/",
-    "translation": "v. 潜逃",
-    "example": "abscond with money",
-    "difficulty": 5,
-    "partOfSpeech": "v.",
-    "library": "GRE"
-  },
-  {
-    "word": "absence",
-    "phonetic": "/ˈæbsəns/",
-    "translation": "n. 缺席",
-    "example": "absence from work",
-    "difficulty": 3,
-    "partOfSpeech": "n.",
-    "library": "GRE"
-  },
-  {
-    "word": "absorb",
-    "phonetic": "/əbˈzɔːrb/",
-    "translation": "v. 吸收",
-    "example": "absorb liquid",
-    "difficulty": 3,
-    "partOfSpeech": "v.",
-    "library": "GRE"
-  },
-  {
-    "word": "abstain",
-    "phonetic": "/əbˈsteɪn/",
-    "translation": "v. 弃权",
-    "example": "abstain from voting",
-    "difficulty": 5,
-    "partOfSpeech": "v.",
-    "library": "GRE"
-  },
-  {
-    "word": "abstemious",
-    "phonetic": "/æbˈstiːmiəs/",
-    "translation": "adj. 节制的",
-    "example": "abstemious life",
-    "difficulty": 5,
-    "partOfSpeech": "adj.",
-    "library": "GRE"
-  },
-  {
-    "word": "abstinence",
-    "phonetic": "/ˈæbstɪnəns/",
-    "translation": "n. 禁欲",
-    "example": "practice abstinence",
-    "difficulty": 5,
-    "partOfSpeech": "n.",
-    "library": "GRE"
-  },
-  {
-    "word": "abstract",
-    "phonetic": "/ˈæbstrækt/",
-    "translation": "adj. 抽象的",
-    "example": "abstract idea",
-    "difficulty": 4,
-    "partOfSpeech": "adj.",
-    "library": "GRE"
-  },
-  {
     "word": "abstruse",
     "phonetic": "/əbˈstruːs/",
-    "translation": "adj. 深奥的",
-    "example": "abstruse theory",
+    "translation": "adj. abstruse; difficult to understand",
+    "example": "The paper was so abstruse that few students finished it.",
     "difficulty": 5,
     "partOfSpeech": "adj.",
     "library": "GRE"
   },
   {
-    "word": "absurd",
-    "phonetic": "/əbˈsɜːrd/",
-    "translation": "adj. 荒谬的",
-    "example": "absurd claim",
-    "difficulty": 4,
+    "word": "adamant",
+    "phonetic": "/ˈædəmənt/",
+    "translation": "adj. adamant; refusing to change",
+    "example": "She remained adamant about revising the argument.",
+    "difficulty": 5,
     "partOfSpeech": "adj.",
     "library": "GRE"
   },
   {
-    "word": "abundance",
-    "phonetic": "/əˈbʌndəns/",
-    "translation": "n. 大量",
-    "example": "abundance of food",
-    "difficulty": 4,
-    "partOfSpeech": "n.",
-    "library": "GRE"
-  },
-  {
-    "word": "abuse",
-    "phonetic": "/əˈbjuːs/",
-    "translation": "v./n. 滥用",
-    "example": "drug abuse",
-    "difficulty": 3,
-    "partOfSpeech": "v./n.",
-    "library": "GRE"
-  },
-  {
-    "word": "abut",
-    "phonetic": "/əˈbʌt/",
-    "translation": "v. 毗邻",
-    "example": "abut property",
+    "word": "austere",
+    "phonetic": "/ɒˈstɪə(r)/",
+    "translation": "adj. austere; severe and plain",
+    "example": "The professor was known for an austere writing style.",
     "difficulty": 5,
+    "partOfSpeech": "adj.",
+    "library": "GRE"
+  },
+  {
+    "word": "bolster",
+    "phonetic": "/ˈbəʊlstə(r)/",
+    "translation": "v. bolster; support or strengthen",
+    "example": "More evidence will bolster the proposal.",
+    "difficulty": 4,
     "partOfSpeech": "v.",
     "library": "GRE"
   },
   {
-    "word": "abysmal",
-    "phonetic": "/əˈbɪzməl/",
-    "translation": "adj. 深渊的",
-    "example": "abysmal failure",
-    "difficulty": 5,
-    "partOfSpeech": "adj.",
-    "library": "GRE"
-  },
-  {
-    "word": "academic",
-    "phonetic": "/ˌækəˈdemɪk/",
-    "translation": "adj. 学术的",
-    "example": "academic achievement",
+    "word": "candid",
+    "phonetic": "/ˈkændɪd/",
+    "translation": "adj. candid; frank",
+    "example": "Her candid review improved the draft immediately.",
     "difficulty": 3,
     "partOfSpeech": "adj.",
     "library": "GRE"
   },
   {
-    "word": "accede",
-    "phonetic": "/əkˈsiːd/",
-    "translation": "v. 同意",
-    "example": "accede request",
-    "difficulty": 5,
-    "partOfSpeech": "v.",
+    "word": "coherent",
+    "phonetic": "/kəʊˈhɪərənt/",
+    "translation": "adj. coherent; logically connected",
+    "example": "A coherent thesis is essential in analytical writing.",
+    "difficulty": 4,
+    "partOfSpeech": "adj.",
     "library": "GRE"
   },
   {
-    "word": "accelerate",
-    "phonetic": "/əkˈseləreɪt/",
-    "translation": "v. 加速",
-    "example": "accelerate car",
+    "word": "diligent",
+    "phonetic": "/ˈdɪlɪdʒənt/",
+    "translation": "adj. diligent; hardworking",
+    "example": "The diligent student revised every weak section.",
+    "difficulty": 3,
+    "partOfSpeech": "adj.",
+    "library": "GRE"
+  },
+  {
+    "word": "lucid",
+    "phonetic": "/ˈluːsɪd/",
+    "translation": "adj. lucid; clear and easy to understand",
+    "example": "The speaker gave a lucid explanation of the data.",
     "difficulty": 4,
-    "partOfSpeech": "v.",
+    "partOfSpeech": "adj.",
     "library": "GRE"
   }
 ]
