@@ -1,1 +1,36 @@
-nul
+# Android/Gradle
+.gradle/
+build/
+app/build/
+
+# Local environment
+local.properties
+.gradle-user-home/
+
+# IDE
+.idea/
+*.iml
+
+# Backend
+backend/target/
+backend/.m2repo/
+backend/startup*.log
+backend/DbProbe.class
+backend/DbProbe.java
+
+# Node/uni-app prototype
+fragment-words/node_modules/
+fragment-words/unpackage/
+
+# Logs and OS files
+*.log
+Thumbs.db
+.DS_Store
+
+# Local scratch files
+.codex-backend-auth.patch
+quote_test.txt
+tmp_apply_patch_check.txt
+z_patch_test.txt
+zz_medium_test.txt
+zz_small_test.java
