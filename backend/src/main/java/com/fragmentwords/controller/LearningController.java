@@ -1,6 +1,7 @@
 package com.fragmentwords.controller;
 
 import com.fragmentwords.common.Result;
+import com.fragmentwords.config.JwtAuthInterceptor;
 import com.fragmentwords.model.dto.LearningDTO;
 import com.fragmentwords.model.dto.LearningResponseDTO;
 import com.fragmentwords.model.dto.NextWordDTO;
@@ -9,74 +10,76 @@ import com.fragmentwords.service.LearningProgressService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-/**
- * 学习进度Controller
- */
-@Tag(name = "学习进度管理", description = "艾宾浩斯遗忘曲线算法相关接口")
+@Tag(name = "Learning Progress", description = "Learning progress endpoints")
 @RestController
-@RequestMapping("/api/learning")
+@RequestMapping(value = "/api/v1/learning", produces = "application/json;charset=UTF-8")
 public class LearningController {
 
     @Autowired
     private LearningProgressService learningProgressService;
 
-    @Operation(summary = "获取下一个单词", description = "根据艾宾浩斯算法智能推荐下一个需要学习的单词")
+    @Operation(summary = "Get next word", description = "Recommend the next word to learn")
     @PostMapping("/next")
     public Result<LearningResponseDTO> getNextWord(
-        @RequestHeader(value = "X-Device-ID", required = false) String deviceId,
-        @RequestHeader(value = "X-User-ID", required = false) Long userId,
-        @RequestBody(required = false) NextWordDTO request
+        @RequestHeader(value = "X-Device-Id", required = false) String deviceId,
+        @RequestBody(required = false) NextWordDTO request,
+        HttpServletRequest httpRequest
     ) {
+        Long userId = resolveUserId(httpRequest);
         if (request == null) {
             request = new NextWordDTO();
         }
-
-        LearningResponseDTO response = learningProgressService.getNextWord(deviceId, userId, request);
-
-        if (response == null) {
-            return Result.error("没有可学习的单词");
-        }
-
-        return Result.success(response);
+        return Result.success(learningProgressService.getNextWord(deviceId, userId, request));
     }
 
-    @Operation(summary = "提交学习反馈", description = "记录用户对单词的认识情况，自动计算下次复习时间")
+    @Operation(summary = "Submit feedback", description = "Record known or unknown feedback for a word")
     @PostMapping("/feedback")
     public Result<LearningResponseDTO> handleFeedback(
-        @RequestHeader(value = "X-Device-ID", required = false) String deviceId,
-        @RequestHeader(value = "X-User-ID", required = false) Long userId,
-        @RequestBody LearningDTO feedback
+        @RequestHeader(value = "X-Device-Id", required = false) String deviceId,
+        @Valid @RequestBody LearningDTO feedback,
+        HttpServletRequest httpRequest
     ) {
-        LearningResponseDTO response = learningProgressService.handleFeedback(deviceId, userId, feedback);
-        return Result.success(response);
+        Long userId = resolveUserId(httpRequest);
+        return Result.success(learningProgressService.handleFeedback(deviceId, userId, feedback));
     }
 
-    @Operation(summary = "获取学习统计", description = "获取学习进度统计数据")
+    @Operation(summary = "Get stats", description = "Fetch learning progress statistics")
     @GetMapping("/stats")
     public Result<ProgressStatsDTO> getProgressStats(
-        @RequestHeader(value = "X-Device-ID", required = false) String deviceId,
-        @RequestHeader(value = "X-User-ID", required = false) Long userId
+        @RequestHeader(value = "X-Device-Id", required = false) String deviceId,
+        HttpServletRequest httpRequest
     ) {
-        ProgressStatsDTO stats = learningProgressService.getProgressStats(deviceId, userId);
-        return Result.success(stats);
+        Long userId = resolveUserId(httpRequest);
+        return Result.success(learningProgressService.getProgressStats(deviceId, userId));
     }
 
-    @Operation(summary = "获取单词学习详情", description = "查询单个单词的学习进度")
+    @Operation(summary = "Get word progress", description = "Fetch progress for one word")
     @GetMapping("/word/{wordId}")
     public Result<LearningResponseDTO> getWordProgress(
-        @Parameter(description = "单词ID") @PathVariable Long wordId,
-        @RequestHeader(value = "X-Device-ID", required = false) String deviceId,
-        @RequestHeader(value = "X-User-ID", required = false) Long userId
+        @Parameter(description = "Word ID") @PathVariable Long wordId,
+        @RequestHeader(value = "X-Device-Id", required = false) String deviceId,
+        HttpServletRequest httpRequest
     ) {
-        LearningResponseDTO response = learningProgressService.getWordProgress(deviceId, userId, wordId);
+        Long userId = resolveUserId(httpRequest);
+        return Result.success(learningProgressService.getWordProgress(deviceId, userId, wordId));
+    }
 
-        if (response == null) {
-            return Result.error("单词不存在");
+    private Long resolveUserId(HttpServletRequest request) {
+        Object attribute = request.getAttribute(JwtAuthInterceptor.AUTHENTICATED_USER_ID);
+        if (attribute instanceof Number number) {
+            return number.longValue();
         }
-
-        return Result.success(response);
+        return null;
     }
 }

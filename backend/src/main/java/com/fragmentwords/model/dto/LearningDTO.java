@@ -1,12 +1,13 @@
 package com.fragmentwords.model.dto;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
-/**
- * 学习反馈DTO
- */
 @Data
 public class LearningDTO {
-    private Long wordId;        // 单词ID
-    private Boolean isKnown;    // 是否认识
+    @NotNull(message = "wordId is required")
+    private Long wordId;
+
+    @NotNull(message = "isKnown is required")
+    private Boolean isKnown;
 }

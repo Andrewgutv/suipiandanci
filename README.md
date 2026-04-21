@@ -2,11 +2,11 @@
 
 一个以通知栏和锁屏碎片时间为入口的英语单词学习 Android 应用。
 
-当前仓库里真正可运行、应优先关注的主线是原生 Android 应用 `app/`。后端 `backend/` 仍然是半集成状态，旧的 `fragment-words/` 已不是主运行路径。
+当前仓库里真正可运行、应优先关注的主线是原生 Android 应用 `app/` 加 Spring Boot 后端 `backend/`。旧的 `fragment-words/` 已不是主运行路径。
 
 ## 当前状态
 
-当前 Android 主线已经达到 `beta-usable` 状态，适合继续开发和做真机短验。
+当前 Android 主线已经达到 `beta-usable` 状态，后端主线也已经进入可联调状态。
 
 已经确认可用的本地闭环包括：
 
@@ -17,6 +17,13 @@
 - 生词本写入与读取
 - 生词本页面展示
 - 首页显示当前词库和生词本数量
+
+已经确认可用的前后端联调链路包括：
+
+- Android 优先从后端获取下一词
+- Android 同步当前词库到后端
+- Android 将 `认识 / 不认识` 反馈同步到后端
+- Android 优先从后端读取生词本数量和列表
 
 当前仍有一个已知尾问题：
 
@@ -90,6 +97,69 @@ Android 主线重点看这些文件：
 5. 首次启动时允许通知权限
 6. 在首页开启单词推送并验证通知与生词本链路
 
+### Android + Backend 联调
+
+如果你要跑当前真实联调链路，直接看：
+
+- [LOCAL_RUNBOOK.md](./LOCAL_RUNBOOK.md)
+
+后端本地启动脚本：
+
+```powershell
+cd D:\workspace\app\backend
+$env:DB_PASSWORD = "your_real_password"
+.\start-local.ps1
+```
+
+兼容旧入口：
+
+```powershell
+cd D:\workspace\app\backend
+$env:DB_PASSWORD = "your_real_password"
+.\start-local.bat
+```
+
+启动脚本现在会在以下场景直接失败并给出明确提示：
+
+- `DB_PASSWORD` 未设置
+- `java` 不在 `PATH` 中
+- `backend\mvnw.cmd` 缺失
+- 无法连到 `DB_HOST:DB_PORT` 指向的 MySQL 端口
+
+如果你只想跳过数据库 TCP 预检查，可显式设置：
+
+```powershell
+$env:SKIP_DB_PREFLIGHT = "1"
+.\start-local.ps1
+```
+
+如果你在 `cmd.exe` 里启动，用：
+
+```cmd
+set DB_PASSWORD=your_real_password && start-local.bat
+```
+
+Android debug 安装并启动脚本：
+
+```powershell
+cd D:\workspace\app
+.\install-debug-and-launch.bat
+```
+
+本地联调 smoke 脚本：
+
+```powershell
+cd D:\workspace\app
+.\run-local-smoke.bat
+```
+
+通知 `unknown` 动作 smoke 脚本：
+
+```powershell
+cd D:\workspace\app
+.\run-local-unknown-smoke.cmd
+```
+
 ### 命令行构建
 
 ```powershell
@@ -116,14 +186,14 @@ Android 主线重点看这些文件：
 
 ## 后端说明
 
-`backend/` 目前仍然不是 Android 主线稳定依赖。
+`backend/` 现在已经可以作为 Android 联调依赖使用。
 
-你仍然可以单独运行它做开发或接口检查，但当前 Android 可用闭环仍以本地 SQLite + 本地学习逻辑为主。
+当前客户端仍保留本地 SQLite fallback，但下一词、反馈、生词本读取已经支持后端优先。
 
 ## 版本判断
 
 如果现在有人问这个项目能不能继续用，比较准确的回答是：
 
-- 可以作为 Android 本地主线 beta 继续开发和演示
-- 本地通知 + 生词本学习闭环已经能跑通
-- 后端整合、真机兼容性、前台服务尾问题仍未完全收口
+- 可以作为 Android + backend 联调主线继续开发和演示
+- 本地闭环和一条真实前后端学习链路都已经能跑通
+- 真机兼容性、正式环境配置、前台服务尾问题仍未完全收口

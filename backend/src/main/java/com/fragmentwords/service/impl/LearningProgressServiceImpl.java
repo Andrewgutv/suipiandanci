@@ -1,6 +1,7 @@
 package com.fragmentwords.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.fragmentwords.common.ResourceNotFoundException;
 import com.fragmentwords.mapper.LearningProgressMapper;
 import com.fragmentwords.mapper.WordMapper;
 import com.fragmentwords.model.dto.LearningDTO;
@@ -39,7 +40,7 @@ public class LearningProgressServiceImpl implements LearningProgressService {
 
         if (!reviewList.isEmpty()) {
             LearningProgress progress = reviewList.get(0);
-            Word word = wordMapper.selectById(progress.getWordId());
+            Word word = getWordOrThrow(progress.getWordId());
             return buildResponse(word, progress);
         }
 
@@ -50,7 +51,7 @@ public class LearningProgressServiceImpl implements LearningProgressService {
 
         if (!newWordIds.isEmpty()) {
             Long wordId = newWordIds.get(0);
-            Word word = wordMapper.selectById(wordId);
+            Word word = getWordOrThrow(wordId);
 
             // 初始化学习进度
             LearningProgress progress = new LearningProgress();
@@ -83,16 +84,17 @@ public class LearningProgressServiceImpl implements LearningProgressService {
 
         LearningProgress progress = learningProgressMapper.selectOne(wrapper);
         if (progress != null) {
-            Word word = wordMapper.selectById(progress.getWordId());
+            Word word = getWordOrThrow(progress.getWordId());
             return buildResponse(word, progress);
         }
 
-        return null;
+        throw new ResourceNotFoundException("No learnable word is currently available");
     }
 
     @Override
     @Transactional
     public LearningResponseDTO handleFeedback(String deviceId, Long userId, LearningDTO feedback) {
+        Word word = getWordOrThrow(feedback.getWordId());
         // 1. 查询现有学习进度
         LambdaQueryWrapper<LearningProgress> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(LearningProgress::getDeviceId, deviceId);
@@ -142,7 +144,6 @@ public class LearningProgressServiceImpl implements LearningProgressService {
         }
 
         // 5. 返回响应
-        Word word = wordMapper.selectById(feedback.getWordId());
         return buildResponse(word, progress);
     }
 
@@ -181,11 +182,7 @@ public class LearningProgressServiceImpl implements LearningProgressService {
         }
 
         LearningProgress progress = learningProgressMapper.selectOne(wrapper);
-        Word word = wordMapper.selectById(wordId);
-
-        if (word == null) {
-            return null;
-        }
+        Word word = getWordOrThrow(wordId);
 
         if (progress == null) {
             // 创建默认进度
@@ -230,6 +227,14 @@ public class LearningProgressServiceImpl implements LearningProgressService {
     /**
      * 计算平均记忆保持率
      */
+    private Word getWordOrThrow(Long wordId) {
+        Word word = wordMapper.selectById(wordId);
+        if (word == null) {
+            throw new ResourceNotFoundException("Word not found: " + wordId);
+        }
+        return word;
+    }
+
     private int calculateAvgRetentionRate(String deviceId, Long userId) {
         LambdaQueryWrapper<LearningProgress> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(LearningProgress::getDeviceId, deviceId);
