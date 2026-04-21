@@ -9,13 +9,11 @@
     android:fitsSystemWindows="false"
     tools:openDrawer="start">
 
-    <!-- 主内容区域 -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <!-- 顶部栏 -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -26,7 +24,6 @@
             android:paddingStart="24dp"
             android:paddingEnd="24dp">
 
-            <!-- 菜单按钮 -->
             <ImageButton
                 android:id="@+id/btn_menu"
                 android:layout_width="48dp"
@@ -34,29 +31,26 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:src="@drawable/ic_menu"
                 android:tint="@color/text_primary"
-                android:contentDescription="打开侧边栏"
+                android:contentDescription="@string/open_sidebar"
                 android:padding="12dp" />
 
-            <!-- 标题 -->
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="生词本"
+                android:text="@string/title_notebook"
                 android:textSize="24sp"
                 android:textStyle="normal"
                 android:textColor="@color/text_primary"
                 android:letterSpacing="0.05"
                 android:gravity="center" />
 
-            <!-- 占位 -->
             <View
                 android:layout_width="48dp"
                 android:layout_height="48dp" />
 
         </LinearLayout>
 
-        <!-- 内容区域 -->
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -67,7 +61,6 @@
                 android:orientation="vertical"
                 android:padding="24dp">
 
-                <!-- 单词卡片 -->
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -83,7 +76,6 @@
                         android:padding="40dp"
                         android:gravity="center">
 
-                        <!-- 单词 -->
                         <TextView
                             android:id="@+id/tv_word"
                             android:layout_width="match_parent"
@@ -96,7 +88,6 @@
                             android:gravity="center"
                             android:layout_marginBottom="12dp" />
 
-                        <!-- 音标 -->
                         <TextView
                             android:id="@+id/tv_phonetic"
                             android:layout_width="wrap_content"
@@ -107,14 +98,12 @@
                             android:layout_gravity="center"
                             android:layout_marginBottom="16dp" />
 
-                        <!-- 发音按钮、词性、单词出处 -->
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             android:gravity="center">
 
-                            <!-- 发音按钮 -->
                             <ImageButton
                                 android:id="@+id/btn_pronounce"
                                 android:layout_width="36dp"
@@ -124,7 +113,7 @@
                                 android:tint="@color/text_secondary"
                                 android:padding="7dp"
                                 android:scaleType="centerInside"
-                                android:contentDescription="播放发音"
+                                android:contentDescription="@string/play_pronunciation"
                                 android:layout_marginEnd="12dp" />
 
                             <TextView
@@ -156,7 +145,6 @@
 
                 </androidx.cardview.widget.CardView>
 
-                <!-- 释义 -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -168,7 +156,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="释义"
+                        android:text="@string/meaning"
                         android:textSize="12sp"
                         android:textStyle="bold"
                         android:textColor="@color/text_secondary"
@@ -180,14 +168,13 @@
                         android:id="@+id/tv_translation"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="单词，词语"
+                        android:text="@string/meaning"
                         android:textSize="18sp"
                         android:textColor="@color/text_primary"
                         android:lineSpacingExtra="4dp" />
 
                 </LinearLayout>
 
-                <!-- 例句 -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -198,7 +185,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="例句"
+                        android:text="@string/example_sentence"
                         android:textSize="12sp"
                         android:textStyle="bold"
                         android:textColor="@color/text_secondary"
@@ -225,7 +212,6 @@
 
     </LinearLayout>
 
-    <!-- 左侧侧边栏 -->
     <LinearLayout
         android:id="@+id/sidebar_container"
         android:layout_width="300dp"
@@ -234,18 +220,16 @@
         android:background="@color/sidebar_background"
         android:orientation="vertical">
 
-        <!-- 侧边栏头部 -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="24dp">
 
-            <!-- Logo -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="碎片单词"
+                android:text="@string/app_name"
                 android:textSize="20sp"
                 android:textStyle="normal"
                 android:textColor="@color/text_primary"
@@ -253,7 +237,6 @@
                 android:gravity="start"
                 android:layout_marginBottom="24dp" />
 
-            <!-- 搜索框 -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
@@ -281,7 +264,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:hint="搜索单词"
+                        android:hint="@string/search_word"
                         android:textSize="14sp"
                         android:textColor="@color/text_primary"
                         android:textColorHint="@color/text_secondary"
@@ -295,19 +278,17 @@
 
             </androidx.cardview.widget.CardView>
 
-            <!-- 生词数量 -->
             <TextView
                 android:id="@+id/tv_notebook_count"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="共 0 个生词"
+                android:text="@string/sidebar_notebook_count_default"
                 android:textSize="14sp"
                 android:textColor="@color/text_secondary"
                 android:layout_marginTop="16dp" />
 
         </LinearLayout>
 
-        <!-- 单词列表 -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_words"
             android:layout_width="match_parent"

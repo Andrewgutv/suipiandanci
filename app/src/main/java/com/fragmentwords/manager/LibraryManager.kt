@@ -38,7 +38,11 @@ class LibraryManager(private val context: Context) {
     suspend fun getAllLibraries(): List<LibraryInfo> = withContext(Dispatchers.IO) {
         val cached = getCachedLibraries()
         if (cached.isNotEmpty()) {
-            return@withContext cached
+            val merged = mergeWithBuiltInLibraries(cached)
+            if (merged != cached) {
+                saveLibraries(merged)
+            }
+            return@withContext merged
         }
 
         // 使用内置词库列表
@@ -254,6 +258,33 @@ class LibraryManager(private val context: Context) {
         val json = gson.toJson(libraries)
         prefs.edit().putString(KEY_LIBRARY_LIST, json).apply()
         Log.d(TAG, "Saved ${libraries.size} libraries")
+    }
+
+    private fun mergeWithBuiltInLibraries(cachedLibraries: List<LibraryInfo>): List<LibraryInfo> {
+        val cachedById = cachedLibraries.associateBy { normalizeLibraryId(it.id) }
+        val mergedLibraries = LibraryInfo.BUILT_IN_LIBRARIES.map { builtInLibrary ->
+            val cachedLibrary = cachedById[normalizeLibraryId(builtInLibrary.id)] ?: return@map builtInLibrary
+            builtInLibrary.copy(
+                size = cachedLibrary.size.takeIf { it > 0 } ?: builtInLibrary.size,
+                wordCount = cachedLibrary.wordCount.takeIf { it > 0 } ?: builtInLibrary.wordCount,
+                isDownloaded = if (builtInLibrary.isBuiltIn) true else cachedLibrary.isDownloaded,
+                isEnabled = cachedLibrary.isEnabled
+            )
+        }
+
+        val mergedById = mergedLibraries
+            .map { normalizeLibraryId(it.id) }
+            .toSet()
+        val extraLibraries = cachedLibraries.filter { normalizeLibraryId(it.id) !in mergedById }
+        return mergedLibraries + extraLibraries
+    }
+
+    private fun normalizeLibraryId(libraryId: String): String {
+        return if (libraryId.equals("grad", ignoreCase = true)) {
+            "advanced"
+        } else {
+            libraryId.lowercase()
+        }
     }
 
     /**

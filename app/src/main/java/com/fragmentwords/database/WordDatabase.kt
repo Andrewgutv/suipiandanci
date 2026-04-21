@@ -254,26 +254,72 @@ class WordDatabase(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, 
     fun addToNotebook(word: Word): Long {
         val db = writableDatabase
 
-        // 检查是否已存在
-        if (isInNotebook(word.word)) {
-            Log.d(TAG, "Word '${word.word}' already exists in notebook, skipping")
+        Log.d(TAG, "========== addToNotebook 开始 ==========")
+        Log.d(TAG, "单词: ${word.word}")
+        Log.d(TAG, "音标: ${word.phonetic}")
+        Log.d(TAG, "释义: ${word.translation}")
+        Log.d(TAG, "例句: ${word.example}")
+        Log.d(TAG, "难度: ${word.difficulty}")
+        Log.d(TAG, "词性: ${word.partOfSpeech}")
+        Log.d(TAG, "词库: ${word.library}")
+
+        try {
+            // 检查是否已存在
+            val exists = isInNotebook(word.word)
+            Log.d(TAG, "是否已存在: $exists")
+
+            if (exists) {
+                Log.d(TAG, "单词'${word.word}'已在生词本中，跳过")
+                return -1
+            }
+
+            // 构建数据
+            val values = ContentValues().apply {
+                put("word", word.word)
+                put("phonetic", word.phonetic)
+                put("translation", word.translation)
+                put("example", word.example)
+                put("difficulty", word.difficulty)
+                put("part_of_speech", word.partOfSpeech)
+                put("library", word.library)
+            }
+
+            Log.d(TAG, "ContentValues构建完成: ${values.size()} 个字段")
+
+            // 检查必填字段
+            if (word.word.isEmpty()) {
+                Log.e(TAG, "❌ 单词为空，无法添加！")
+                return -1
+            }
+
+            // 插入数据库
+            Log.d(TAG, "开始插入数据库...")
+            val result = db.insert(TABLE_NOTEBOOK, null, values)
+
+            if (result != -1L) {
+                Log.d(TAG, "✅ 成功插入数据库，ID: $result")
+            } else {
+                Log.e(TAG, "❌ 插入数据库失败！result = $result")
+            }
+
+            // 立即验证是否真的添加成功
+            val verifyExists = isInNotebook(word.word)
+            Log.d(TAG, "验证结果: 单词在生词本中 = $verifyExists")
+
+            if (!verifyExists) {
+                Log.e(TAG, "❌ 验证失败：单词不在生词本中！")
+            }
+
+            Log.d(TAG, "========== addToNotebook 结束 ==========")
+
+            return result
+
+        } catch (e: Exception) {
+            Log.e(TAG, "❌ addToNotebook异常: ${e.message}")
+            e.printStackTrace()
+            Log.e(TAG, "异常堆栈: ${e.stackTraceToString()}")
             return -1
         }
-
-        val values = ContentValues().apply {
-            put("word", word.word)
-            put("phonetic", word.phonetic)
-            put("translation", word.translation)
-            put("example", word.example)
-            put("difficulty", word.difficulty)
-            put("part_of_speech", word.partOfSpeech)
-            put("library", word.library)
-        }
-        val result = db.insertWithOnConflict(TABLE_NOTEBOOK, null, values, SQLiteDatabase.CONFLICT_REPLACE)
-        if (result != -1L) {
-            Log.d(TAG, "Added word '${word.word}' to notebook")
-        }
-        return result
     }
 
     /**

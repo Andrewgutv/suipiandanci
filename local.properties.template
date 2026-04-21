@@ -8,3 +8,6 @@
 # For customization when using a Version Control System, please read the
 # header note.
 #sdk.dir=C\:\\Users\\YourUsername\\AppData\\Local\\Android\\Sdk
+
+# Optional debug API base URL injected into BuildConfig by app/build.gradle.kts
+# debugApiBaseUrl=http://10.0.2.2:8080/

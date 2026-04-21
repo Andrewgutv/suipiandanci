@@ -9,18 +9,21 @@ import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ServiceInfo
+import android.os.DeadObjectException
 import android.os.Build
+import android.app.ForegroundServiceStartNotAllowedException
 import android.os.IBinder
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.ServiceCompat
 import androidx.media.app.NotificationCompat.MediaStyle
+import com.fragmentwords.MainActivity
 import com.fragmentwords.R
 import com.fragmentwords.data.WordRepository
 import com.fragmentwords.manager.LibraryManager
-import com.fragmentwords.manager.LearningManager
 import com.fragmentwords.model.Word
 import com.fragmentwords.receiver.WordActionReceiver
+import com.fragmentwords.utils.NotificationPermissionHelper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -34,11 +37,15 @@ class WordService : Service() {
         const val CHANNEL_ID = "word_channel"
         const val NOTIFICATION_ID = 1001
 
+        @Volatile
+        private var isRunning = false
+
         const val ACTION_SHOW_WORD = "com.fragmentwords.SHOW_WORD"
         const val ACTION_KNOWN = "com.fragmentwords.ACTION_KNOWN"
         const val ACTION_UNKNOWN = "com.fragmentwords.ACTION_UNKNOWN"
         const val ACTION_STOP = "com.fragmentwords.STOP_SERVICE"
 
+        const val EXTRA_WORD_ID = "extra_word_id"
         const val EXTRA_WORD = "extra_word"
         const val EXTRA_PHONETIC = "extra_phonetic"
         const val EXTRA_TRANSLATION = "extra_translation"
@@ -46,35 +53,48 @@ class WordService : Service() {
         const val EXTRA_DIFFICULTY = "extra_difficulty"
         const val EXTRA_PART_OF_SPEECH = "extra_part_of_speech"
         const val EXTRA_LIBRARY = "extra_library"
+        const val EXTRA_EXCLUDE_WORD = "extra_exclude_word"
 
         fun startService(context: Context) {
-            val intent = Intent(context, WordService::class.java)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && context !is Activity) {
-                context.startForegroundService(intent)
-            } else {
-                context.startService(intent)
-            }
+            startServiceIntent(context, Intent(context, WordService::class.java))
         }
 
         fun stopService(context: Context) {
             context.stopService(Intent(context, WordService::class.java))
         }
 
-        fun showNewWord(context: Context) {
-            val intent = Intent(context, WordService::class.java).apply {
+        fun showNewWord(context: Context, excludeWord: String? = null) {
+            startServiceIntent(context, Intent(context, WordService::class.java).apply {
                 action = ACTION_SHOW_WORD
+                putExtra(EXTRA_EXCLUDE_WORD, excludeWord)
+            })
+        }
+
+        private fun startServiceIntent(context: Context, intent: Intent) {
+            if (!NotificationPermissionHelper.canPostNotifications(context)) {
+                Log.w(TAG, "Skipping service start because notifications are not allowed")
+                return
             }
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && context !is Activity) {
-                context.startForegroundService(intent)
-            } else {
-                context.startService(intent)
+            try {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && context !is Activity && !isRunning) {
+                    context.startForegroundService(intent)
+                } else {
+                    context.startService(intent)
+                }
+            } catch (e: ForegroundServiceStartNotAllowedException) {
+                Log.e(TAG, "Foreground service start not allowed for action=${intent.action}", e)
+            } catch (e: SecurityException) {
+                Log.e(TAG, "Security exception while starting service for action=${intent.action}", e)
+            } catch (e: DeadObjectException) {
+                Log.e(TAG, "Process died while starting service for action=${intent.action}", e)
+            } catch (e: RuntimeException) {
+                Log.e(TAG, "Runtime exception while starting service for action=${intent.action}", e)
             }
         }
     }
 
     private val serviceScope = CoroutineScope(Dispatchers.Main + Job())
     private lateinit var repository: WordRepository
-    private lateinit var learningManager: LearningManager
     private lateinit var libraryManager: LibraryManager
     private lateinit var notificationManager: NotificationManager
     private var isFirstWord = true
@@ -83,16 +103,30 @@ class WordService : Service() {
 
     override fun onCreate() {
         super.onCreate()
+        isRunning = true
         Log.d(TAG, "WordService onCreate")
 
         repository = WordRepository(applicationContext)
-        learningManager = LearningManager(applicationContext)
         libraryManager = LibraryManager(applicationContext)
         notificationManager =
             getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
         createNotificationChannel()
-        startForegroundCompat(createPlaceholderNotification())
+        if (!NotificationPermissionHelper.canPostNotifications(this)) {
+            Log.w(TAG, "Notifications are not allowed, stopping service before foreground start")
+            stopSelf()
+            return
+        }
+
+        try {
+            startForegroundCompat(createPlaceholderNotification())
+        } catch (e: SecurityException) {
+            Log.e(TAG, "Cannot enter foreground without notification access", e)
+            stopSelf()
+        } catch (e: RuntimeException) {
+            Log.e(TAG, "Foreground start failed during service creation", e)
+            stopSelf()
+        }
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -102,11 +136,14 @@ class WordService : Service() {
                 return START_NOT_STICKY
             }
 
-            ACTION_SHOW_WORD -> scheduleUpdate(forceRefresh = true)
+            ACTION_SHOW_WORD -> scheduleUpdate(
+                forceRefresh = true,
+                excludeWord = intent.getStringExtra(EXTRA_EXCLUDE_WORD)
+            )
             null -> {
                 if (!initialLoadScheduled) {
                     initialLoadScheduled = true
-                    scheduleUpdate(forceRefresh = false)
+                    scheduleUpdate(forceRefresh = true)
                 } else {
                     Log.d(TAG, "Ignoring duplicate initial start command")
                 }
@@ -122,11 +159,12 @@ class WordService : Service() {
     override fun onDestroy() {
         updateJob?.cancel()
         serviceScope.cancel()
+        isRunning = false
         super.onDestroy()
         Log.d(TAG, "WordService onDestroy")
     }
 
-    private fun scheduleUpdate(forceRefresh: Boolean) {
+    private fun scheduleUpdate(forceRefresh: Boolean, excludeWord: String? = null) {
         if (updateJob?.isActive == true) {
             if (!forceRefresh) {
                 Log.d(TAG, "Skipping update because another update is already running")
@@ -137,7 +175,7 @@ class WordService : Service() {
 
         updateJob = serviceScope.launch {
             repository.initializeIfNeeded()
-            updateWordNotification(forceRefresh)
+            updateWordNotification(forceRefresh, excludeWord)
         }
     }
 
@@ -154,7 +192,7 @@ class WordService : Service() {
         }
     }
 
-    private suspend fun updateWordNotification(forceRefresh: Boolean) {
+    private suspend fun updateWordNotification(forceRefresh: Boolean, excludeWord: String?) {
         try {
             val enabledLibraryIds = libraryManager.getEnabledLibraryIds()
             val selectedLibraries = if (enabledLibraryIds.isEmpty()) {
@@ -163,14 +201,15 @@ class WordService : Service() {
                 enabledLibraryIds.map { it.uppercase() }
             }
 
-            val word = learningManager.getNextWord(selectedLibraries)
+            val effectiveExcludeWord = excludeWord ?: repository.getCurrentWord()?.word
+            val word = repository.getNextWordForNotification(selectedLibraries, effectiveExcludeWord)
             if (word == null) {
                 Log.w(TAG, "No words available for notification")
                 return
             }
 
             repository.saveCurrentWord(word)
-            notificationManager.notify(NOTIFICATION_ID, createWordNotification(word, isFirstWord))
+            startForegroundCompat(createWordNotification(word, isFirstWord))
             Log.d(TAG, "Updated word notification: ${word.word}, library=${word.library}, forceRefresh=$forceRefresh")
             isFirstWord = false
         } catch (e: Exception) {
@@ -217,6 +256,7 @@ class WordService : Service() {
             unknownIntent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
+        val contentPendingIntent = createContentPendingIntent()
 
         val contentText = buildString {
             append(word.phonetic)
@@ -241,8 +281,10 @@ class WordService : Service() {
             .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setCategory(NotificationCompat.CATEGORY_RECOMMENDATION)
+            .setOnlyAlertOnce(true)
             .setOngoing(false)
             .setAutoCancel(false)
+            .setContentIntent(contentPendingIntent)
             .addAction(android.R.drawable.ic_menu_add, getString(R.string.action_known), knownPendingIntent)
             .addAction(android.R.drawable.ic_menu_delete, getString(R.string.action_unknown), unknownPendingIntent)
 
@@ -255,6 +297,7 @@ class WordService : Service() {
     }
 
     private fun Intent.putWordExtras(word: Word) {
+        putExtra(EXTRA_WORD_ID, word.remoteId ?: -1L)
         putExtra(EXTRA_WORD, word.word)
         putExtra(EXTRA_PHONETIC, word.phonetic)
         putExtra(EXTRA_TRANSLATION, word.translation)
@@ -272,6 +315,19 @@ class WordService : Service() {
             .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
             .setPriority(NotificationCompat.PRIORITY_LOW)
             .setOngoing(true)
+            .setContentIntent(createContentPendingIntent())
             .build()
+    }
+
+    private fun createContentPendingIntent(): PendingIntent {
+        val contentIntent = Intent(this, MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+        }
+        return PendingIntent.getActivity(
+            this,
+            2,
+            contentIntent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
     }
 }

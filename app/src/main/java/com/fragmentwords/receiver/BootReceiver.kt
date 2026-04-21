@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import com.fragmentwords.utils.AlarmScheduler
+import com.fragmentwords.utils.NotificationPermissionHelper
 import com.fragmentwords.utils.WorkManagerScheduler
 
 class BootReceiver : BroadcastReceiver() {
@@ -21,10 +22,12 @@ class BootReceiver : BroadcastReceiver() {
             "android.intent.action.QUICKBOOT_POWERON" -> {
                 val prefs = context.getSharedPreferences("word_prefs", Context.MODE_PRIVATE)
                 val enabled = prefs.getBoolean("notification_enabled", false)
-                if (enabled) {
+                if (enabled && NotificationPermissionHelper.canPostNotifications(context)) {
                     val scheduled = AlarmScheduler.schedulePeriodicAlarm(context)
                     WorkManagerScheduler.cancelRefresh(context)
                     Log.d(TAG, "Schedules restored after boot: scheduled=$scheduled")
+                } else if (enabled) {
+                    Log.d(TAG, "Notifications unavailable after boot, skip restoring schedules")
                 }
             }
         }

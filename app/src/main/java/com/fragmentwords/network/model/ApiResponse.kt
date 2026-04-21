@@ -1,5 +1,6 @@
 package com.fragmentwords.network.model
 
+import com.google.gson.JsonElement
 import com.google.gson.annotations.SerializedName
 
 /**
@@ -87,7 +88,7 @@ data class LearningResponse(
     val stageDescription: String?,
 
     @SerializedName("nextReviewTime")
-    val nextReviewTime: String?,
+    val nextReviewTime: JsonElement?,
 
     @SerializedName("timeUntilReview")
     val timeUntilReview: String?,
@@ -126,6 +127,56 @@ data class ProgressStatsResponse(
 
     @SerializedName("masteryRate")
     val masteryRate: Int
+)
+
+data class VocabSelectionResponse(
+    @SerializedName("vocabId")
+    val vocabId: Long?
+)
+
+data class VocabSelectRequest(
+    @SerializedName("vocabId")
+    val vocabId: Long
+)
+
+data class NotebookItemResponse(
+    @SerializedName("wordId")
+    val wordId: Long,
+
+    @SerializedName("word")
+    val word: String,
+
+    @SerializedName("phonetic")
+    val phonetic: String?,
+
+    @SerializedName("translation")
+    val translation: String,
+
+    @SerializedName("example")
+    val example: String?,
+
+    @SerializedName("vocabId")
+    val vocabId: Long?,
+
+    @SerializedName("vocabName")
+    val vocabName: String?,
+
+    @SerializedName("addedAt")
+    val addedAt: JsonElement?
+)
+
+data class NotebookPageResponse(
+    @SerializedName("pageNum")
+    val pageNum: Int,
+
+    @SerializedName("pageSize")
+    val pageSize: Int,
+
+    @SerializedName("total")
+    val total: Long,
+
+    @SerializedName("items")
+    val items: List<NotebookItemResponse>
 )
 
 /**

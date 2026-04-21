@@ -31,7 +31,7 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:src="@android:drawable/ic_menu_revert"
                 android:tint="@color/text_primary"
-                android:contentDescription="返回"
+                android:contentDescription="@string/back"
                 android:padding="12dp" />
 
             <!-- 标题 -->
@@ -39,7 +39,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="选择词库"
+                android:text="@string/title_select_library"
                 android:textSize="18sp"
                 android:textStyle="normal"
                 android:textColor="@color/text_primary"
@@ -87,7 +87,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="四级词库"
+                        android:text="@string/default_library_name"
                         android:textSize="16sp"
                         android:textStyle="normal"
                         android:textColor="@color/text_primary" />
@@ -247,7 +247,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="GRE词库"
+                        android:text="GRE 词库"
                         android:textSize="16sp"
                         android:textStyle="normal"
                         android:textColor="@color/text_primary" />
@@ -313,7 +313,7 @@
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_margin="24dp"
-            android:text="确认选择"
+            android:text="@string/confirm_selection"
             android:textColor="@color/white"
             android:textSize="16sp"
             app:backgroundTint="@color/primary"

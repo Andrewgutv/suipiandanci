@@ -62,7 +62,10 @@ class LearningManager(context: Context) {
      * @param libraries 选择的词库
      * @return 下一个单词
      */
-    suspend fun getNextWord(libraries: List<String>): Word? = withContext(Dispatchers.IO) {
+    suspend fun getNextWord(
+        libraries: List<String>,
+        excludeWord: String? = null
+    ): Word? = withContext(Dispatchers.IO) {
         // 1. 获取需要复习的单词
         val reviewWords = if (libraries.isEmpty()) {
             database.getWordsToReview(limit = 10)
@@ -72,16 +75,17 @@ class LearningManager(context: Context) {
 
         if (reviewWords.isNotEmpty()) {
             // 从复习单词中随机选择一个
-            val randomWord = reviewWords.random()
+            val reviewPool = reviewWords.filterNot { it == excludeWord }.ifEmpty { reviewWords }
+            val randomWord = reviewPool.random()
             Log.d(tag, "Reviewing word: $randomWord")
             return@withContext database.getWordByName(randomWord)
         }
 
         // 2. 没有需要复习的单词，选择新单词
         val newWord = if (libraries.isEmpty()) {
-            database.getRandomWord()
+            database.getRandomWord(excludeWord)
         } else {
-            database.getRandomWordByLibraries(libraries)
+            database.getRandomWordByLibraries(libraries, excludeWord)
         }
 
         // 初始化新单词的学习进度

@@ -1,142 +1,129 @@
-﻿# Fragment Words Current Status
+# Fragment Words Current Status
 
-This file reflects the current usable state of the repository after the latest Android cleanup and emulator validation pass.
+This file reflects the repository state after the Android-to-backend integration baseline was completed on April 19, 2026.
 
 ## Overview
 
-This repository contains three parallel lines of work:
+The repository now has two active product tracks:
 
-- `app/`: the active native Android app written in Kotlin
-- `backend/`: a Spring Boot backend that is still only partially integrated into the Android flow
-- `fragment-words/`: an older uni-app prototype and no longer the main run path
+- `app/`: the native Android client mainline
+- `backend/`: the Spring Boot API mainline
 
-The only path that should currently be treated as the runnable mainline is the native Android app in `app/`.
+The old `fragment-words/` uni-app prototype remains historical and is not the product mainline.
 
-## Current Mainline Status
+## Current Project Phase
 
-The Android app is now in a beta-usable state for the local offline flow.
+The project is no longer in the "local Android prototype" stage.
 
-The following core loop is working on the current mainline:
+It is now in a release-prep integration stage:
+
+- Android local learning loop is beta-usable
+- backend core API routes are live and callable
+- one real Android-to-backend learning path has been verified end-to-end
+- local development smoke scripts now exist for repeated validation
+
+## Android Mainline Status
+
+The Android app is currently beta-usable and supports both:
+
+- local fallback behavior
+- backend-first integration behavior on the core learning path
+
+Working Android capabilities:
 
 - local word library loading from `app/src/main/assets/data/`
-- local SQLite storage for words, notebook entries, and learning progress
+- local SQLite notebook and learning progress fallback
 - notification-based word cards
-- known / unknown feedback actions
-- notebook persistence and reading
+- `known / unknown` actions
+- notebook display inside the app
 - local Ebbinghaus-style review scheduling
-- basic multi-library framework
+- multi-library switching
+- push on/off runtime cleanup
+- backend-first next-word fetch
+- backend-first notebook count/list read
+- backend feedback sync for `known / unknown`
+- backend current-vocab sync
 
-Important code paths:
+Latest debug APK path:
 
-- `app/src/main/java/com/fragmentwords/service/WordService.kt`
-- `app/src/main/java/com/fragmentwords/receiver/WordActionReceiver.kt`
-- `app/src/main/java/com/fragmentwords/receiver/ScreenUnlockReceiver.kt`
-- `app/src/main/java/com/fragmentwords/HomeFragment.kt`
-- `app/src/main/java/com/fragmentwords/NotebookFragment.kt`
-- `app/src/main/java/com/fragmentwords/manager/LearningManager.kt`
-- `app/src/main/java/com/fragmentwords/data/WordRepository.kt`
-- `app/src/main/java/com/fragmentwords/database/WordDatabase.kt`
+- `app/build/outputs/apk/debug/app-debug.apk`
 
-## What Was Verified In This Pass
+## Backend Mainline Status
 
-### Build and install
+The backend is no longer only under route standardization. The core integration slice is now running.
 
-- `:app:compileDebugKotlin` passed
-- `:app:installDebug` passed
-- the app launched successfully on the configured emulator
+Active route families:
 
-### Functional checks confirmed
+- `/api/v1/auth`
+- `/api/v1/vocabs`
+- `/api/v1/notebook`
+- `/api/v1/learning`
 
-- the home screen renders and shows push state, selected library, and notebook count
-- the notification card is generated and includes known / unknown actions
-- tapping `unknown` reaches the receiver path and stores notebook data locally
-- notebook data can be read back by `NotebookFragment`
-- the notebook screen can display real stored words
-- duplicate notification update spam during startup was reduced to a single effective update
+Verified backend behaviors:
 
-### Data points observed during emulator validation
+- `GET /api/v1/vocabs`
+- `GET /api/v1/vocabs/current`
+- `PUT /api/v1/vocabs/current`
+- `GET /api/v1/notebook/count`
+- `GET /api/v1/notebook`
+- `POST /api/v1/notebook`
+- `POST /api/v1/learning/next`
+- `POST /api/v1/learning/feedback`
+- `GET /api/v1/learning/stats`
 
-- notebook data included words such as `article` and `blast`
-- the home screen showed `生词本：2 个单词`
-- `NotebookFragment` logged successful loading and display of notebook words
+Recent backend cleanup also improved response behavior:
 
-## What Is Improved Compared To The Earlier State
+- UTF-8 JSON response headers are explicit
+- unauthorized requests now return JSON `Result`
+- internal server errors now return JSON `Result`
+- auth info endpoint is now guarded by `@RequireAuth`
 
-The following parts were actively tightened during the latest cleanup pass:
+Backend compile status:
 
-- notification action handling was rewritten to avoid blocking receiver execution
-- word data passed through notification actions is now more complete
-- notebook screen refresh logic was tightened and made more deterministic
-- home screen push state handling and service scheduling logic were unified
-- unlock refresh timing logic was simplified and rate-limited
-- startup duplication in `WordService` was reduced
-- several mainline Kotlin files and visible strings were cleaned up from corrupted / noisy state
+```powershell
+cmd /c "C:\apache-maven-3.9.9\bin\mvn.cmd" -q -DskipTests compile
+```
 
-## Remaining Known Risk
+## What Was Verified
 
-There is still one notable runtime warning in the emulator environment:
+The following are verified in the current repository state:
 
-- Android logs may still show a foreground-service type warning when `WordService` starts
+- Android `:app:compileDebugKotlin` passes
+- Android `:app:assembleDebug` passes
+- backend `mvn -q -DskipTests compile` passes
+- Android emulator smoke path can install and launch through local scripts
+- notification `unknown` action automation script can reach backend and verify notebook/stats deltas
+- unauthenticated `/api/v1/auth/info/{userId}` returns JSON `401`
 
-Current judgment:
+## Remaining High-Priority Risk
 
-- this warning is not currently blocking the core local product loop
-- it appears to be an Android 14/15 emulator compatibility tail rather than a full functional failure
-- it should still be treated as unfinished engineering work before calling the app fully stabilized
+These are the meaningful open risks now:
 
-## What Is Not Fully Closed Yet
-
-These areas should still be considered incomplete:
-
-- backend-driven learning flow
-- login / registration end-to-end product flow
-- cloud sync across devices
-- online vocabulary download as the default path
-- full real-device validation of notification and foreground-service behavior
-- complete cleanup of all historical repo noise outside the active Android mainline
+- full real-device validation of Android notification and foreground-service behavior is still incomplete
+- backend startup currently depends on correct local MySQL credentials being injected at runtime
+- `UserServiceImpl` exception semantics still need cleanup so auth/register conflicts map cleanly without controller-local translation
+- release build validation is still blocked by local Gradle wrapper/cache environment issues
+- cloud sync and multi-device account behavior remain unfinished
 
 ## Recommended Next Step
 
-The most practical next step is not another large code rewrite.
+Do not do another broad rewrite.
 
-Recommended order:
+Recommended order from here:
 
-1. run a short real-device validation pass for the current Android app
-2. verify the `known` path end to end: action -> progress update -> unlock refresh once
-3. verify the `unknown` path end to end: action -> notebook write -> notebook page visible
-4. only then decide whether the remaining foreground-service warning needs another compatibility pass
-
-## Recommended Run Path
-
-### Path A: Native Android local mode
-
-This is the recommended way to run the project.
-
-Prerequisites:
-
-- Android Studio
-- Android SDK 34+
-- JDK 17 or Android Studio bundled runtime
-- a valid `local.properties`
-
-Steps:
-
-1. Open `D:\workspace\app` in Android Studio.
-2. Confirm `local.properties` points `sdk.dir` to your Android SDK.
-3. Let Gradle sync finish.
-4. Run the `app` module on an emulator or Android device.
-5. Grant notification permission on first launch.
-6. Turn on push from the home screen and test the notification / notebook flow.
-
-### Path B: Backend inspection only
-
-You can still run `backend/` independently for development or inspection, but it is not yet the stable mainline for the Android app.
+1. finish release-prep environment cleanup
+   - stable local DB startup path
+   - stable release API URL injection
+   - repeatable release build validation
+2. run a short real-device validation pass
+3. finish backend auth semantics cleanup
+4. then trim remaining local-only fallback assumptions where backend is now primary
 
 ## Practical Summary
 
-If someone asks whether the current Android app is usable, the honest answer is:
+If someone asks where the project stands right now, the accurate answer is:
 
-- yes for the local notification + notebook learning loop
-- not yet fully closed as a polished production-ready app
-- backend integration and full device compatibility remain unfinished
-
+- Android mainline: beta-usable
+- backend mainline: core API slice is live
+- integration status: core Android-to-backend learning path is already connected and verified
+- overall project: in release-prep integration cleanup, not prototype discovery

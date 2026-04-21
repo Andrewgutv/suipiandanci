@@ -14,7 +14,7 @@
 ### 1. 用户注册
 
 ```bash
-curl -X POST http://localhost:8080/api/user/register \
+curl -X POST http://localhost:8080/api/v1/auth/register \
   -H "Content-Type: application/json" \
   -d '{"username":"testuser","password":"123456","phone":"13800138000"}'
 ```
@@ -40,7 +40,7 @@ curl -X POST http://localhost:8080/api/user/register \
 ### 2. 用户登录
 
 ```bash
-curl -X POST http://localhost:8080/api/user/login \
+curl -X POST http://localhost:8080/api/v1/auth/login \
   -H "Content-Type: application/json" \
   -d '{"username":"testuser","password":"123456"}'
 ```
@@ -66,9 +66,9 @@ curl -X POST http://localhost:8080/api/user/login \
 ### 3. 获取下一个单词（艾宾浩斯算法）
 
 ```bash
-curl -X POST http://localhost:8080/api/learning/next \
+curl -X POST http://localhost:8080/api/v1/learning/next \
   -H "Content-Type: application/json" \
-  -H "X-Device-ID: test_device_001"
+  -H "X-Device-Id: test_device_001"
 ```
 
 **预期结果**:
@@ -106,9 +106,9 @@ curl -X POST http://localhost:8080/api/learning/next \
 ### 4. 提交学习反馈
 
 ```bash
-curl -X POST http://localhost:8080/api/learning/feedback \
+curl -X POST http://localhost:8080/api/v1/learning/feedback \
   -H "Content-Type: application/json" \
-  -H "X-Device-ID: test_device_001" \
+  -H "X-Device-Id: test_device_001" \
   -d '{"wordId":94,"isKnown":true}'
 ```
 
@@ -142,8 +142,8 @@ curl -X POST http://localhost:8080/api/learning/feedback \
 ### 5. 获取学习统计
 
 ```bash
-curl -X GET http://localhost:8080/api/learning/stats \
-  -H "X-Device-ID: test_device_001"
+curl -X GET http://localhost:8080/api/v1/learning/stats \
+  -H "X-Device-Id: test_device_001"
 ```
 
 **预期结果**:

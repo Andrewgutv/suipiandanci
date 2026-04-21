@@ -1,24 +1,61 @@
 ﻿package com.fragmentwords
 
-import android.content.Context
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Switch
 import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import com.fragmentwords.data.WordRepository
 import com.fragmentwords.service.WordService
 import com.fragmentwords.utils.AlarmScheduler
+import com.fragmentwords.utils.AppPreferences
+import com.fragmentwords.utils.LibrarySelection
+import com.fragmentwords.utils.NotificationPermissionHelper
 import com.fragmentwords.utils.WorkManagerScheduler
+import kotlinx.coroutines.launch
 
 class SettingsFragment : Fragment() {
 
+    private lateinit var repository: WordRepository
     private lateinit var switchPush: Switch
     private lateinit var tvCurrentLibrary: TextView
     private var suppressSwitchCallback = false
+    private var pendingEnableAfterPermission = false
+
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted ->
+        if (isGranted) {
+            if (pendingEnableAfterPermission) {
+                if (NotificationPermissionHelper.canPostNotifications(requireContext())) {
+                    applyPushEnabled(true)
+                } else {
+                    pendingEnableAfterPermission = false
+                    applySwitchState(false)
+                    AppPreferences.setNotificationEnabled(requireContext(), false)
+                    showPermissionGuideDialog()
+                }
+            }
+        } else {
+            pendingEnableAfterPermission = false
+            applySwitchState(false)
+            AppPreferences.setNotificationEnabled(requireContext(), false)
+            showPermissionGuideDialog()
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,6 +67,7 @@ class SettingsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        repository = WordRepository(requireContext())
         initViews(view)
         setupClickListeners(view)
         loadSettings()
@@ -63,46 +101,115 @@ class SettingsFragment : Fragment() {
     }
 
     private fun loadSettings() {
-        val prefs = requireContext().getSharedPreferences("word_prefs", Context.MODE_PRIVATE)
-        val pushEnabled = prefs.getBoolean("notification_enabled", false)
-        val selectedLibraries = prefs.getStringSet("selected_libraries", null)
-        val libraryName = when {
-            selectedLibraries?.size == 1 && selectedLibraries.contains("ADVANCED") -> "高级词库"
-            selectedLibraries?.size == 1 && selectedLibraries.contains("CET4") -> "四级词库"
-            selectedLibraries?.size == 1 && selectedLibraries.contains("CET6") -> "六级词库"
-            selectedLibraries?.size == 1 && selectedLibraries.contains("IELTS") -> "雅思词库"
-            selectedLibraries?.size == 1 && selectedLibraries.contains("TOEFL") -> "托福词库"
-            selectedLibraries?.size == 1 && selectedLibraries.contains("GRE") -> "GRE 词库"
-            (selectedLibraries?.size ?: 0) > 1 -> "多个词库"
-            else -> "四级词库"
+        applySwitchState(AppPreferences.isNotificationEnabled(requireContext()))
+        lifecycleScope.launch {
+            repository.initializeIfNeeded()
+            val selectedLibraries = repository.getSelectedLibraries()
+            tvCurrentLibrary.text = LibrarySelection.getDisplayName(selectedLibraries)
         }
-
-        suppressSwitchCallback = true
-        switchPush.isChecked = pushEnabled
-        suppressSwitchCallback = false
-        tvCurrentLibrary.text = libraryName
     }
 
     private fun onPushToggleChanged(enabled: Boolean) {
-        val prefs = requireContext().getSharedPreferences("word_prefs", Context.MODE_PRIVATE)
-        prefs.edit().putBoolean("notification_enabled", enabled).apply()
+        if (enabled) {
+            requestEnablePush()
+        } else {
+            applyPushEnabled(false)
+        }
+    }
+
+    private fun requestEnablePush() {
+        if (NotificationPermissionHelper.canPostNotifications(requireContext())) {
+            applyPushEnabled(true)
+            return
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
+            !NotificationPermissionHelper.hasRuntimePermission(requireContext())
+        ) {
+            showPermissionConsentDialog()
+        } else {
+            showPermissionGuideDialog()
+        }
+    }
+
+    private fun applyPushEnabled(enabled: Boolean) {
+        pendingEnableAfterPermission = false
+        AppPreferences.setNotificationEnabled(requireContext(), enabled)
 
         if (enabled) {
+            if (!NotificationPermissionHelper.canPostNotifications(requireContext())) {
+                applySwitchState(false)
+                return
+            }
             WordService.startService(requireContext())
             AlarmScheduler.schedulePeriodicAlarm(requireContext())
             WorkManagerScheduler.cancelRefresh(requireContext())
+            Toast.makeText(requireContext(), getString(R.string.push_enabled_toast), Toast.LENGTH_SHORT).show()
         } else {
             WordService.stopService(requireContext())
             AlarmScheduler.cancelAlarms(requireContext())
             WorkManagerScheduler.cancelRefresh(requireContext())
+            repository.clearCurrentWord()
+            AppPreferences.clearNotificationRuntimeState(requireContext())
+            Toast.makeText(requireContext(), getString(R.string.push_disabled_toast), Toast.LENGTH_SHORT).show()
+        }
+
+        applySwitchState(enabled)
+    }
+
+    private fun applySwitchState(enabled: Boolean) {
+        suppressSwitchCallback = true
+        switchPush.isChecked = enabled
+        suppressSwitchCallback = false
+    }
+
+    private fun showPermissionConsentDialog() {
+        AlertDialog.Builder(requireContext())
+            .setTitle(R.string.title_notification_permission)
+            .setMessage(R.string.permission_consent_message)
+            .setPositiveButton(R.string.confirm) { _, _ ->
+                pendingEnableAfterPermission = true
+                requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+            }
+            .setNegativeButton(android.R.string.cancel) { _, _ ->
+                pendingEnableAfterPermission = false
+                applySwitchState(false)
+                AppPreferences.setNotificationEnabled(requireContext(), false)
+            }
+            .show()
+    }
+
+    private fun showPermissionGuideDialog() {
+        AlertDialog.Builder(requireContext())
+            .setTitle(R.string.title_notification_permission)
+            .setMessage(R.string.permission_message)
+            .setPositiveButton(R.string.go_to_settings) { _, _ -> openNotificationSettings() }
+            .setNegativeButton(android.R.string.cancel, null)
+            .show()
+    }
+
+    private fun openNotificationSettings() {
+        try {
+            val intent = Intent().apply {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    action = Settings.ACTION_APP_NOTIFICATION_SETTINGS
+                    putExtra(Settings.EXTRA_APP_PACKAGE, requireContext().packageName)
+                } else {
+                    action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+                    data = Uri.parse("package:${requireContext().packageName}")
+                }
+            }
+            startActivity(intent)
+        } catch (_: Exception) {
+            Toast.makeText(requireContext(), getString(R.string.open_settings_failed), Toast.LENGTH_SHORT).show()
         }
     }
 
     private fun showAboutDialog() {
         AlertDialog.Builder(requireContext())
-            .setTitle("关于碎片单词")
-            .setMessage("碎片单词 v2.1.0\n\n一款利用碎片时间积累词汇的英语学习应用。")
-            .setPositiveButton("确定", null)
+            .setTitle(R.string.title_about_app)
+            .setMessage(R.string.about_app_message)
+            .setPositiveButton(R.string.confirm, null)
             .show()
     }
 }

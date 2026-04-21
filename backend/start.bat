@@ -23,11 +23,11 @@ echo.
 
 REM 检查MySQL连接
 echo [2/4] 检查MySQL数据库连接...
-mysql -uroot -p123456 -e "USE fragment_words;" >nul 2>&1
+mysql -uroot -padmin123 -P3307 -e "USE fragment_words;" >nul 2>&1
 if %errorlevel% neq 0 (
     echo [警告] 无法连接到MySQL数据库
     echo 请确保MySQL已启动，并执行以下操作：
-    echo   1. 创建数据库：mysql -uroot -p123456
+    echo   1. 创建数据库：mysql -uroot -padmin123 -P3307
     echo   2. 执行脚本：source backend/src/main/resources/sql/init.sql
     echo.
     set /p continue="是否继续启动？(Y/N): "
@@ -67,6 +67,6 @@ echo 按 Ctrl+C 可停止服务
 echo ============================================
 echo.
 
-call %MAVEN_CMD% spring-boot:run
+call %MAVEN_CMD% -Dmaven.repo.local=%CD%\.m2repo org.springframework.boot:spring-boot-maven-plugin:3.3.4:run
 
 pause

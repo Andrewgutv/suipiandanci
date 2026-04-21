@@ -23,6 +23,9 @@ import androidx.lifecycle.lifecycleScope
 import com.fragmentwords.data.WordRepository
 import com.fragmentwords.service.WordService
 import com.fragmentwords.utils.AlarmScheduler
+import com.fragmentwords.utils.AppPreferences
+import com.fragmentwords.utils.LibrarySelection
+import com.fragmentwords.utils.NotificationPermissionHelper
 import com.fragmentwords.utils.WorkManagerScheduler
 import kotlinx.coroutines.launch
 
@@ -52,8 +55,13 @@ class HomeFragment : Fragment() {
     ) { isGranted ->
         if (isGranted) {
             if (pendingEnableAfterPermission) {
-                enablePush(showToast = true)
-            } else if (readPushEnabledFromPrefs()) {
+                if (NotificationPermissionHelper.canPostNotifications(requireContext())) {
+                    enablePush(showToast = true)
+                } else {
+                    pendingEnableAfterPermission = false
+                    showPermissionGuideDialog()
+                }
+            } else if (readPushEnabledFromPrefs() && NotificationPermissionHelper.canPostNotifications(requireContext())) {
                 syncPushRuntime(enabled = true)
                 runtimeSyncedThisView = true
             }
@@ -118,16 +126,17 @@ class HomeFragment : Fragment() {
     }
 
     private fun requestEnablePush() {
-        if (hasNotificationPermission()) {
+        if (NotificationPermissionHelper.canPostNotifications(requireContext())) {
             enablePush(showToast = true)
             return
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            pendingEnableAfterPermission = true
-            requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
+            !NotificationPermissionHelper.hasRuntimePermission(requireContext())
+        ) {
+            showPermissionConsentDialog()
         } else {
-            enablePush(showToast = true)
+            showPermissionGuideDialog()
         }
     }
 
@@ -141,7 +150,7 @@ class HomeFragment : Fragment() {
         updateUI()
 
         if (showToast) {
-            Toast.makeText(requireContext(), "已开启单词推送", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), getString(R.string.push_enabled_toast), Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -155,12 +164,15 @@ class HomeFragment : Fragment() {
         updateUI()
 
         if (showToast) {
-            Toast.makeText(requireContext(), "已关闭单词推送", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), getString(R.string.push_disabled_toast), Toast.LENGTH_SHORT).show()
         }
     }
 
     private fun syncPushRuntime(enabled: Boolean) {
         if (enabled) {
+            if (!NotificationPermissionHelper.canPostNotifications(requireContext())) {
+                return
+            }
             WordService.startService(requireContext())
             AlarmScheduler.schedulePeriodicAlarm(requireContext())
             WorkManagerScheduler.cancelRefresh(requireContext())
@@ -169,16 +181,8 @@ class HomeFragment : Fragment() {
             AlarmScheduler.cancelAlarms(requireContext())
             WorkManagerScheduler.cancelRefresh(requireContext())
             repository.clearCurrentWord()
-            clearRuntimeFlags()
+            AppPreferences.clearNotificationRuntimeState(requireContext())
         }
-    }
-
-    private fun clearRuntimeFlags() {
-        prefs().edit()
-            .remove(KEY_LAST_REFRESH_TIME)
-            .remove(KEY_JUST_CLICKED)
-            .remove(KEY_CLICK_TIME)
-            .apply()
     }
 
     private fun ensurePermissionStateOnEntry() {
@@ -186,23 +190,27 @@ class HomeFragment : Fragment() {
             return
         }
 
-        if (hasNotificationPermission()) {
+        if (NotificationPermissionHelper.canPostNotifications(requireContext())) {
             syncPushRuntime(enabled = true)
             runtimeSyncedThisView = true
-            return
-        }
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
         }
     }
 
-    private fun hasNotificationPermission(): Boolean {
-        return Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU ||
-            ContextCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.POST_NOTIFICATIONS
-            ) == PackageManager.PERMISSION_GRANTED
+    private fun showPermissionConsentDialog() {
+        AlertDialog.Builder(requireContext())
+            .setTitle(R.string.title_notification_permission)
+            .setMessage(R.string.permission_consent_message)
+            .setPositiveButton(R.string.confirm) { _, _ ->
+                pendingEnableAfterPermission = true
+                requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+            }
+            .setNegativeButton(android.R.string.cancel) { _, _ ->
+                pendingEnableAfterPermission = false
+                persistPushEnabled(false)
+                refreshPushStateFromPrefs()
+                updateUI()
+            }
+            .show()
     }
 
     private fun refreshPushStateFromPrefs() {
@@ -247,40 +255,30 @@ class HomeFragment : Fragment() {
 
     private fun updateUI() {
         lifecycleScope.launch {
-            val notebookCount = repository.getNotebookCount()
+            val notebookCount = repository.getNotebookCountRemoteFirst()
             val selectedLibraries = repository.getSelectedLibraries()
             val libraryName = getLibraryDisplayName(selectedLibraries)
 
             tvStatus.text = if (isPushEnabled) {
-                "单词推送已开启"
+                getString(R.string.push_status_enabled)
             } else {
-                "单词推送未开启"
+                getString(R.string.push_status_disabled)
             }
-            tvLibraryInfo.text = "当前词库：$libraryName"
-            tvNotebookInfo.text = "生词本：$notebookCount 个单词"
+            tvLibraryInfo.text = getString(R.string.current_library_format, libraryName)
+            tvNotebookInfo.text = getString(R.string.notebook_count_format, notebookCount)
         }
     }
 
     private fun getLibraryDisplayName(selectedLibraries: List<String>): String {
-        return when {
-            selectedLibraries.isEmpty() -> "四级词库"
-            selectedLibraries.size > 1 -> "多个词库"
-            selectedLibraries[0] == "ADVANCED" -> "高级词库"
-            selectedLibraries[0] == "CET4" -> "四级词库"
-            selectedLibraries[0] == "CET6" -> "六级词库"
-            selectedLibraries[0] == "IELTS" -> "雅思词库"
-            selectedLibraries[0] == "TOEFL" -> "托福词库"
-            selectedLibraries[0] == "GRE" -> "GRE 词库"
-            else -> selectedLibraries[0]
-        }
+        return LibrarySelection.getDisplayName(selectedLibraries)
     }
 
     private fun showPermissionGuideDialog() {
         AlertDialog.Builder(requireContext())
-            .setTitle("需要通知权限")
-            .setMessage("碎片单词需要通知权限才能在锁屏和通知栏展示单词卡片。")
-            .setPositiveButton("去设置") { _, _ -> openNotificationSettings() }
-            .setNegativeButton("取消", null)
+            .setTitle(R.string.title_notification_permission)
+            .setMessage(R.string.permission_message)
+            .setPositiveButton(R.string.go_to_settings) { _, _ -> openNotificationSettings() }
+            .setNegativeButton(android.R.string.cancel, null)
             .show()
     }
 
@@ -297,7 +295,8 @@ class HomeFragment : Fragment() {
             }
             startActivity(intent)
         } catch (_: Exception) {
-            Toast.makeText(requireContext(), "无法打开设置页面", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), getString(R.string.open_settings_failed), Toast.LENGTH_SHORT).show()
         }
     }
 }
+

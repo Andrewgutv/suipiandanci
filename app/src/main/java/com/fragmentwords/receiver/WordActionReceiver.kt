@@ -10,6 +10,7 @@ import com.fragmentwords.data.WordRepository
 import com.fragmentwords.manager.LearningManager
 import com.fragmentwords.model.Word
 import com.fragmentwords.service.WordService
+import com.fragmentwords.utils.AppPreferences
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -69,7 +70,10 @@ class WordActionReceiver : BroadcastReceiver() {
                 Log.d(TAG, "Learning advice: $advice")
 
                 repository.clearCurrentWord()
-                cancelNotification(context)
+                if (AppPreferences.isNotificationEnabled(context)) {
+                    WordService.showNewWord(context, word.word)
+                }
+                repository.syncWordFeedback(word, isKnown = true)
             } catch (e: Exception) {
                 Log.e(TAG, "Error handling known action", e)
             } finally {
@@ -93,10 +97,13 @@ class WordActionReceiver : BroadcastReceiver() {
                 Log.d(TAG, "Learning advice: $advice")
 
                 val inserted = repository.addToNotebook(word)
-                val existsInNotebook = repository.getNotebookWords().any { it.word == word.word }
+                val existsInNotebook = inserted || repository.getNotebookWords().any { it.word == word.word }
 
                 repository.clearCurrentWord()
-                cancelNotification(context)
+                if (AppPreferences.isNotificationEnabled(context)) {
+                    WordService.showNewWord(context, word.word)
+                }
+                repository.syncWordFeedback(word, isKnown = false)
                 showUnknownResultToast(context, inserted, existsInNotebook)
             } catch (e: Exception) {
                 Log.e(TAG, "Error handling unknown action", e)
@@ -112,12 +119,6 @@ class WordActionReceiver : BroadcastReceiver() {
             .putBoolean("just_clicked_button", true)
             .putLong("button_click_time", System.currentTimeMillis())
             .apply()
-    }
-
-    private fun cancelNotification(context: Context) {
-        val notificationManager =
-            context.getSystemService(Context.NOTIFICATION_SERVICE) as android.app.NotificationManager
-        notificationManager.cancel(WordService.NOTIFICATION_ID)
     }
 
     private suspend fun showUnknownResultToast(
@@ -136,6 +137,7 @@ class WordActionReceiver : BroadcastReceiver() {
     }
 
     private fun extractWord(intent: Intent): Word? {
+        val remoteId = intent.getLongExtra(WordService.EXTRA_WORD_ID, -1L)
         val word = intent.getStringExtra(WordService.EXTRA_WORD) ?: return null
         val phonetic = intent.getStringExtra(WordService.EXTRA_PHONETIC) ?: ""
         val translation = intent.getStringExtra(WordService.EXTRA_TRANSLATION) ?: ""
@@ -144,6 +146,7 @@ class WordActionReceiver : BroadcastReceiver() {
         val partOfSpeech = intent.getStringExtra(WordService.EXTRA_PART_OF_SPEECH) ?: ""
         val library = intent.getStringExtra(WordService.EXTRA_LIBRARY) ?: ""
         return Word(
+            remoteId = remoteId.takeIf { it > 0 },
             word = word,
             phonetic = phonetic,
             translation = translation,

@@ -3,7 +3,7 @@ package com.fragmentwords.network
 /**
  * API配置
  */
-object ApiConfig {
+object MainApiConfigPlaceholder {
     // 基础URL（本地开发环境）
     const val BASE_URL = "http://10.0.2.2:8080/" // 模拟器访问本地主机
 

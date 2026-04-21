@@ -4,6 +4,31 @@ plugins {
     id("org.jetbrains.kotlin.plugin.parcelize")
 }
 
+import java.util.Properties
+
+val localProperties = Properties().apply {
+    val localPropertiesFile = rootProject.file("local.properties")
+    if (localPropertiesFile.exists()) {
+        localPropertiesFile.inputStream().use(::load)
+    }
+}
+
+fun resolveDebugApiBaseUrl(): String {
+    return localProperties.getProperty("debugApiBaseUrl")
+        ?: providers.gradleProperty("debugApiBaseUrl").orNull
+        ?: "http://10.0.2.2:8080/"
+}
+
+fun resolveReleaseApiBaseUrl(): String {
+    return providers.gradleProperty("releaseApiBaseUrl").orNull
+        ?: providers.environmentVariable("RELEASE_API_BASE_URL").orNull
+        ?: "https://api.fragmentwords.example/"
+}
+
+fun String.toBuildConfigString(): String {
+    return "\"" + replace("\\", "\\\\").replace("\"", "\\\"") + "\""
+}
+
 android {
     namespace = "com.fragmentwords"
     compileSdk = 34
@@ -19,8 +44,20 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField(
+                "String",
+                "API_BASE_URL",
+                resolveDebugApiBaseUrl().toBuildConfigString()
+            )
+        }
         release {
             isMinifyEnabled = false
+            buildConfigField(
+                "String",
+                "API_BASE_URL",
+                resolveReleaseApiBaseUrl().toBuildConfigString()
+            )
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -35,6 +72,7 @@ android {
         jvmTarget = "1.8"
     }
     buildFeatures {
+        buildConfig = true
         viewBinding = true
     }
 }

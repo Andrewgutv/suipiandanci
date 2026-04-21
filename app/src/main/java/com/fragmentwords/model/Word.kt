@@ -6,6 +6,9 @@ import com.google.gson.annotations.SerializedName
  * 单词数据模型
  */
 data class Word(
+    @SerializedName("id")
+    val remoteId: Long? = null,
+
     @SerializedName("word")
     val word: String,
 
@@ -23,6 +26,9 @@ data class Word(
 
     @SerializedName("partOfSpeech")
     val partOfSpeech: String = "",
+
+    @SerializedName("vocabId")
+    val remoteVocabId: Long? = null,
 
     @SerializedName("library")
     val library: String = "" // 词库来源（CET4、CET6、IELTS等）

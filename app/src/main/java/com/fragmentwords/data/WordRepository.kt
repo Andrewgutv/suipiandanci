@@ -5,9 +5,23 @@ import android.util.Log
 import com.fragmentwords.database.WordDatabase
 import com.fragmentwords.manager.LibraryManager
 import com.fragmentwords.model.Word
+import com.fragmentwords.network.ApiService
+import com.fragmentwords.network.RetrofitClient
+import com.fragmentwords.network.model.ApiResponse
+import com.fragmentwords.network.model.LearningRequest
+import com.fragmentwords.network.model.LearningResponse
+import com.fragmentwords.network.model.NextWordRequest
+import com.fragmentwords.network.model.NotebookItemResponse
+import com.fragmentwords.network.model.NotebookPageResponse
+import com.fragmentwords.network.model.VocabResponse
+import com.fragmentwords.network.model.VocabSelectRequest
+import com.fragmentwords.utils.AppPreferences
+import com.fragmentwords.utils.LibrarySelection
+import com.fragmentwords.utils.PreferencesManager
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.io.InputStreamReader
+import retrofit2.Response
 
 /**
  * 单词数据仓库
@@ -18,20 +32,36 @@ class WordRepository(context: Context) {
     private val database = WordDatabase(context)
     private val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
     private val libraryManager = LibraryManager(context)
+    private val preferencesManager = PreferencesManager.getInstance(context)
+    private val apiService = RetrofitClient.getClient().create(ApiService::class.java)
+    private var cachedRemoteVocabMap: Map<String, Long>? = null
 
     companion object {
+        private const val TAG = "WordRepository"
         private const val PREFS_NAME = "word_prefs"
         private const val KEY_INITIALIZED = "initialized"
-        private const val KEY_SELECTED_LIBRARIES = "selected_libraries"
     }
 
     /**
      * 初始化词库数据
      */
     suspend fun initializeIfNeeded() {
-        if (!isInitialized()) {
+        val firstInitialization = !isInitialized()
+        if (firstInitialization) {
             loadDefaultWords()
             markInitialized()
+        }
+
+        val backendSelection = if (firstInitialization) {
+            fetchCurrentVocabSelectionFromBackend()
+        } else {
+            null
+        }
+        val effectiveSelection = backendSelection ?: AppPreferences.getSelectedLibraries(context)
+        val persistedFromBackend = backendSelection != null
+        synchronizeLibrarySelection(effectiveSelection, persistSelection = persistedFromBackend)
+        if (!persistedFromBackend) {
+            syncCurrentVocabSelection(effectiveSelection)
         }
     }
 
@@ -109,7 +139,7 @@ class WordRepository(context: Context) {
         val enabledLibraryIds = libraryManager.getEnabledLibraryIds()
         return if (enabledLibraryIds.isNotEmpty()) {
             // 将词库ID转换为大写作为数据库的library字段
-            val libraryNames = enabledLibraryIds.map { it.uppercase() }
+            val libraryNames = enabledLibraryIds.map(LibrarySelection::toDatabaseName)
             database.getRandomWordByLibraries(libraryNames, excludeWord)
         } else {
             // 如果没有启用任何词库，返回null
@@ -123,20 +153,12 @@ class WordRepository(context: Context) {
      */
     fun getNextWordSync(excludeWord: String? = null): Word? {
         // 同步读取词库选择
-        val json = prefs.getString(KEY_SELECTED_LIBRARIES, null)
-        val selectedLibraries = if (json != null) {
-            try {
-                Gson().fromJson(json, object : TypeToken<List<String>>() {}.type) ?: listOf("CET4")
-            } catch (e: Exception) {
-                listOf("CET4")
-            }
-        } else {
-            listOf("CET4")
-        }
+        val selectedLibraries = AppPreferences.getSelectedLibraries(context)
 
         // 根据选择的词库获取单词
         return if (selectedLibraries.isNotEmpty()) {
-            database.getRandomWordByLibraries(selectedLibraries, excludeWord)
+            val libraryNames = selectedLibraries.map(LibrarySelection::toDatabaseName)
+            database.getRandomWordByLibraries(libraryNames, excludeWord)
         } else {
             database.getRandomWord(excludeWord)
         }
@@ -145,6 +167,18 @@ class WordRepository(context: Context) {
     /**
      * 获取当前正在学习的单词（从SharedPreferences获取）
      */
+    suspend fun getNextWordForNotification(
+        selectedLibraries: List<String>,
+        excludeWord: String? = null
+    ): Word? {
+        val normalizedLibraries = LibrarySelection.normalize(selectedLibraries)
+        val remoteWord = fetchNextWordFromBackend(normalizedLibraries)
+        if (remoteWord != null && remoteWord.word != excludeWord) {
+            return remoteWord
+        }
+        return getNextWordLocal(normalizedLibraries, excludeWord)
+    }
+
     fun getCurrentWord(): Word? {
         val wordJson = prefs.getString("current_word", null) ?: return null
         return try {
@@ -180,8 +214,22 @@ class WordRepository(context: Context) {
     /**
      * 获取生词本
      */
+    suspend fun syncWordFeedback(word: Word, isKnown: Boolean): Boolean {
+        val feedbackSynced = submitFeedbackToBackend(word, isKnown)
+        val notebookSynced = if (!isKnown) {
+            addUnknownWordToBackend(word)
+        } else {
+            true
+        }
+        return feedbackSynced && notebookSynced
+    }
+
     fun getNotebookWords(): List<Word> {
         return database.getNotebookWords()
+    }
+
+    suspend fun getNotebookWordsRemoteFirst(): List<Word> {
+        return fetchNotebookWordsFromBackend() ?: database.getNotebookWords()
     }
 
     /**
@@ -205,6 +253,10 @@ class WordRepository(context: Context) {
         return database.getNotebookCount()
     }
 
+    suspend fun getNotebookCountRemoteFirst(): Int {
+        return fetchNotebookCountFromBackend() ?: database.getNotebookCount()
+    }
+
     /**
      * 获取词库单词总数
      */
@@ -216,20 +268,22 @@ class WordRepository(context: Context) {
      * 获取已选择的词库列表
      */
     suspend fun getSelectedLibraries(): List<String> {
-        val json = prefs.getString(KEY_SELECTED_LIBRARIES, null) ?: return listOf("CET4")
-        return try {
-            Gson().fromJson(json, object : TypeToken<List<String>>() {}.type)
-        } catch (e: Exception) {
-            listOf("CET4")
-        }
+        return AppPreferences.getSelectedLibraries(context)
     }
 
     /**
      * 保存已选择的词库列表
      */
     suspend fun saveSelectedLibraries(libraries: List<String>) {
-        val json = Gson().toJson(libraries)
-        prefs.edit().putString(KEY_SELECTED_LIBRARIES, json).apply()
+        AppPreferences.saveSelectedLibraries(context, libraries)
+    }
+
+    suspend fun applyLibrarySelection(libraries: Collection<String>): Boolean {
+        if (!isInitialized()) {
+            loadDefaultWords()
+            markInitialized()
+        }
+        return synchronizeLibrarySelection(libraries, persistSelection = true)
     }
 
     /**
@@ -276,7 +330,7 @@ class WordRepository(context: Context) {
      */
     suspend fun deleteLibraryFromDatabase(libraryId: String): Boolean {
         return try {
-            val libraryName = libraryId.uppercase()
+            val libraryName = LibrarySelection.toDatabaseName(libraryId)
             val deleted = database.deleteWordsByLibrary(libraryName)
             Log.d("WordRepository", "Deleted $deleted words from library: $libraryId")
             deleted > 0
@@ -293,7 +347,7 @@ class WordRepository(context: Context) {
      */
     suspend fun isLibraryLoaded(libraryId: String): Boolean {
         return try {
-            val libraryName = libraryId.uppercase()
+            val libraryName = LibrarySelection.toDatabaseName(libraryId)
             val count = database.getWordCountByLibrary(libraryName)
             count > 0
         } catch (e: Exception) {
@@ -302,12 +356,228 @@ class WordRepository(context: Context) {
         }
     }
 
+    private fun getNextWordLocal(selectedLibraries: List<String>, excludeWord: String?): Word? {
+        val normalizedLibraries = LibrarySelection.normalize(selectedLibraries)
+        return if (normalizedLibraries.isNotEmpty()) {
+            val libraryNames = normalizedLibraries.map(LibrarySelection::toDatabaseName)
+            database.getRandomWordByLibraries(libraryNames, excludeWord)
+        } else {
+            database.getRandomWord(excludeWord)
+        }
+    }
+
+    private suspend fun fetchNextWordFromBackend(selectedLibraries: List<String>): Word? {
+        val vocabIds = resolveRemoteVocabIds(selectedLibraries)
+        if (selectedLibraries.isNotEmpty() && vocabIds.isEmpty()) {
+            Log.d(TAG, "Skipping remote next-word fetch because no selected libraries map to backend vocabs")
+            return null
+        }
+
+        return runCatching {
+            val response = apiService.getNextWord(
+                deviceId = preferencesManager.getDeviceId(),
+                authorization = authorizationHeader(),
+                request = NextWordRequest(vocabIds.ifEmpty { null })
+            )
+            response.successBody()?.data?.toWord(selectedLibraries)
+        }.onFailure {
+            Log.w(TAG, "Remote next-word fetch failed: ${it.message}")
+        }.getOrNull()
+    }
+
+    private suspend fun submitFeedbackToBackend(word: Word, isKnown: Boolean): Boolean {
+        val wordId = word.remoteId ?: return false
+        return runCatching {
+            val response = apiService.submitFeedback(
+                deviceId = preferencesManager.getDeviceId(),
+                authorization = authorizationHeader(),
+                feedback = LearningRequest(wordId = wordId, isKnown = isKnown)
+            )
+            response.successBody() != null
+        }.onFailure {
+            Log.w(TAG, "Remote feedback sync failed for ${word.word}: ${it.message}")
+        }.getOrDefault(false)
+    }
+
+    private suspend fun addUnknownWordToBackend(word: Word): Boolean {
+        val wordId = word.remoteId ?: return false
+        return runCatching {
+            val response = apiService.addUnknownWord(
+                deviceId = preferencesManager.getDeviceId(),
+                authorization = authorizationHeader(),
+                wordId = wordId
+            )
+            response.successBody() != null
+        }.onFailure {
+            Log.w(TAG, "Remote notebook sync failed for ${word.word}: ${it.message}")
+        }.getOrDefault(false)
+    }
+
+    private suspend fun fetchNotebookWordsFromBackend(): List<Word>? {
+        return runCatching {
+            val response = apiService.getUnknownWords(
+                deviceId = preferencesManager.getDeviceId(),
+                authorization = authorizationHeader()
+            )
+            response.successBody()?.data?.items?.map { it.toWord() }
+        }.onFailure {
+            Log.w(TAG, "Remote notebook fetch failed: ${it.message}")
+        }.getOrNull()
+    }
+
+    private suspend fun fetchNotebookCountFromBackend(): Int? {
+        return runCatching {
+            val response = apiService.getUnknownWordCount(
+                deviceId = preferencesManager.getDeviceId(),
+                authorization = authorizationHeader()
+            )
+            response.successBody()?.data
+        }.onFailure {
+            Log.w(TAG, "Remote notebook count fetch failed: ${it.message}")
+        }.getOrNull()
+    }
+
+    private suspend fun fetchCurrentVocabSelectionFromBackend(): List<String>? {
+        return runCatching {
+            val response = apiService.getCurrentVocab(preferencesManager.getDeviceId())
+            val vocabId = response.successBody()?.data?.vocabId ?: return@runCatching null
+            resolveLibraryByRemoteVocabId(vocabId)?.let(::listOf)
+        }.onFailure {
+            Log.w(TAG, "Remote current-vocab fetch failed: ${it.message}")
+        }.getOrNull()
+    }
+
+    private suspend fun resolveRemoteVocabIds(selectedLibraries: List<String>): List<Long> {
+        if (selectedLibraries.isEmpty()) {
+            return emptyList()
+        }
+        val vocabMap = getRemoteVocabIdMap()
+        return LibrarySelection.normalize(selectedLibraries)
+            .mapNotNull { vocabMap[it] }
+            .distinct()
+    }
+
+    private suspend fun resolveLibraryByRemoteVocabId(vocabId: Long): String? {
+        return getRemoteVocabIdMap()
+            .entries
+            .firstOrNull { it.value == vocabId }
+            ?.key
+    }
+
+    private suspend fun getRemoteVocabIdMap(): Map<String, Long> {
+        cachedRemoteVocabMap?.let { return it }
+
+        val vocabMap = runCatching {
+            val response = apiService.getVocabList()
+            response.successBody()
+                ?.data
+                ?.associate { normalizeRemoteVocabName(it.name) to it.id }
+                .orEmpty()
+        }.onFailure {
+            Log.w(TAG, "Remote vocab list fetch failed: ${it.message}")
+        }.getOrDefault(emptyMap())
+        cachedRemoteVocabMap = vocabMap
+        return vocabMap
+    }
+
+    private fun normalizeRemoteVocabName(rawName: String): String {
+        return when (rawName.trim().uppercase()) {
+            "GRAD", "GRADUATE", "ADVANCED" -> LibrarySelection.ADVANCED
+            else -> rawName.trim().uppercase()
+        }
+    }
+
+    private suspend fun syncCurrentVocabSelection(selectedLibraries: List<String>) {
+        val firstVocabId = resolveRemoteVocabIds(selectedLibraries).firstOrNull() ?: return
+        runCatching {
+            apiService.updateCurrentVocab(
+                deviceId = preferencesManager.getDeviceId(),
+                request = VocabSelectRequest(vocabId = firstVocabId)
+            )
+        }.onFailure {
+            Log.w(TAG, "Remote vocab selection sync failed: ${it.message}")
+        }
+    }
+
+    private fun authorizationHeader(): String? {
+        val token = preferencesManager.getToken().orEmpty().trim()
+        return token.takeIf { it.isNotEmpty() }?.let { "Bearer $it" }
+    }
+
+    private fun LearningResponse.toWord(selectedLibraries: List<String>): Word {
+        val resolvedLibrary = if (selectedLibraries.size == 1) {
+            selectedLibraries.first()
+        } else {
+            ""
+        }
+        return Word(
+            remoteId = wordId,
+            word = word,
+            phonetic = phonetic.orEmpty(),
+            translation = translation,
+            example = example.orEmpty(),
+            partOfSpeech = "",
+            library = resolvedLibrary
+        )
+    }
+
+    private fun NotebookItemResponse.toWord(): Word {
+        return Word(
+            remoteId = wordId,
+            word = word,
+            phonetic = phonetic.orEmpty(),
+            translation = translation,
+            example = example.orEmpty(),
+            partOfSpeech = "",
+            remoteVocabId = vocabId,
+            library = vocabName.orEmpty()
+        )
+    }
+
+    private fun <T> Response<ApiResponse<T>>.successBody(): ApiResponse<T>? {
+        val body = body()
+        return body?.takeIf { isSuccessful && it.isSuccess() }
+    }
+
     private fun isInitialized(): Boolean {
         return prefs.getBoolean(KEY_INITIALIZED, false)
     }
 
     private fun markInitialized() {
         prefs.edit().putBoolean(KEY_INITIALIZED, true).apply()
+    }
+
+    private suspend fun synchronizeLibrarySelection(
+        libraries: Collection<String>,
+        persistSelection: Boolean
+    ): Boolean {
+        val effectiveLibraries = LibrarySelection.normalize(libraries).ifEmpty {
+            LibrarySelection.DEFAULT_SELECTED_LIBRARIES
+        }
+        if (persistSelection) {
+            AppPreferences.saveSelectedLibraries(context, effectiveLibraries)
+        }
+
+        val selectedManagerIds = effectiveLibraries
+            .map(LibrarySelection::toManagerId)
+            .toSet()
+
+        val allLibraries = libraryManager.getAllLibraries()
+        var success = true
+        allLibraries.forEach { library ->
+            val enabled = library.id in selectedManagerIds
+            success = libraryManager.toggleLibrary(library.id, enabled) && success
+
+            if (enabled && !isLibraryLoaded(library.id)) {
+                success = loadLibraryToDatabase(library.id) && success
+            }
+        }
+
+        if (persistSelection) {
+            syncCurrentVocabSelection(effectiveLibraries)
+        }
+
+        return success
     }
 
     /**

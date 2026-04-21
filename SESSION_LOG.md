@@ -596,3 +596,129 @@ Android锛?
 **本次关键文件变更：**
 - `CURRENT_STATUS.md`：已更新为当前 Android 主线状态摘要
 - Android 主线关键文件已整理为当前可维护路径
+
+---
+
+### 会话 #7：2026-04-10
+
+**本次会话内容：**
+1. 继续收口 Android 本地主线，重点从“功能修复”转向“冗余清理 + 运行时尾问题收口”
+2. 清理第一批明确冗余代码：
+   - `NotebookActivity.kt`
+   - `ApiLearningManager.kt`
+   - `ApiRepository.kt`
+   - `WordLibrary.kt`
+3. 收敛重复设置入口：
+   - 将推送开关并入 `SettingsFragment.kt`
+   - 删除 `SettingsActivity.kt`
+   - 删除 `activity_settings.xml`
+4. 移除旧词库商城路径：
+   - `LibraryStoreActivity.kt`
+   - `LibraryDownloadService.kt`
+   - `activity_library_store.xml`
+5. 继续排查运行时尾问题，确认 `AlarmScheduler` 的核心异常根因为精确闹钟权限缺失
+6. 将 `AlarmScheduler` 改为：先尝试 exact alarm，失败时自动 fallback 到 inexact alarm
+7. 补齐和更新项目文档：
+   - `README.md`
+   - `CURRENT_STATUS.md`
+   - `ANDROID_VALIDATION_CHECKLIST.md`
+   - `PROJECT_SUMMARY.md`
+
+**本次确认的结论：**
+- 当前 Android 主线已经从“原型可跑”提升为“beta 可用且结构较干净”的状态
+- `不认识 -> 生词本` 已经不是阻塞问题，数据链路和页面读取链路都已打通
+- 首页、通知、生词本、设置主链已经收口，且设置入口已统一为 `SettingsFragment`
+- 旧词库商城/下载服务不再属于当前主线，已从主线路径中移除
+- `AlarmScheduler` 不再把精确闹钟权限缺失当作未处理异常，而是降级为 fallback 行为
+- 当前最主要的遗留问题只剩 Android 14/15 模拟器环境中的前台服务类型 warning
+
+**运行时验证结果摘要：**
+- 首页前台可见，通知与生词本主链仍可工作
+- 生词本页面已能显示 `article` 等真实词条
+- 首页仍能显示 `生词本：2 个单词`
+- `AlarmScheduler` 日志已从 `SecurityException` 阻塞错误转为：
+  - `Exact alarm denied by system, falling back`
+  - `Exact alarm unavailable, scheduled inexact fallback`
+- `WordService` 的重复更新已明显减少到单次有效更新
+- 仍存在系统 warning：`Foreground service start ... does not have any types`
+
+**Git 提交与推送记录：**
+- `9b890f4` - `refactor: stabilize android notification and notebook beta flow`
+- `260505f` - `docs: rewrite readme and validation checklist`
+- `d407cfa` - `refactor: remove unused android mainline leftovers`
+- `cd4f324` - `refactor: consolidate settings into fragment`
+- `3787bad` - `fix: fall back when exact alarm permission is unavailable`
+- `6980d44` - `docs: add final project summary`
+- `3997592` - `refactor: remove legacy library store path`
+
+**本次会话后的判断：**
+- 当前版本已经不适合再做大范围重构
+- 代码主线已经足够干净，可以转入真机最小闭环验收阶段
+- 模拟器中残留的前台服务 warning 更像兼容性尾问题，而不是主功能故障
+
+**推荐下一步：**
+1. 在真机上做最小闭环验收：
+   - 开启推送
+   - 验证通知出现
+   - 点击“不认识”
+   - 确认生词本可见
+   - 点击“认识”
+   - 锁屏再解锁，确认只刷新一次
+2. 如果真机上前台服务 warning 也影响通知稳定，再继续专门处理 `WordService`
+3. 如果真机上不影响体验，则当前 Android 主线可暂时视为已收口 beta 版本
+
+---
+
+### 会话 #8：2026-04-15
+
+**本次会话内容：**
+1. 继续收口 Android 本地主线的最后运行时风险，而不是做大范围新功能开发
+2. 修复并验证以下 Android 主线问题：
+   - 关闭推送时统一清理运行时状态
+   - 词库切换后立即影响下一张通知
+   - 关闭推送后旧通知动作不再继续刷新下一张通知
+   - Alarm / Worker 在推送关闭时短路退出
+   - `WordService` 增加前台服务启动异常保护
+3. 重新编译并重新打包 Android `debug APK`
+4. 开始进入后端 P0 标准化阶段，重点从“后端骨架”转向“可联调接口主线”
+5. 完成第一批后端接口和持久化改造：
+   - `vocab` 路由统一到 `/api/v1/vocabs`
+   - `notebook` 路由统一到 `/api/v1/notebook`
+   - `learning` 路由统一到 `/api/v1/learning`
+   - 设备身份统一向 `X-Device-Id` 头靠拢
+   - `learning` 控制器开始接受 `Authorization: Bearer ...`
+   - 新增 `DevicePreference` / `DevicePreferenceMapper` / `VocabSelectionResponseDTO`
+   - `VocabServiceImpl` 开始使用 `device_preference` 表保存当前词库选择
+6. 产出新的项目上下文与交接文档：
+   - `PROJECT_CONTEXT.md`
+   - `PROJECT_HANDOFF_NEXT_STEPS.md`
+
+**本次确认的结论：**
+- Android 本地主线已经不只是 beta 可用，而是已经具备真机严肃闭环验收条件
+- 最新 Android `debug APK` 已重新生成，路径为 `app/build/outputs/apk/debug/app-debug.apk`
+- 后端已不再只是“可参考骨架”，而是正式进入 P0 项目化改造阶段
+- 当前后端已经有三条正在收口的联调主线：
+  - `/api/v1/vocabs`
+  - `/api/v1/notebook`
+  - `/api/v1/learning`
+- 整个项目的重心已经从“Android 单机功能修复”转向“前后端标准接口与首轮联调准备”
+
+**运行与验证结果摘要：**
+- Android `:app:compileDebugKotlin` 通过
+- Android `:app:assembleDebug` 通过
+- 后端 `mvn -q -DskipTests compile` 通过
+
+**本次会话后的判断：**
+- 当前最重要的工作不再是继续打磨 Android 本地逻辑
+- 后端 P0 还有剩余工作，但已经达到可以继续推进联调的状态
+- 下一个高价值阶段应优先完成 `auth` 标准化与前后端首轮薄联调
+
+**推荐下一步：**
+1. 将 `UserController` 统一到 `/api/v1/auth`
+2. 增加 JWT filter/interceptor，而不是继续在 controller 内局部解析 token
+3. 将 notebook 响应改造成稳定 DTO，而不是直接返回 `Page<Word>`
+4. 开始 Android 对接这套后端 API 的第一条主线：
+   - current vocab
+   - next word
+   - feedback
+   - notebook count/list

@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/word")
+@RequestMapping(value = "/word", produces = "application/json;charset=UTF-8")
 public class WordController {
 
     @Autowired

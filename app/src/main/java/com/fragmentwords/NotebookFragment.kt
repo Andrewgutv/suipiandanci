@@ -1,5 +1,6 @@
 ﻿package com.fragmentwords
 
+import android.content.Intent
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import android.util.Log
@@ -45,6 +46,7 @@ class NotebookFragment : Fragment() {
     private var notebookWords: List<Word> = emptyList()
     private var currentWordIndex: Int = 0
     private var textToSpeech: TextToSpeech? = null
+    private var isTtsReady = false
     private var currentWord: String = ""
     private var emptyDialogShown = false
 
@@ -98,13 +100,14 @@ class NotebookFragment : Fragment() {
         }
 
         btnPronounce.setOnClickListener { pronounceWord() }
+        updatePronounceButtonState()
     }
 
     private fun loadNotebookWords(selectLatest: Boolean) {
         lifecycleScope.launch {
             try {
-                notebookWords = repository.getNotebookWords()
-                tvNotebookCount.text = "共 ${notebookWords.size} 个单词"
+                notebookWords = repository.getNotebookWordsRemoteFirst()
+                tvNotebookCount.text = getString(R.string.sidebar_notebook_count_format, notebookWords.size)
                 Log.d(TAG, "Loaded notebook words: ${notebookWords.joinToString { it.word }}")
 
                 if (notebookWords.isEmpty()) {
@@ -123,7 +126,7 @@ class NotebookFragment : Fragment() {
                 Log.e(TAG, "Failed to load notebook words", e)
                 Toast.makeText(
                     requireContext(),
-                    "加载生词本失败: ${e.message}",
+                    getString(R.string.load_notebook_failed, e.message),
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -136,7 +139,8 @@ class NotebookFragment : Fragment() {
         tvPartOfSpeech.text = ""
         tvLibrary.text = ""
         tvTranslation.text = getString(R.string.no_words)
-        tvExample.text = "点击通知卡片中的“不认识”即可加入生词本。"
+        tvExample.text = getString(R.string.notebook_add_hint)
+        updatePronounceButtonState()
         if (!emptyDialogShown) {
             emptyDialogShown = true
             showEmptyDialog()
@@ -159,26 +163,37 @@ class NotebookFragment : Fragment() {
         tvWord.text = word.word
         tvPhonetic.text = word.phonetic
         tvPartOfSpeech.text = word.partOfSpeech.ifEmpty { "-" }
-        tvLibrary.text = word.library.ifEmpty { "未分类" }
+        tvLibrary.text = word.library.ifEmpty { getString(R.string.uncategorized) }
         tvTranslation.text = word.translation
-        tvExample.text = word.example.ifBlank { "暂无例句" }
+        tvExample.text = word.example.ifBlank { getString(R.string.no_example) }
 
         currentWord = word.word
+        updatePronounceButtonState()
         wordAdapter.setSelectedPosition(currentWordIndex)
     }
 
     private fun initTextToSpeech() {
         textToSpeech = TextToSpeech(requireContext()) { status ->
             if (status == TextToSpeech.SUCCESS) {
-                textToSpeech?.language = Locale.ENGLISH
+                val languageResult = textToSpeech?.setLanguage(Locale.ENGLISH)
+                isTtsReady = languageResult != TextToSpeech.LANG_MISSING_DATA &&
+                    languageResult != TextToSpeech.LANG_NOT_SUPPORTED
                 textToSpeech?.setSpeechRate(0.9f)
+            } else {
+                isTtsReady = false
             }
+            updatePronounceButtonState()
         }
     }
 
     private fun pronounceWord() {
         if (currentWord.isBlank()) {
-            Toast.makeText(requireContext(), "没有可发音的单词", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), getString(R.string.no_pronounce_word), Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        if (!isTtsReady) {
+            showTtsSetupDialog()
             return
         }
 
@@ -186,15 +201,54 @@ class NotebookFragment : Fragment() {
     }
 
     override fun onDestroy() {
+        isTtsReady = false
         textToSpeech?.shutdown()
         super.onDestroy()
     }
 
+    private fun updatePronounceButtonState() {
+        if (!this::btnPronounce.isInitialized) {
+            return
+        }
+
+        val enabled = currentWord.isNotBlank() && isTtsReady
+        btnPronounce.alpha = if (enabled) 1f else 0.45f
+        btnPronounce.contentDescription = if (enabled) {
+            getString(R.string.play_pronunciation)
+        } else {
+            getString(R.string.pronunciation_unavailable_desc)
+        }
+    }
+
+    private fun showTtsSetupDialog() {
+        AlertDialog.Builder(requireContext())
+            .setTitle(R.string.title_tts_unavailable)
+            .setMessage(R.string.tts_unavailable_message)
+            .setPositiveButton(R.string.go_to_settings) { _, _ -> openTtsSetup() }
+            .setNegativeButton(R.string.got_it, null)
+            .show()
+    }
+
+    private fun openTtsSetup() {
+        val installIntent = Intent(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA)
+        val settingsIntent = Intent(android.provider.Settings.ACTION_SETTINGS)
+        try {
+            startActivity(installIntent)
+        } catch (_: Exception) {
+            try {
+                startActivity(settingsIntent)
+                Toast.makeText(requireContext(), getString(R.string.tts_search_settings_hint), Toast.LENGTH_LONG).show()
+            } catch (_: Exception) {
+                Toast.makeText(requireContext(), getString(R.string.tts_open_settings_failed), Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
     private fun showEmptyDialog() {
         AlertDialog.Builder(requireContext())
-            .setTitle("生词本")
-            .setMessage("生词本为空\n\n标记为不认识的单词会自动加入这里。")
-            .setPositiveButton("确定", null)
+            .setTitle(R.string.title_notebook)
+            .setMessage(R.string.notebook_empty_message)
+            .setPositiveButton(R.string.confirm, null)
             .show()
     }
 }

@@ -17,11 +17,10 @@
         android:paddingTop="48dp"
         android:paddingBottom="96dp">
 
-        <!-- 标题 -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="碎片单词"
+            android:text="@string/app_name"
             android:textSize="24sp"
             android:textStyle="normal"
             android:textColor="@color/text_primary"
@@ -29,7 +28,6 @@
             android:gravity="center"
             android:layout_marginBottom="40dp" />
 
-        <!-- 推送开关卡片 -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -55,7 +53,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="单词推送开关"
+                        android:text="@string/push_title"
                         android:textSize="18sp"
                         android:textStyle="normal"
                         android:textColor="@color/text_primary"
@@ -64,13 +62,12 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="在锁屏和通知栏显示单词卡片"
+                        android:text="@string/push_description"
                         android:textSize="12sp"
                         android:textColor="@color/text_secondary" />
 
                 </LinearLayout>
 
-                <!-- 自定义Toggle开关 -->
                 <FrameLayout
                     android:id="@+id/toggle_container"
                     android:layout_width="56dp"
@@ -95,7 +92,6 @@
 
         </androidx.cardview.widget.CardView>
 
-        <!-- 状态信息卡片 -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -114,7 +110,7 @@
                     android:id="@+id/tv_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="单词推送未开启"
+                    android:text="@string/push_status_disabled"
                     android:textSize="18sp"
                     android:textStyle="normal"
                     android:textColor="@color/text_primary"
@@ -129,7 +125,7 @@
                         android:id="@+id/tv_library_info"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="词库: 四级词库"
+                        android:text="@string/default_current_library_info"
                         android:textSize="14sp"
                         android:textColor="@color/text_secondary"
                         android:layout_marginBottom="8dp" />
@@ -138,7 +134,7 @@
                         android:id="@+id/tv_notebook_info"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="生词本: 0个单词"
+                        android:text="@string/default_notebook_count"
                         android:textSize="14sp"
                         android:textColor="@color/text_secondary" />
 

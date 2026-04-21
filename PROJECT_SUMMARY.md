@@ -2,135 +2,163 @@
 
 ## Project
 
-Fragment Words is a native Android vocabulary-learning app that uses notification and lock-screen style word cards to turn small moments of phone usage into lightweight study time.
+Fragment Words is a vocabulary-learning project built around lightweight word exposure through notifications, notebook review, and spaced repetition.
 
-The current repository has three parallel lines of work:
+The repository currently has three tracks:
 
-- pp/: the active native Android mainline
-- ackend/: a Spring Boot backend that is still only partially integrated
-- ragment-words/: an older uni-app prototype and no longer the main run path
+- `app/`: the active native Android client mainline
+- `backend/`: the active Spring Boot backend mainline
+- `fragment-words/`: an old uni-app prototype and no longer the product path
 
-The only path that should currently be treated as the usable mainline is pp/.
+The real product direction is now:
+
+- a stable Android beta client
+- a callable backend API slice
+- a verified Android-to-backend learning loop
 
 ## Current Product State
 
-The Android app is now in a beta-usable state for the local offline learning loop.
+### Android
 
-The mainline can currently do the following:
+The Android app is beta-usable and supports both local fallback and backend-first behavior on the current main slice.
+
+It can currently:
 
 - load local word libraries from assets
 - display word notifications
-- handle known / unknown notification actions
+- handle known / unknown actions
 - write unknown words into a local notebook
-- read and display notebook entries inside the app
-- track local learning progress with Ebbinghaus-style review timing
-- show push state, selected library, and notebook count on the home screen
+- display notebook entries inside the app
+- track local review progress with Ebbinghaus-style timing
+- switch libraries and reflect the change in subsequent notifications
+- cleanly stop runtime refresh behavior when push is disabled
+- fetch next word from backend first
+- sync feedback to backend
+- fetch notebook count/list from backend first
+- sync current vocab selection to backend
 
-## What Was Completed In This Cleanup Pass
+### Backend
 
-### Mainline stabilization
+The backend is no longer only under route cleanup. The core API slice is running and verified.
 
-- notification action handling was cleaned up and made more deterministic
-- unknown -> notebook was verified as a working path
-- notebook display was refreshed and stabilized
-- duplicated settings entry points were reduced to a single fragment-based path
-- several obviously unused Android leftovers were removed from the mainline
+Active route families:
 
-### Runtime behavior improvements
+- `/api/v1/auth`
+- `/api/v1/vocabs`
+- `/api/v1/notebook`
+- `/api/v1/learning`
 
-- startup notification update spam was reduced
-- exact alarm scheduling now falls back when exact alarm permission is unavailable
-- boot restore behavior was reduced to schedule recovery instead of directly restoring the whole foreground-service path
+Recent backend improvements:
 
-### Documentation cleanup
+- UTF-8 response headers are explicit
+- unauthorized responses are returned as JSON `Result`
+- internal server errors are returned as JSON `Result`
+- current auth info endpoint requires authentication
 
-- README.md was rewritten into a clean project-facing document
-- CURRENT_STATUS.md now reflects the real current mainline
-- SESSION_LOG.md was updated with recent work context
-- ANDROID_VALIDATION_CHECKLIST.md was added for short real-device validation
+## What Was Completed In This Pass
+
+### Android integration and tooling
+
+- backend-first next-word fetch was connected
+- backend-first notebook reads were connected
+- feedback sync to backend was connected
+- local fallback behavior was retained
+- debug-only network security for emulator HTTP was isolated into the debug source set
+- API base URL handling was moved into build-type-aware configuration
+- local helper scripts were added for:
+  - backend startup
+  - debug install and launch
+  - local smoke verification
+  - automated notification `unknown` smoke
+
+### Backend response cleanup
+
+- `JwtAuthInterceptor` now returns JSON `401` responses
+- global exception handling now returns JSON `Result`
+- database-related internal failures no longer fall back to Spring default error pages
 
 ## Important Files
 
-Key Android mainline files:
+Android mainline files:
 
-- pp/src/main/java/com/fragmentwords/HomeFragment.kt
-- pp/src/main/java/com/fragmentwords/MainActivity.kt
-- pp/src/main/java/com/fragmentwords/NotebookFragment.kt
-- pp/src/main/java/com/fragmentwords/service/WordService.kt
-- pp/src/main/java/com/fragmentwords/receiver/WordActionReceiver.kt
-- pp/src/main/java/com/fragmentwords/receiver/ScreenUnlockReceiver.kt
-- pp/src/main/java/com/fragmentwords/utils/AlarmScheduler.kt
-- pp/src/main/java/com/fragmentwords/manager/LearningManager.kt
-- pp/src/main/java/com/fragmentwords/data/WordRepository.kt
-- pp/src/main/java/com/fragmentwords/database/WordDatabase.kt
+- `app/src/main/java/com/fragmentwords/data/WordRepository.kt`
+- `app/src/main/java/com/fragmentwords/service/WordService.kt`
+- `app/src/main/java/com/fragmentwords/receiver/WordActionReceiver.kt`
+- `app/src/main/java/com/fragmentwords/HomeFragment.kt`
+- `app/src/main/java/com/fragmentwords/NotebookFragment.kt`
+- `app/src/main/java/com/fragmentwords/SettingsFragment.kt`
+- `app/src/main/java/com/fragmentwords/network/ApiService.kt`
+- `app/src/main/java/com/fragmentwords/network/ResolvedApiConfig.kt`
 
-Supporting status documents:
+Android local tooling files:
 
-- CURRENT_STATUS.md
-- SESSION_LOG.md
-- ANDROID_VALIDATION_CHECKLIST.md
+- `install-debug-and-launch.bat`
+- `run-local-smoke.bat`
+- `run-local-unknown-smoke.cmd`
+- `run-local-unknown-smoke.ps1`
+
+Backend files:
+
+- `backend/src/main/java/com/fragmentwords/common/Result.java`
+- `backend/src/main/java/com/fragmentwords/config/JwtAuthInterceptor.java`
+- `backend/src/main/java/com/fragmentwords/config/GlobalExceptionHandler.java`
+- `backend/src/main/java/com/fragmentwords/controller/VocabController.java`
+- `backend/src/main/java/com/fragmentwords/controller/UnknownWordController.java`
+- `backend/src/main/java/com/fragmentwords/controller/LearningController.java`
+- `backend/src/main/java/com/fragmentwords/controller/UserController.java`
+- `backend/src/main/resources/application.yml`
+- `backend/start-local.bat`
+
+Context / handoff files:
+
+- `CURRENT_STATUS.md`
+- `PROJECT_CONTEXT.md`
+- `PROJECT_HANDOFF_NEXT_STEPS.md`
+- `SESSION_LOG.md`
+- `LOCAL_INTEGRATION_QUICKSTART.md`
 
 ## What Was Verified
 
-The following were verified during local emulator validation:
+The following have been verified in the current repository state:
 
-- the app compiles successfully
-- the app installs successfully on the configured emulator
-- the home page renders and displays push state and notebook count
-- notification cards are generated
-- the notebook contains real words such as rticle and last
-- the notebook screen can display stored data
+- Android `:app:compileDebugKotlin` passes
+- Android `:app:assembleDebug` passes
+- backend `mvn -q -DskipTests compile` passes
+- local emulator integration scripts can install and launch the app
+- notification action smoke automation can exercise the `unknown` action path
+- `/api/v1/auth/info/{userId}` returns JSON `401`
+- `/api/v1/vocabs`
+- `/api/v1/notebook/count`
+- `/api/v1/learning/next`
+- `/api/v1/learning/stats`
 
 ## Remaining Known Risk
 
-One runtime issue still remains partially open:
+Current meaningful open risks are:
 
-- some Android 14/15 emulator runs still emit a foreground-service-type warning when WordService starts
-
-Current judgment:
-
-- this warning is not currently blocking the main local user loop
-- it behaves more like a compatibility tail than a core feature failure
-- it should still be checked on a real device before calling the app fully stabilized
-
-## Removed Or Consolidated Redundancy
-
-The following obvious mainline leftovers were removed or consolidated:
-
-- NotebookActivity.kt
-- ApiLearningManager.kt
-- ApiRepository.kt
-- WordLibrary.kt
-- SettingsActivity.kt
-- ctivity_settings.xml
-
-Settings now live in SettingsFragment.kt.
+- local backend startup still depends on correct external DB credentials being provided at runtime
+- `UserServiceImpl` exception semantics still need deeper cleanup
+- full real-device Android validation is still incomplete
+- release build validation is still affected by local Gradle wrapper/cache environment issues
+- multi-device cloud sync remains unfinished
 
 ## Recommended Next Step
 
-Do not do another broad code rewrite immediately.
+Do not do another broad rewrite.
 
-The highest-value next step is a short real-device validation pass.
+The highest-value next step is:
 
-Recommended order:
-
-1. enable push from the home screen
-2. wait for a word notification
-3. tap 不认识
-4. confirm the word appears in the notebook
-5. tap 认识
-6. lock and unlock once
-7. confirm refresh happens at most once
-8. turn push off and confirm notifications stop
-
-Use ANDROID_VALIDATION_CHECKLIST.md for that pass.
+1. finish local/release environment cleanup
+2. complete backend auth semantics cleanup
+3. run a short real-device validation pass
+4. prepare a clean commit and push
 
 ## Final Assessment
 
-The app is no longer in rough prototype shape.
+The project is no longer just an Android prototype.
 
 It should currently be described as:
 
-- a beta-usable Android local mainline
-- suitable for continued development, demo use, and short real-device validation
-- not yet a fully closed production-ready release
+- a beta-usable Android client mainline
+- a backend service mainline with a working core API slice
+- a software project in release-prep integration cleanup
