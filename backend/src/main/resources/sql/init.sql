@@ -147,14 +147,14 @@ INSERT INTO `vocab` (`id`, `name`, `word_count`, `description`) VALUES
 ON DUPLICATE KEY UPDATE `name`=VALUES(`name`);
 
 INSERT INTO `word` (`word`, `phonetic`, `translation`, `example`, `vocab_id`, `difficulty`) VALUES
-('abstain', '/əbˈsteɪn/', 'v. avoid doing something', 'He chose to abstain from the vote.', 2, 4),
-('adversity', '/ədˈvɜːsəti/', 'n. hardship', 'Adversity often reveals true character.', 2, 4),
-('concise', '/kənˈsaɪs/', 'adj. brief but clear', 'Her answer was concise and accurate.', 2, 3),
-('pervasive', '/pəˈveɪsɪv/', 'adj. spreading widely', 'Smartphones have a pervasive influence on daily life.', 2, 4),
-('robust', '/rəʊˈbʌst/', 'adj. strong and effective', 'The team built a robust testing process.', 2, 3),
-('tentative', '/ˈtentətɪv/', 'adj. uncertain or not final', 'We made a tentative schedule for next week.', 2, 3),
-('versatile', '/ˈvɜːsətaɪl/', 'adj. able to do many things', 'A versatile vocabulary helps in formal writing.', 2, 3),
-('yielding', '/ˈjiːldɪŋ/', 'adj. inclined to give way', 'The material is soft but not too yielding.', 2, 4)
+('abstain', '/əbˈsteɪn/', 'v. 弃权；戒绝', 'He chose to abstain from the vote.', 2, 4),
+('adversity', '/ədˈvɜːsəti/', 'n. 逆境；困境', 'Adversity often reveals true character.', 2, 4),
+('concise', '/kənˈsaɪs/', 'adj. 简洁的；简明的', 'Her answer was concise and accurate.', 2, 3),
+('pervasive', '/pəˈveɪsɪv/', 'adj. 普遍的；无处不在的', 'Smartphones have a pervasive influence on daily life.', 2, 4),
+('robust', '/rəʊˈbʌst/', 'adj. 强健的；稳健的', 'The team built a robust testing process.', 2, 3),
+('tentative', '/ˈtentətɪv/', 'adj. 暂定的；试探性的', 'We made a tentative schedule for next week.', 2, 3),
+('versatile', '/ˈvɜːsətaɪl/', 'adj. 多才多艺的；用途广泛的', 'A versatile vocabulary helps in formal writing.', 2, 3),
+('yielding', '/ˈjiːldɪŋ/', 'adj. 易弯曲的；顺从的', 'The material is soft but not too yielding.', 2, 4)
 ON DUPLICATE KEY UPDATE `word`=VALUES(`word`);
 
 INSERT INTO `word` (`word`, `phonetic`, `translation`, `example`, `vocab_id`, `difficulty`) VALUES
@@ -180,25 +180,25 @@ INSERT INTO `word` (`word`, `phonetic`, `translation`, `example`, `vocab_id`, `d
 ON DUPLICATE KEY UPDATE `word`=VALUES(`word`);
 
 INSERT INTO `word` (`word`, `phonetic`, `translation`, `example`, `vocab_id`, `difficulty`) VALUES
-('abstruse', '/əbˈstruːs/', 'adj. difficult to understand', 'The article was too abstruse for beginners.', 5, 5),
-('adamant', '/ˈædəmənt/', 'adj. refusing to change', 'She was adamant that the experiment needed more evidence.', 5, 5),
-('austere', '/ɒˈstɪə(r)/', 'adj. severe and plain', 'The room had an austere but elegant design.', 5, 5),
-('bolster', '/ˈbəʊlstə(r)/', 'v. support or strengthen', 'New data may bolster the author’s claim.', 5, 4),
-('cacophony', '/kəˈkɒfəni/', 'n. harsh mixture of sounds', 'The market was filled with a cacophony of voices.', 5, 5),
-('deleterious', '/ˌdelɪˈtɪəriəs/', 'adj. harmful', 'Sleep deprivation has deleterious effects on memory.', 5, 5),
-('obdurate', '/ˈɒbdjərət/', 'adj. stubbornly refusing to change', 'The committee remained obdurate despite the criticism.', 5, 5),
-('sagacious', '/səˈɡeɪʃəs/', 'adj. wise and thoughtful', 'Her sagacious advice prevented a costly mistake.', 5, 5)
+('abstruse', '/əbˈstruːs/', 'adj. 深奥难懂的', 'The article was too abstruse for beginners.', 5, 5),
+('adamant', '/ˈædəmənt/', 'adj. 坚决的；固执不变的', 'She was adamant that the experiment needed more evidence.', 5, 5),
+('austere', '/ɒˈstɪə(r)/', 'adj. 简朴严肃的；朴素的', 'The room had an austere but elegant design.', 5, 5),
+('bolster', '/ˈbəʊlstə(r)/', 'v. 支持；加强', 'New data may bolster the author’s claim.', 5, 4),
+('cacophony', '/kəˈkɒfəni/', 'n. 刺耳的杂音', 'The market was filled with a cacophony of voices.', 5, 5),
+('deleterious', '/ˌdelɪˈtɪəriəs/', 'adj. 有害的', 'Sleep deprivation has deleterious effects on memory.', 5, 5),
+('obdurate', '/ˈɒbdjərət/', 'adj. 顽固的；执拗的', 'The committee remained obdurate despite the criticism.', 5, 5),
+('sagacious', '/səˈɡeɪʃəs/', 'adj. 睿智的；有远见的', 'Her sagacious advice prevented a costly mistake.', 5, 5)
 ON DUPLICATE KEY UPDATE `word`=VALUES(`word`);
 
 INSERT INTO `word` (`word`, `phonetic`, `translation`, `example`, `vocab_id`, `difficulty`) VALUES
-('comprehend', '/ˌkɒmprɪˈhend/', 'v. understand fully', 'It takes time to comprehend the whole argument.', 6, 3),
-('crucial', '/ˈkruːʃl/', 'adj. extremely important', 'Vocabulary retention is crucial for exam performance.', 6, 3),
-('derive', '/dɪˈraɪv/', 'v. obtain from a source', 'Several conclusions derive from these early results.', 6, 3),
-('empirical', '/ɪmˈpɪrɪkl/', 'adj. based on observation', 'The paper offers strong empirical evidence.', 6, 4),
-('formulate', '/ˈfɔːmjəleɪt/', 'v. express systematically', 'You need to formulate a clearer research question.', 6, 4),
-('inhibit', '/ɪnˈhɪbɪt/', 'v. hold back', 'Anxiety can inhibit language production.', 6, 4),
-('notion', '/ˈnəʊʃn/', 'n. idea or belief', 'The author challenges the notion of fixed ability.', 6, 3),
-('subsequent', '/ˈsʌbsɪkwənt/', 'adj. following later', 'Subsequent chapters focus on practical examples.', 6, 4)
+('comprehend', '/ˌkɒmprɪˈhend/', 'v. 充分理解；领会', 'It takes time to comprehend the whole argument.', 6, 3),
+('crucial', '/ˈkruːʃl/', 'adj. 至关重要的', 'Vocabulary retention is crucial for exam performance.', 6, 3),
+('derive', '/dɪˈraɪv/', 'v. 得到；源于', 'Several conclusions derive from these early results.', 6, 3),
+('empirical', '/ɪmˈpɪrɪkl/', 'adj. 以观察或实验为依据的', 'The paper offers strong empirical evidence.', 6, 4),
+('formulate', '/ˈfɔːmjəleɪt/', 'v. 系统阐述；明确表达', 'You need to formulate a clearer research question.', 6, 4),
+('inhibit', '/ɪnˈhɪbɪt/', 'v. 抑制；阻碍', 'Anxiety can inhibit language production.', 6, 4),
+('notion', '/ˈnəʊʃn/', 'n. 概念；看法', 'The author challenges the notion of fixed ability.', 6, 3),
+('subsequent', '/ˈsʌbsɪkwənt/', 'adj. 随后的；后来的', 'Subsequent chapters focus on practical examples.', 6, 4)
 ON DUPLICATE KEY UPDATE `word`=VALUES(`word`);
 
 UPDATE `vocab` v
