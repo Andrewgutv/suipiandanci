@@ -70,11 +70,12 @@ class WordActionReceiver : BroadcastReceiver() {
                 val advice = learningManager.handleUserFeedback(word, "known")
                 Log.d(TAG, "Learning advice: $advice")
 
+                val synced = repository.syncWordFeedback(word, isKnown = true)
+                Log.d(TAG, "Known feedback sync result for ${word.word}: $synced")
                 repository.clearCurrentWord()
                 if (AppPreferences.isNotificationEnabled(context)) {
                     WordService.showNewWord(context, word.word)
                 }
-                repository.syncWordFeedback(word, isKnown = true)
             } catch (e: Exception) {
                 Log.e(TAG, "Error handling known action", e)
             } finally {
@@ -101,11 +102,12 @@ class WordActionReceiver : BroadcastReceiver() {
                 val inserted = repository.addToNotebook(word)
                 val existsInNotebook = inserted || repository.getNotebookWords().any { it.word == word.word }
 
+                val synced = repository.syncWordFeedback(word, isKnown = false)
+                Log.d(TAG, "Unknown feedback sync result for ${word.word}: $synced")
                 repository.clearCurrentWord()
                 if (AppPreferences.isNotificationEnabled(context)) {
                     WordService.showNewWord(context, word.word)
                 }
-                repository.syncWordFeedback(word, isKnown = false)
                 showUnknownResultToast(context, inserted, existsInNotebook)
             } catch (e: Exception) {
                 Log.e(TAG, "Error handling unknown action", e)
@@ -148,6 +150,13 @@ class WordActionReceiver : BroadcastReceiver() {
         val partOfSpeech = intent.getStringExtra(WordService.EXTRA_PART_OF_SPEECH) ?: ""
         val library = intent.getStringExtra(WordService.EXTRA_LIBRARY) ?: ""
         val fallbackCurrentWord = WordRepository(context).getCurrentWord()
+        if (fallbackCurrentWord != null && fallbackCurrentWord.word != word) {
+            Log.w(
+                TAG,
+                "Notification action word mismatch, intentWord=$word, currentWord=${fallbackCurrentWord.word}; using currentWord"
+            )
+            return fallbackCurrentWord
+        }
         val resolvedRemoteId = remoteId.takeIf { it > 0 }
             ?: fallbackCurrentWord?.takeIf { it.word == word }?.remoteId
         return Word(

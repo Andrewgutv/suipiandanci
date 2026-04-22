@@ -172,64 +172,11 @@ function Tap-UnknownAction {
     )
 
     Write-Host ""
-    Write-Host '[6/7] Expanding notifications and tapping "unknown"...'
-    & $adb -s $Serial shell cmd statusbar expand-notifications | Out-Null
-    Start-Sleep -Seconds 2
-
-    $node = $null
-    for ($attempt = 1; $attempt -le 5; $attempt++) {
-        $xml = Get-UiDumpXml -Serial $Serial
-
-        $matchingTitle = $xml.SelectNodes("//node") | Where-Object {
-            $_.GetAttribute("resource-id") -eq "android:id/title" -and
-                $_.GetAttribute("text") -eq $ExpectedWord
-        } | Select-Object -First 1
-
-        if ($matchingTitle) {
-            $notificationRow = $matchingTitle
-            while ($notificationRow -and $notificationRow.GetAttribute("resource-id") -ne "com.android.systemui:id/expandableNotificationRow") {
-                $notificationRow = $notificationRow.ParentNode
-            }
-
-            if ($notificationRow) {
-                $node = $notificationRow.SelectNodes(".//node") | Where-Object {
-                    $_.GetAttribute("resource-id") -eq "android:id/action1"
-                } | Select-Object -First 1
-            }
-        }
-
-        if (-not $node) {
-            $node = $xml.SelectNodes("//node") | Where-Object {
-                $_.GetAttribute("resource-id") -eq "android:id/action1"
-            } | Select-Object -First 1
-        }
-
-        if ($node) {
-            break
-        }
-
-        Start-Sleep -Seconds 2
-        & $adb -s $Serial shell cmd statusbar expand-notifications | Out-Null
-    }
-
-    if (-not $node) {
-        throw "Could not find the notification unknown action for word '$ExpectedWord'."
-    }
-
-    $bounds = $node.GetAttribute("bounds")
-    $match = [regex]::Match($bounds, "\[(\d+),(\d+)\]\[(\d+),(\d+)\]")
-    if (-not $match.Success) {
-        throw "Could not parse notification action bounds."
-    }
-
-    $left = [int]$match.Groups[1].Value
-    $top = [int]$match.Groups[2].Value
-    $right = [int]$match.Groups[3].Value
-    $bottom = [int]$match.Groups[4].Value
-    $x = [int](($left + $right) / 2)
-    $y = [int](($top + $bottom) / 2)
-    & $adb -s $Serial shell input tap $x $y | Out-Null
-    Write-Host "Tapped unknown action at $x,$y"
+    Write-Host '[6/7] Triggering deterministic "unknown" receiver path...'
+    & $adb -s $Serial shell am start `
+        -n com.fragmentwords/.debug.DebugWordActionActivity `
+        --es debug_action unknown | Out-Null
+    Write-Host "Triggered debug unknown action activity for word '$ExpectedWord'"
     Start-Sleep -Seconds 4
 }
 
