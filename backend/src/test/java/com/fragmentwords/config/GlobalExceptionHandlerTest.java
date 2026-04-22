@@ -1,6 +1,9 @@
 package com.fragmentwords.config;
 
+import com.fragmentwords.common.ConflictException;
+import com.fragmentwords.common.ForbiddenException;
 import com.fragmentwords.common.ResourceNotFoundException;
+import com.fragmentwords.common.UnauthorizedException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
@@ -44,6 +47,14 @@ class GlobalExceptionHandlerTest {
     }
 
     @Test
+    void forbiddenExceptionsReturnHttp403() throws Exception {
+        mockMvc.perform(get("/forbidden").accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isForbidden())
+            .andExpect(jsonPath("$.code").value(403))
+            .andExpect(jsonPath("$.message").value("forbidden"));
+    }
+
+    @Test
     void notFoundExceptionsReturnHttp404() throws Exception {
         mockMvc.perform(get("/not-found").accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isNotFound())
@@ -77,7 +88,7 @@ class GlobalExceptionHandlerTest {
 
         @GetMapping("/unauthorized")
         void unauthorized() {
-            throw new SecurityException("unauthorized");
+            throw new UnauthorizedException("unauthorized");
         }
 
         @GetMapping("/not-found")
@@ -85,9 +96,14 @@ class GlobalExceptionHandlerTest {
             throw new ResourceNotFoundException("missing");
         }
 
+        @GetMapping("/forbidden")
+        void forbidden() {
+            throw new ForbiddenException("forbidden");
+        }
+
         @GetMapping("/conflict")
         void conflict() {
-            throw new IllegalStateException("conflict");
+            throw new ConflictException("conflict");
         }
 
         @GetMapping("/internal-error")

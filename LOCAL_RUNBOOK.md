@@ -108,6 +108,18 @@ Invoke-RestMethod http://localhost:8080/api/v1/vocabs
 
 返回 JSON 且 `code = 200`，说明后端主链路已起来。
 
+### 端口占用处理
+
+启动脚本现在也会预检查本地应用端口。
+
+如果 `8080` 已被别的进程占用，可显式改端口：
+
+```powershell
+$env:APP_PORT = "8081"
+.\start-local.ps1
+Invoke-RestMethod http://localhost:8081/api/v1/vocabs
+```
+
 ## 5. Android 调试包
 
 ### 构建 debug APK
@@ -161,6 +173,13 @@ cd D:\workspace\app
 3. 读取 app 的 `device_id`
 4. 查询后端当前词库 / 生词本数量 / 学习统计
 
+如果后端改跑其他端口，先设置：
+
+```powershell
+$env:APP_PORT = "8081"
+.\run-local-smoke.bat
+```
+
 ### 通知 `unknown` 动作 smoke
 
 ```powershell
@@ -174,6 +193,9 @@ cd D:\workspace\app
 2. 展开通知栏
 3. 自动点击通知里的 `unknown`
 4. 回查后端 notebook / stats 变化
+
+这个脚本也会读取 `APP_PORT`。
+如果环境里已经设置了 `DB_PASSWORD`，它也会尝试自动拉起后端。
 
 注意：
 

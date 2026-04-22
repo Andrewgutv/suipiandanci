@@ -7,6 +7,7 @@ public class Result<T> {
     public static final int CODE_SUCCESS = 200;
     public static final int CODE_BAD_REQUEST = 400;
     public static final int CODE_UNAUTHORIZED = 401;
+    public static final int CODE_FORBIDDEN = 403;
     public static final int CODE_NOT_FOUND = 404;
     public static final int CODE_CONFLICT = 409;
     public static final int CODE_INTERNAL_ERROR = 500;
@@ -54,6 +55,14 @@ public class Result<T> {
     public static <T> Result<T> notFound(String message) {
         Result<T> result = new Result<>();
         result.setCode(CODE_NOT_FOUND);
+        result.setMessage(message);
+        result.setData(null);
+        return result;
+    }
+
+    public static <T> Result<T> forbidden(String message) {
+        Result<T> result = new Result<>();
+        result.setCode(CODE_FORBIDDEN);
         result.setMessage(message);
         result.setData(null);
         return result;

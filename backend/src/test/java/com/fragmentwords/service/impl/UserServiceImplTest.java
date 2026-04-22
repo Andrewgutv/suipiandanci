@@ -1,7 +1,9 @@
 package com.fragmentwords.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.fragmentwords.common.ConflictException;
 import com.fragmentwords.common.ResourceNotFoundException;
+import com.fragmentwords.common.UnauthorizedException;
 import com.fragmentwords.mapper.UserMapper;
 import com.fragmentwords.model.dto.UserLoginDTO;
 import com.fragmentwords.model.dto.UserRegisterDTO;
@@ -40,8 +42,8 @@ class UserServiceImplTest {
 
         when(userMapper.selectCount(any(LambdaQueryWrapper.class))).thenReturn(1L);
 
-        IllegalStateException exception =
-            assertThrows(IllegalStateException.class, () -> userService.register(registerDTO));
+        ConflictException exception =
+            assertThrows(ConflictException.class, () -> userService.register(registerDTO));
         assertEquals("Username already exists", exception.getMessage());
         verify(userMapper, never()).insert(any(User.class));
     }
@@ -55,8 +57,8 @@ class UserServiceImplTest {
 
         when(userMapper.selectCount(any(LambdaQueryWrapper.class))).thenReturn(0L, 1L);
 
-        IllegalStateException exception =
-            assertThrows(IllegalStateException.class, () -> userService.register(registerDTO));
+        ConflictException exception =
+            assertThrows(ConflictException.class, () -> userService.register(registerDTO));
         assertEquals("Phone number already registered", exception.getMessage());
         verify(userMapper, never()).insert(any(User.class));
     }
@@ -69,7 +71,8 @@ class UserServiceImplTest {
 
         when(userMapper.selectOne(any(LambdaQueryWrapper.class))).thenReturn(null);
 
-        SecurityException exception = assertThrows(SecurityException.class, () -> userService.login(loginDTO));
+        UnauthorizedException exception =
+            assertThrows(UnauthorizedException.class, () -> userService.login(loginDTO));
         assertEquals("Invalid username or password", exception.getMessage());
     }
 
@@ -86,7 +89,8 @@ class UserServiceImplTest {
 
         when(userMapper.selectOne(any(LambdaQueryWrapper.class))).thenReturn(user);
 
-        SecurityException exception = assertThrows(SecurityException.class, () -> userService.login(loginDTO));
+        UnauthorizedException exception =
+            assertThrows(UnauthorizedException.class, () -> userService.login(loginDTO));
         assertEquals("Invalid username or password", exception.getMessage());
         verify(userMapper, never()).updateById(any(User.class));
     }

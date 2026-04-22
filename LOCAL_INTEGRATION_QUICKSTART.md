@@ -69,6 +69,7 @@ The local runner now fails fast before Spring Boot starts if any of these are tr
 - `java` is not available on `PATH`
 - `backend\mvnw.cmd` is missing
 - MySQL is not reachable at `DB_HOST:DB_PORT`
+- the local app port from `APP_PORT` is already in use
 
 If you need to bypass only the TCP port preflight, set:
 
@@ -79,6 +80,13 @@ $env:SKIP_DB_PREFLIGHT = "1"
 
 ```cmd
 set SKIP_DB_PREFLIGHT=1 && start-local.bat
+```
+
+If local port `8080` is already occupied:
+
+```powershell
+$env:APP_PORT = "8081"
+.\start-local.ps1
 ```
 
 ## Build Android debug APK
@@ -109,6 +117,13 @@ This script will:
 3. read the app `device_id` from shared preferences
 4. query backend vocab/notebook/stats for that device
 
+If backend is running on another local port:
+
+```powershell
+$env:APP_PORT = "8081"
+.\run-local-smoke.bat
+```
+
 To automate the notification `unknown` action:
 
 ```powershell
@@ -123,6 +138,9 @@ This script will:
 3. expand the notification shade
 4. tap the notification `unknown` action
 5. query backend notebook/stats before and after
+
+It also respects `APP_PORT`.
+If `DB_PASSWORD` is already set, it will also try to auto-start the backend.
 
 If the current word is already in notebook, notebook delta can remain `0`.
 

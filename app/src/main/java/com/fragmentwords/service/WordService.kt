@@ -9,6 +9,7 @@ import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ServiceInfo
+import android.net.Uri
 import android.os.DeadObjectException
 import android.os.Build
 import android.app.ForegroundServiceStartNotAllowedException
@@ -237,22 +238,26 @@ class WordService : Service() {
     private fun createWordNotification(word: Word, isFirst: Boolean): Notification {
         val knownIntent = Intent(this, WordActionReceiver::class.java).apply {
             action = ACTION_KNOWN
+            data = buildActionUri("known", word)
+            setPackage(packageName)
             putWordExtras(word)
         }
         val unknownIntent = Intent(this, WordActionReceiver::class.java).apply {
             action = ACTION_UNKNOWN
+            data = buildActionUri("unknown", word)
+            setPackage(packageName)
             putWordExtras(word)
         }
 
         val knownPendingIntent = PendingIntent.getBroadcast(
             this,
-            0,
+            buildActionRequestCode(0, word),
             knownIntent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
         val unknownPendingIntent = PendingIntent.getBroadcast(
             this,
-            1,
+            buildActionRequestCode(1, word),
             unknownIntent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
@@ -329,5 +334,15 @@ class WordService : Service() {
             contentIntent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
+    }
+
+    private fun buildActionRequestCode(actionOffset: Int, word: Word): Int {
+        val stableWordId = word.remoteId?.toInt() ?: word.word.hashCode()
+        return (stableWordId and 0x0FFFFFFF) xor (actionOffset shl 28)
+    }
+
+    private fun buildActionUri(actionName: String, word: Word): Uri {
+        val identifier = word.remoteId?.toString() ?: Uri.encode(word.word)
+        return Uri.parse("fragmentwords://notification/$actionName/$identifier")
     }
 }

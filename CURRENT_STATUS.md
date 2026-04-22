@@ -75,8 +75,10 @@ Recent backend cleanup also improved response behavior:
 
 - UTF-8 JSON response headers are explicit
 - unauthorized requests now return JSON `Result`
+- forbidden requests now return JSON `Result`
 - internal server errors now return JSON `Result`
 - auth info endpoint is now guarded by `@RequireAuth`
+- auth conflict / unauthorized / forbidden cases now use explicit domain exceptions
 
 Backend compile status:
 
@@ -90,10 +92,12 @@ The following are verified in the current repository state:
 
 - Android `:app:compileDebugKotlin` passes
 - Android `:app:assembleDebug` passes
+- backend `mvn -q test` passes
 - backend `mvn -q -DskipTests compile` passes
 - Android emulator smoke path can install and launch through local scripts
 - notification `unknown` action automation script can reach backend and verify notebook/stats deltas
 - unauthenticated `/api/v1/auth/info/{userId}` returns JSON `401`
+- authenticated cross-user `/api/v1/auth/info/{userId}` returns JSON `403`
 
 ## Remaining High-Priority Risk
 
@@ -101,7 +105,6 @@ These are the meaningful open risks now:
 
 - full real-device validation of Android notification and foreground-service behavior is still incomplete
 - backend startup currently depends on correct local MySQL credentials being injected at runtime
-- `UserServiceImpl` exception semantics still need cleanup so auth/register conflicts map cleanly without controller-local translation
 - release build validation is still blocked by local Gradle wrapper/cache environment issues
 - cloud sync and multi-device account behavior remain unfinished
 
@@ -116,7 +119,7 @@ Recommended order from here:
    - stable release API URL injection
    - repeatable release build validation
 2. run a short real-device validation pass
-3. finish backend auth semantics cleanup
+3. extend the same response semantics if more guarded backend routes are added
 4. then trim remaining local-only fallback assumptions where backend is now primary
 
 ## Practical Summary

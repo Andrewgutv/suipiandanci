@@ -7,6 +7,7 @@ $dbHost = if ($env:DB_HOST) { $env:DB_HOST } else { "127.0.0.1" }
 $dbPort = if ($env:DB_PORT) { $env:DB_PORT } else { "3307" }
 $dbName = if ($env:DB_NAME) { $env:DB_NAME } else { "fragment_words" }
 $dbUser = if ($env:DB_USER) { $env:DB_USER } else { "root" }
+$appPort = if ($env:APP_PORT) { $env:APP_PORT } else { "8080" }
 $dbPassword = $env:DB_PASSWORD
 $skipDbPreflight = $env:SKIP_DB_PREFLIGHT -eq "1"
 
@@ -55,7 +56,7 @@ Write-Host "  MySQL host: $dbHost"
 Write-Host "  MySQL port: $dbPort"
 Write-Host "  MySQL name: $dbName"
 Write-Host "  MySQL user: $dbUser"
-Write-Host "  App port:   8080"
+Write-Host "  App port:   $appPort"
 Write-Host ""
 
 if ([string]::IsNullOrWhiteSpace($dbPassword)) {
@@ -82,9 +83,17 @@ Start MySQL first, or set SKIP_DB_PREFLIGHT=1 if you intentionally want to bypas
 "@
 }
 
+if (Test-TcpPort -HostName "127.0.0.1" -Port ([int]$appPort)) {
+    Fail-AndExit @"
+Application port ${appPort} is already in use on localhost.
+Stop the existing process, or set APP_PORT to a free port before starting the backend.
+"@
+}
+
 $env:SPRING_DATASOURCE_URL = "jdbc:mysql://$dbHost`:$dbPort/$dbName?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai"
 $env:SPRING_DATASOURCE_USERNAME = $dbUser
 $env:SPRING_DATASOURCE_PASSWORD = $dbPassword
+$env:SERVER_PORT = $appPort
 
 $process = Start-Process `
     -FilePath ".\mvnw.cmd" `

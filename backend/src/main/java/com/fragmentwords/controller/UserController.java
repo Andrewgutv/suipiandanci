@@ -1,7 +1,9 @@
 package com.fragmentwords.controller;
 
 import com.fragmentwords.annotation.RequireAuth;
+import com.fragmentwords.common.ForbiddenException;
 import com.fragmentwords.common.Result;
+import com.fragmentwords.common.UnauthorizedException;
 import com.fragmentwords.config.JwtAuthInterceptor;
 import com.fragmentwords.model.dto.UserLoginDTO;
 import com.fragmentwords.model.dto.UserLoginResponseDTO;
@@ -46,10 +48,10 @@ public class UserController {
     public Result<UserResponseDTO> getUserInfo(@PathVariable Long userId, HttpServletRequest request) {
         Long authenticatedUserId = resolveAuthenticatedUserId(request);
         if (authenticatedUserId == null) {
-            throw new SecurityException("Authentication required");
+            throw new UnauthorizedException("Authentication required");
         }
         if (!authenticatedUserId.equals(userId)) {
-            throw new SecurityException("You can only access the current authenticated user");
+            throw new ForbiddenException("You can only access the current authenticated user");
         }
         return Result.success(userService.getUserById(userId));
     }

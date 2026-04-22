@@ -1,7 +1,10 @@
 package com.fragmentwords.config;
 
+import com.fragmentwords.common.ConflictException;
+import com.fragmentwords.common.ForbiddenException;
 import com.fragmentwords.common.ResourceNotFoundException;
 import com.fragmentwords.common.Result;
+import com.fragmentwords.common.UnauthorizedException;
 import jakarta.validation.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,18 +39,25 @@ public class GlobalExceptionHandler {
         return respond(HttpStatus.BAD_REQUEST, Result.badRequest(message));
     }
 
-    @ExceptionHandler(IllegalStateException.class)
-    public ResponseEntity<Result<Void>> handleConflict(IllegalStateException exception) {
+    @ExceptionHandler({ConflictException.class, IllegalStateException.class})
+    public ResponseEntity<Result<Void>> handleConflict(RuntimeException exception) {
         log.warn("Conflict", exception);
         String message = exception.getMessage() != null ? exception.getMessage() : "Request conflict";
         return respond(HttpStatus.CONFLICT, Result.conflict(message));
     }
 
-    @ExceptionHandler(SecurityException.class)
-    public ResponseEntity<Result<Void>> handleUnauthorized(SecurityException exception) {
+    @ExceptionHandler({UnauthorizedException.class, SecurityException.class})
+    public ResponseEntity<Result<Void>> handleUnauthorized(RuntimeException exception) {
         log.warn("Unauthorized", exception);
         String message = exception.getMessage() != null ? exception.getMessage() : "Unauthorized";
         return respond(HttpStatus.UNAUTHORIZED, Result.unauthorized(message));
+    }
+
+    @ExceptionHandler(ForbiddenException.class)
+    public ResponseEntity<Result<Void>> handleForbidden(ForbiddenException exception) {
+        log.warn("Forbidden", exception);
+        String message = exception.getMessage() != null ? exception.getMessage() : "Forbidden";
+        return respond(HttpStatus.FORBIDDEN, Result.forbidden(message));
     }
 
     @ExceptionHandler(ResourceNotFoundException.class)

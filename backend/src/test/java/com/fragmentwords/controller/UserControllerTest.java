@@ -1,6 +1,9 @@
 package com.fragmentwords.controller;
 
+import com.fragmentwords.common.ConflictException;
+import com.fragmentwords.common.ForbiddenException;
 import com.fragmentwords.common.ResourceNotFoundException;
+import com.fragmentwords.common.UnauthorizedException;
 import com.fragmentwords.config.GlobalExceptionHandler;
 import com.fragmentwords.model.dto.UserLoginResponseDTO;
 import com.fragmentwords.model.dto.UserResponseDTO;
@@ -55,7 +58,7 @@ class UserControllerTest {
 
     @Test
     void registerConflictReturnsHttp409() throws Exception {
-        when(userService.register(any())).thenThrow(new IllegalStateException("username exists"));
+        when(userService.register(any())).thenThrow(new ConflictException("username exists"));
 
         mockMvc.perform(
                 post("/api/v1/auth/register")
@@ -69,7 +72,7 @@ class UserControllerTest {
 
     @Test
     void loginUnauthorizedReturnsHttp401() throws Exception {
-        when(userService.login(any())).thenThrow(new SecurityException("invalid credentials"));
+        when(userService.login(any())).thenThrow(new UnauthorizedException("invalid credentials"));
 
         mockMvc.perform(
                 post("/api/v1/auth/login")
@@ -96,8 +99,8 @@ class UserControllerTest {
                     .with(authenticatedUser(1L))
                     .accept(MediaType.APPLICATION_JSON)
             )
-            .andExpect(status().isUnauthorized())
-            .andExpect(jsonPath("$.code").value(401))
+            .andExpect(status().isForbidden())
+            .andExpect(jsonPath("$.code").value(403))
             .andExpect(jsonPath("$.message").value("You can only access the current authenticated user"));
     }
 

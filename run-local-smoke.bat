@@ -2,6 +2,7 @@
 setlocal
 
 set "ROOT_DIR=%~dp0"
+if "%APP_PORT%"=="" set "APP_PORT=8080"
 cd /d "%ROOT_DIR%"
 
 echo ========================================
@@ -9,7 +10,7 @@ echo   Fragment Words Local Smoke Runner
 echo ========================================
 echo.
 
-echo [1/5] Checking backend on localhost:8080...
+echo [1/5] Checking backend on localhost:%APP_PORT%...
 call :ensure_backend
 if errorlevel 1 exit /b 1
 
@@ -34,9 +35,9 @@ echo.
 echo [5/5] Querying backend state for this device...
 powershell -NoProfile -Command ^
   "$headers = @{ 'X-Device-Id' = '%APP_DEVICE_ID%' }; " ^
-  "$vocabs = Invoke-RestMethod -Method Get -Uri 'http://localhost:8080/api/v1/vocabs/current' -Headers $headers; " ^
-  "$notebook = Invoke-RestMethod -Method Get -Uri 'http://localhost:8080/api/v1/notebook/count' -Headers $headers; " ^
-  "$stats = Invoke-RestMethod -Method Get -Uri 'http://localhost:8080/api/v1/learning/stats' -Headers $headers; " ^
+  "$vocabs = Invoke-RestMethod -Method Get -Uri 'http://localhost:%APP_PORT%/api/v1/vocabs/current' -Headers $headers; " ^
+  "$notebook = Invoke-RestMethod -Method Get -Uri 'http://localhost:%APP_PORT%/api/v1/notebook/count' -Headers $headers; " ^
+  "$stats = Invoke-RestMethod -Method Get -Uri 'http://localhost:%APP_PORT%/api/v1/learning/stats' -Headers $headers; " ^
   "Write-Host ('current vocab   : ' + ($vocabs.data.vocabId)); " ^
   "Write-Host ('notebook count  : ' + ($notebook.data)); " ^
   "Write-Host ('total words     : ' + ($stats.data.totalWords)); " ^
@@ -60,10 +61,17 @@ echo.
 exit /b 0
 
 :ensure_backend
-netstat -ano | findstr /r /c:":8080 .*LISTENING" >nul
+netstat -ano | findstr /r /c:":%APP_PORT% .*LISTENING" >nul
 if not errorlevel 1 exit /b 0
 
-echo Backend is not listening. Starting backend\start-local.bat in a new window...
+if "%DB_PASSWORD%"=="" (
+    echo [ERROR] Backend is not listening on localhost:%APP_PORT%.
+    echo         Set DB_PASSWORD first if you want this script to auto-start backend\start-local.bat,
+    echo         or start the backend manually before retrying.
+    exit /b 1
+)
+
+echo Backend is not listening. Starting backend\start-local.bat for localhost:%APP_PORT% in a new window...
 start "Fragment Words Backend" cmd /c ""%ROOT_DIR%backend\start-local.bat""
 
 set /a WAIT_COUNT=0
@@ -74,7 +82,7 @@ if %WAIT_COUNT% GEQ 24 (
     exit /b 1
 )
 timeout /t 3 /nobreak >nul
-netstat -ano | findstr /r /c:":8080 .*LISTENING" >nul
+netstat -ano | findstr /r /c:":%APP_PORT% .*LISTENING" >nul
 if not errorlevel 1 exit /b 0
 set /a WAIT_COUNT+=1
 goto :wait_backend

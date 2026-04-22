@@ -1,7 +1,9 @@
 package com.fragmentwords.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.fragmentwords.common.ConflictException;
 import com.fragmentwords.common.ResourceNotFoundException;
+import com.fragmentwords.common.UnauthorizedException;
 import com.fragmentwords.mapper.UserMapper;
 import com.fragmentwords.model.dto.UserLoginDTO;
 import com.fragmentwords.model.dto.UserLoginResponseDTO;
@@ -32,14 +34,14 @@ public class UserServiceImpl implements UserService {
         LambdaQueryWrapper<User> usernameWrapper = new LambdaQueryWrapper<>();
         usernameWrapper.eq(User::getUsername, registerDTO.getUsername());
         if (userMapper.selectCount(usernameWrapper) > 0) {
-            throw new IllegalStateException("Username already exists");
+            throw new ConflictException("Username already exists");
         }
 
         if (registerDTO.getPhone() != null) {
             LambdaQueryWrapper<User> phoneWrapper = new LambdaQueryWrapper<>();
             phoneWrapper.eq(User::getPhone, registerDTO.getPhone());
             if (userMapper.selectCount(phoneWrapper) > 0) {
-                throw new IllegalStateException("Phone number already registered");
+                throw new ConflictException("Phone number already registered");
             }
         }
 
@@ -62,7 +64,7 @@ public class UserServiceImpl implements UserService {
         User user = userMapper.selectOne(wrapper);
 
         if (user == null || !verifyPassword(loginDTO.getPassword(), user.getPassword())) {
-            throw new SecurityException("Invalid username or password");
+            throw new UnauthorizedException("Invalid username or password");
         }
 
         if (loginDTO.getDeviceId() != null) {

@@ -2,13 +2,42 @@ $ErrorActionPreference = "Stop"
 
 $rootDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $adb = "C:\Users\Andrew\AppData\Local\Android\Sdk\platform-tools\adb.exe"
+$appPort = if ($env:APP_PORT) { $env:APP_PORT } else { "8080" }
+
+function Test-BackendListening {
+    $listening = netstat -ano | Select-String ":$appPort" | Select-String "LISTENING"
+    return $null -ne $listening
+}
 
 function Ensure-Backend {
-    Write-Host "[1/7] Checking backend on localhost:8080..."
-    $listening = netstat -ano | Select-String ":8080" | Select-String "LISTENING"
-    if (-not $listening) {
-        throw "Backend is not listening on localhost:8080. Start backend\start-local.bat first."
+    Write-Host "[1/7] Checking backend on localhost:$appPort..."
+    if (Test-BackendListening) {
+        return
     }
+
+    if ([string]::IsNullOrWhiteSpace($env:DB_PASSWORD)) {
+        throw "Backend is not listening on localhost:$appPort. Set DB_PASSWORD first if you want this script to auto-start backend\start-local.ps1, or start the backend manually before retrying."
+    }
+
+    Write-Host "Backend is not listening. Starting backend\start-local.ps1 for localhost:$appPort in a new window..."
+    Start-Process `
+        -FilePath "powershell" `
+        -ArgumentList @(
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            (Join-Path $rootDir "backend\start-local.ps1")
+        ) | Out-Null
+
+    for ($attempt = 1; $attempt -le 24; $attempt++) {
+        Start-Sleep -Seconds 3
+        if (Test-BackendListening) {
+            return
+        }
+    }
+
+    throw "Backend did not become ready on localhost:$appPort within 60 seconds."
 }
 
 function Install-And-LaunchApp {
@@ -117,9 +146,9 @@ function Read-BackendState {
 
     for ($attempt = 1; $attempt -le 3; $attempt++) {
         try {
-            $notebook = Invoke-RestMethod -Method Get -Uri "http://localhost:8080/api/v1/notebook/count" -Headers $headers
-            $notebookPage = Invoke-RestMethod -Method Get -Uri "http://localhost:8080/api/v1/notebook" -Headers $headers
-            $stats = Invoke-RestMethod -Method Get -Uri "http://localhost:8080/api/v1/learning/stats" -Headers $headers
+            $notebook = Invoke-RestMethod -Method Get -Uri "http://localhost:$appPort/api/v1/notebook/count" -Headers $headers
+            $notebookPage = Invoke-RestMethod -Method Get -Uri "http://localhost:$appPort/api/v1/notebook" -Headers $headers
+            $stats = Invoke-RestMethod -Method Get -Uri "http://localhost:$appPort/api/v1/learning/stats" -Headers $headers
 
             return @{
                 NotebookCount = [int]$notebook.data
@@ -137,7 +166,10 @@ function Read-BackendState {
 }
 
 function Tap-UnknownAction {
-    param([string]$Serial)
+    param(
+        [string]$Serial,
+        [string]$ExpectedWord
+    )
 
     Write-Host ""
     Write-Host '[6/7] Expanding notifications and tapping "unknown"...'
@@ -147,10 +179,30 @@ function Tap-UnknownAction {
     $node = $null
     for ($attempt = 1; $attempt -le 5; $attempt++) {
         $xml = Get-UiDumpXml -Serial $Serial
-        $node = $xml.SelectNodes("//node") | Where-Object {
-            $_.GetAttribute("resource-id") -eq "android:id/action1" -or
-            $_.GetAttribute("content-desc") -eq "unknown"
+
+        $matchingTitle = $xml.SelectNodes("//node") | Where-Object {
+            $_.GetAttribute("resource-id") -eq "android:id/title" -and
+                $_.GetAttribute("text") -eq $ExpectedWord
         } | Select-Object -First 1
+
+        if ($matchingTitle) {
+            $notificationRow = $matchingTitle
+            while ($notificationRow -and $notificationRow.GetAttribute("resource-id") -ne "com.android.systemui:id/expandableNotificationRow") {
+                $notificationRow = $notificationRow.ParentNode
+            }
+
+            if ($notificationRow) {
+                $node = $notificationRow.SelectNodes(".//node") | Where-Object {
+                    $_.GetAttribute("resource-id") -eq "android:id/action1"
+                } | Select-Object -First 1
+            }
+        }
+
+        if (-not $node) {
+            $node = $xml.SelectNodes("//node") | Where-Object {
+                $_.GetAttribute("resource-id") -eq "android:id/action1"
+            } | Select-Object -First 1
+        }
 
         if ($node) {
             break
@@ -161,7 +213,7 @@ function Tap-UnknownAction {
     }
 
     if (-not $node) {
-        throw "Could not find the notification unknown action."
+        throw "Could not find the notification unknown action for word '$ExpectedWord'."
     }
 
     $bounds = $node.GetAttribute("bounds")
@@ -200,7 +252,7 @@ Write-Host "Total words before    : $($before.TotalWords)"
 Write-Host "Need review before    : $($before.NeedReview)"
 Write-Host "Word already in notebook before : $beforeHasWord"
 
-Tap-UnknownAction -Serial $serial
+Tap-UnknownAction -Serial $serial -ExpectedWord $appState.Word.word
 
 Write-Host ""
 Write-Host "[7/7] Reading backend state after action..."

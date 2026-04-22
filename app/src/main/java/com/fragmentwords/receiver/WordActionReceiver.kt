@@ -29,7 +29,7 @@ class WordActionReceiver : BroadcastReceiver() {
 
         when (action) {
             WordService.ACTION_KNOWN -> {
-                val word = extractWord(intent)
+                val word = extractWord(context, intent)
                 if (word != null) {
                     handleKnown(context, word, pendingResult)
                 } else {
@@ -39,7 +39,7 @@ class WordActionReceiver : BroadcastReceiver() {
             }
 
             WordService.ACTION_UNKNOWN -> {
-                val word = extractWord(intent)
+                val word = extractWord(context, intent)
                 if (word != null) {
                     handleUnknown(context, word, pendingResult)
                 } else {
@@ -62,6 +62,7 @@ class WordActionReceiver : BroadcastReceiver() {
     ) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
+                Log.d(TAG, "Handling known for word=${word.word}, remoteId=${word.remoteId}")
                 markButtonClick(context)
 
                 val learningManager = LearningManager(context)
@@ -89,6 +90,7 @@ class WordActionReceiver : BroadcastReceiver() {
     ) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
+                Log.d(TAG, "Handling unknown for word=${word.word}, remoteId=${word.remoteId}")
                 markButtonClick(context)
 
                 val learningManager = LearningManager(context)
@@ -136,7 +138,7 @@ class WordActionReceiver : BroadcastReceiver() {
         }
     }
 
-    private fun extractWord(intent: Intent): Word? {
+    private fun extractWord(context: Context, intent: Intent): Word? {
         val remoteId = intent.getLongExtra(WordService.EXTRA_WORD_ID, -1L)
         val word = intent.getStringExtra(WordService.EXTRA_WORD) ?: return null
         val phonetic = intent.getStringExtra(WordService.EXTRA_PHONETIC) ?: ""
@@ -145,15 +147,22 @@ class WordActionReceiver : BroadcastReceiver() {
         val difficulty = intent.getIntExtra(WordService.EXTRA_DIFFICULTY, 1)
         val partOfSpeech = intent.getStringExtra(WordService.EXTRA_PART_OF_SPEECH) ?: ""
         val library = intent.getStringExtra(WordService.EXTRA_LIBRARY) ?: ""
+        val fallbackCurrentWord = WordRepository(context).getCurrentWord()
+        val resolvedRemoteId = remoteId.takeIf { it > 0 }
+            ?: fallbackCurrentWord?.takeIf { it.word == word }?.remoteId
         return Word(
-            remoteId = remoteId.takeIf { it > 0 },
+            remoteId = resolvedRemoteId,
             word = word,
             phonetic = phonetic,
             translation = translation,
             example = example,
             difficulty = difficulty,
             partOfSpeech = partOfSpeech,
-            library = library
-        )
+            library = library.ifBlank { fallbackCurrentWord?.library.orEmpty() }
+        ).also {
+            if (it.remoteId == null) {
+                Log.w(TAG, "Notification action received without remoteId for word=${it.word}")
+            }
+        }
     }
 }

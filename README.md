@@ -125,11 +125,19 @@ $env:DB_PASSWORD = "your_real_password"
 - `java` 不在 `PATH` 中
 - `backend\mvnw.cmd` 缺失
 - 无法连到 `DB_HOST:DB_PORT` 指向的 MySQL 端口
+- `APP_PORT` 指向的本地应用端口已被占用
 
 如果你只想跳过数据库 TCP 预检查，可显式设置：
 
 ```powershell
 $env:SKIP_DB_PREFLIGHT = "1"
+.\start-local.ps1
+```
+
+如果你本机的 `8080` 已被占用，可显式改后端端口：
+
+```powershell
+$env:APP_PORT = "8081"
 .\start-local.ps1
 ```
 
@@ -153,12 +161,22 @@ cd D:\workspace\app
 .\run-local-smoke.bat
 ```
 
+如果后端不跑在 `8080`，先设置：
+
+```powershell
+$env:APP_PORT = "8081"
+.\run-local-smoke.bat
+```
+
 通知 `unknown` 动作 smoke 脚本：
 
 ```powershell
 cd D:\workspace\app
 .\run-local-unknown-smoke.cmd
 ```
+
+这个脚本同样会读取 `APP_PORT`。
+如果同时设置了 `DB_PASSWORD`，它也会像基础 smoke 一样尝试自动拉起后端。
 
 ### 命令行构建
 

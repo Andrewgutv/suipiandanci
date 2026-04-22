@@ -52,8 +52,10 @@ Recent backend improvements:
 
 - UTF-8 response headers are explicit
 - unauthorized responses are returned as JSON `Result`
+- forbidden responses are returned as JSON `Result`
 - internal server errors are returned as JSON `Result`
 - current auth info endpoint requires authentication
+- auth conflicts / unauthorized / forbidden cases now use explicit domain exceptions
 
 ## What Was Completed In This Pass
 
@@ -92,14 +94,19 @@ Android mainline files:
 
 Android local tooling files:
 
+- `backend/start-local.ps1`
 - `install-debug-and-launch.bat`
 - `run-local-smoke.bat`
+- `run-local-unknown-smoke.bat`
 - `run-local-unknown-smoke.cmd`
 - `run-local-unknown-smoke.ps1`
 
 Backend files:
 
 - `backend/src/main/java/com/fragmentwords/common/Result.java`
+- `backend/src/main/java/com/fragmentwords/common/ConflictException.java`
+- `backend/src/main/java/com/fragmentwords/common/ForbiddenException.java`
+- `backend/src/main/java/com/fragmentwords/common/UnauthorizedException.java`
 - `backend/src/main/java/com/fragmentwords/config/JwtAuthInterceptor.java`
 - `backend/src/main/java/com/fragmentwords/config/GlobalExceptionHandler.java`
 - `backend/src/main/java/com/fragmentwords/controller/VocabController.java`
@@ -107,6 +114,7 @@ Backend files:
 - `backend/src/main/java/com/fragmentwords/controller/LearningController.java`
 - `backend/src/main/java/com/fragmentwords/controller/UserController.java`
 - `backend/src/main/resources/application.yml`
+- `backend/start-local.ps1`
 - `backend/start-local.bat`
 
 Context / handoff files:
@@ -123,10 +131,12 @@ The following have been verified in the current repository state:
 
 - Android `:app:compileDebugKotlin` passes
 - Android `:app:assembleDebug` passes
+- backend `mvn -q test` passes
 - backend `mvn -q -DskipTests compile` passes
 - local emulator integration scripts can install and launch the app
 - notification action smoke automation can exercise the `unknown` action path
 - `/api/v1/auth/info/{userId}` returns JSON `401`
+- authenticated access to another user's `/api/v1/auth/info/{userId}` returns JSON `403`
 - `/api/v1/vocabs`
 - `/api/v1/notebook/count`
 - `/api/v1/learning/next`
@@ -137,7 +147,6 @@ The following have been verified in the current repository state:
 Current meaningful open risks are:
 
 - local backend startup still depends on correct external DB credentials being provided at runtime
-- `UserServiceImpl` exception semantics still need deeper cleanup
 - full real-device Android validation is still incomplete
 - release build validation is still affected by local Gradle wrapper/cache environment issues
 - multi-device cloud sync remains unfinished
@@ -149,9 +158,8 @@ Do not do another broad rewrite.
 The highest-value next step is:
 
 1. finish local/release environment cleanup
-2. complete backend auth semantics cleanup
-3. run a short real-device validation pass
-4. prepare a clean commit and push
+2. run a short real-device validation pass
+3. prepare a clean commit and push
 
 ## Final Assessment
 
