@@ -1,74 +1,290 @@
 [
   {
+    "word": "abide",
+    "phonetic": "/əˈbaɪd/",
+    "translation": "v. 遵守",
+    "example": "abide by rules",
+    "difficulty": 4,
+    "partOfSpeech": "v.",
+    "library": "IELTS"
+  },
+  {
+    "word": "absorb",
+    "phonetic": "/əbˈzɔːrb/",
+    "translation": "v. 吸收",
+    "example": "absorb knowledge",
+    "difficulty": 3,
+    "partOfSpeech": "v.",
+    "library": "IELTS"
+  },
+  {
+    "word": "abstract",
+    "phonetic": "/ˈæbstrækt/",
+    "translation": "adj. 抽象的",
+    "example": "abstract concept",
+    "difficulty": 4,
+    "partOfSpeech": "adj.",
+    "library": "IELTS"
+  },
+  {
+    "word": "abundance",
+    "phonetic": "/əˈbʌndəns/",
+    "translation": "n. 大量",
+    "example": "abundance of food",
+    "difficulty": 4,
+    "partOfSpeech": "n.",
+    "library": "IELTS"
+  },
+  {
     "word": "academic",
     "phonetic": "/ˌækəˈdemɪk/",
-    "translation": "adj. academic; related to study",
-    "example": "The course improved her academic writing.",
+    "translation": "adj. 学术的",
+    "example": "academic year",
     "difficulty": 3,
     "partOfSpeech": "adj.",
+    "library": "IELTS"
+  },
+  {
+    "word": "accelerate",
+    "phonetic": "/əkˈseləreɪt/",
+    "translation": "v. 加速",
+    "example": "accelerate growth",
+    "difficulty": 4,
+    "partOfSpeech": "v.",
+    "library": "IELTS"
+  },
+  {
+    "word": "access",
+    "phonetic": "/ˈækses/",
+    "translation": "n. 通路",
+    "example": "internet access",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "IELTS"
+  },
+  {
+    "word": "accommodate",
+    "phonetic": "/əˈkɒmədeɪt/",
+    "translation": "v. 容纳",
+    "example": "accommodate guests",
+    "difficulty": 4,
+    "partOfSpeech": "v.",
+    "library": "IELTS"
+  },
+  {
+    "word": "accomplish",
+    "phonetic": "/əˈkʌmplɪʃ/",
+    "translation": "v. 实现",
+    "example": "accomplish mission",
+    "difficulty": 3,
+    "partOfSpeech": "v.",
+    "library": "IELTS"
+  },
+  {
+    "word": "accordance",
+    "phonetic": "/əˈkɔːrdəns/",
+    "translation": "n. 一致",
+    "example": "in accordance with",
+    "difficulty": 4,
+    "partOfSpeech": "n.",
+    "library": "IELTS"
+  },
+  {
+    "word": "accountable",
+    "phonetic": "/əˈkaʊntəbl/",
+    "translation": "adj. 负责的",
+    "example": "accountable for actions",
+    "difficulty": 4,
+    "partOfSpeech": "adj.",
+    "library": "IELTS"
+  },
+  {
+    "word": "accumulate",
+    "phonetic": "/əˈkjuːmjəleɪt/",
+    "translation": "v. 积累",
+    "example": "accumulate experience",
+    "difficulty": 4,
+    "partOfSpeech": "v.",
+    "library": "IELTS"
+  },
+  {
+    "word": "accurate",
+    "phonetic": "/ˈækjərət/",
+    "translation": "adj. 准确的",
+    "example": "accurate information",
+    "difficulty": 3,
+    "partOfSpeech": "adj.",
+    "library": "IELTS"
+  },
+  {
+    "word": "achieve",
+    "phonetic": "/əˈtʃiːv/",
+    "translation": "v. 实现",
+    "example": "achieve success",
+    "difficulty": 2,
+    "partOfSpeech": "v.",
+    "library": "IELTS"
+  },
+  {
+    "word": "acknowledge",
+    "phonetic": "/əkˈnɒlɪdʒ/",
+    "translation": "v. 承认",
+    "example": "acknowledge help",
+    "difficulty": 4,
+    "partOfSpeech": "v.",
+    "library": "IELTS"
+  },
+  {
+    "word": "acquire",
+    "phonetic": "/əˈkwaɪər/",
+    "translation": "v. 获得",
+    "example": "acquire skills",
+    "difficulty": 3,
+    "partOfSpeech": "v.",
+    "library": "IELTS"
+  },
+  {
+    "word": "adapt",
+    "phonetic": "/əˈdæpt/",
+    "translation": "v. 适应",
+    "example": "adapt to environment",
+    "difficulty": 3,
+    "partOfSpeech": "v.",
     "library": "IELTS"
   },
   {
     "word": "adequate",
     "phonetic": "/ˈædɪkwət/",
-    "translation": "adj. adequate; enough",
-    "example": "The city needs adequate public transport.",
+    "translation": "adj. 充足的",
+    "example": "adequate resources",
     "difficulty": 3,
     "partOfSpeech": "adj.",
     "library": "IELTS"
   },
   {
-    "word": "administer",
-    "phonetic": "/ədˈmɪnɪstə(r)/",
-    "translation": "v. administer; manage formally",
-    "example": "The school will administer the exam next week.",
+    "word": "adjacent",
+    "phonetic": "/əˈdʒeɪsnt/",
+    "translation": "adj. 相邻的",
+    "example": "adjacent building",
     "difficulty": 4,
+    "partOfSpeech": "adj.",
+    "library": "IELTS"
+  },
+  {
+    "word": "adjust",
+    "phonetic": "/əˈdʒʌst/",
+    "translation": "v. 调整",
+    "example": "adjust schedule",
+    "difficulty": 2,
+    "partOfSpeech": "v.",
+    "library": "IELTS"
+  },
+  {
+    "word": "administer",
+    "phonetic": "/ədˈmɪnɪstər/",
+    "translation": "v. 管理",
+    "example": "administer test",
+    "difficulty": 4,
+    "partOfSpeech": "v.",
+    "library": "IELTS"
+  },
+  {
+    "word": "admire",
+    "phonetic": "/ədˈmaɪər/",
+    "translation": "v. 钦佩",
+    "example": "admire courage",
+    "difficulty": 2,
+    "partOfSpeech": "v.",
+    "library": "IELTS"
+  },
+  {
+    "word": "admission",
+    "phonetic": "/ədˈmɪʃn/",
+    "translation": "n. 准入",
+    "example": "admission ticket",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
+    "library": "IELTS"
+  },
+  {
+    "word": "adopt",
+    "phonetic": "/əˈdɒpt/",
+    "translation": "v. 采取",
+    "example": "adopt method",
+    "difficulty": 2,
+    "partOfSpeech": "v.",
+    "library": "IELTS"
+  },
+  {
+    "word": "adult",
+    "phonetic": "/ˈædʌlt/",
+    "translation": "n. 成年人",
+    "example": "young adult",
+    "difficulty": 2,
+    "partOfSpeech": "n.",
+    "library": "IELTS"
+  },
+  {
+    "word": "advance",
+    "phonetic": "/ədˈvæns/",
+    "translation": "v. 前进",
+    "example": "advance career",
+    "difficulty": 2,
     "partOfSpeech": "v.",
     "library": "IELTS"
   },
   {
     "word": "advantage",
     "phonetic": "/ədˈvɑːntɪdʒ/",
-    "translation": "n. advantage; benefit",
-    "example": "Online classes give students a clear advantage in flexibility.",
+    "translation": "n. 优势",
+    "example": "competitive advantage",
     "difficulty": 2,
     "partOfSpeech": "n.",
     "library": "IELTS"
   },
   {
-    "word": "agency",
-    "phonetic": "/ˈeɪdʒənsi/",
-    "translation": "n. agency; organization",
-    "example": "The travel agency changed our itinerary.",
+    "word": "adventure",
+    "phonetic": "/ədˈventʃər/",
+    "translation": "n. 冒险",
+    "example": "go on adventure",
     "difficulty": 3,
     "partOfSpeech": "n.",
     "library": "IELTS"
   },
   {
-    "word": "allocate",
-    "phonetic": "/ˈæləkeɪt/",
-    "translation": "v. allocate; assign resources",
-    "example": "The government allocated more funding to education.",
+    "word": "advocate",
+    "phonetic": "/ˈædvəkeɪt/",
+    "translation": "v. 提倡",
+    "example": "advocate change",
     "difficulty": 4,
     "partOfSpeech": "v.",
     "library": "IELTS"
   },
   {
-    "word": "alternative",
-    "phonetic": "/ɔːlˈtɜːnətɪv/",
-    "translation": "n. alternative; another choice",
-    "example": "Cycling is a practical alternative to driving.",
-    "difficulty": 3,
-    "partOfSpeech": "n.",
+    "word": "affect",
+    "phenetic": "/əˈfekt/",
+    "translation": "v. 影响",
+    "example": "affect decision",
+    "difficulty": 2,
+    "partOfSpeech": "v.",
     "library": "IELTS"
   },
   {
-    "word": "annual",
-    "phonetic": "/ˈænjuəl/",
-    "translation": "adj. annual; every year",
-    "example": "The museum hosts an annual science festival.",
+    "word": "afford",
+    "phonetic": "/əˈfɔːrd/",
+    "translation": "v. 买得起",
+    "example": "afford house",
     "difficulty": 2,
-    "partOfSpeech": "adj.",
+    "partOfSpeech": "v.",
+    "library": "IELTS"
+  },
+  {
+    "word": "agency",
+    "phonetic": "/ˈeɪdʒənsi/",
+    "translation": "n. 代理",
+    "example": "travel agency",
+    "difficulty": 3,
+    "partOfSpeech": "n.",
     "library": "IELTS"
   }
 ]

@@ -158,25 +158,25 @@ INSERT INTO `word` (`word`, `phonetic`, `translation`, `example`, `vocab_id`, `d
 ON DUPLICATE KEY UPDATE `word`=VALUES(`word`);
 
 INSERT INTO `word` (`word`, `phonetic`, `translation`, `example`, `vocab_id`, `difficulty`) VALUES
-('cohesion', '/kəʊˈhiːʒn/', 'n. unity and connection', 'Good cohesion makes an essay easier to follow.', 3, 4),
-('feasible', '/ˈfiːzəbl/', 'adj. possible and practical', 'The committee discussed whether the plan was feasible.', 3, 4),
-('infrastructure', '/ˈɪnfrəstrʌktʃə(r)/', 'n. basic systems and facilities', 'Rural infrastructure still needs investment.', 3, 4),
-('literacy', '/ˈlɪtərəsi/', 'n. ability to read and write', 'Digital literacy is increasingly important.', 3, 3),
-('metropolitan', '/ˌmetrəˈpɒlɪtən/', 'adj. related to a large city', 'Metropolitan transport systems are often crowded.', 3, 4),
-('sustainable', '/səˈsteɪnəbl/', 'adj. able to continue long-term', 'The city wants a more sustainable energy policy.', 3, 3),
-('tangible', '/ˈtændʒəbl/', 'adj. clear and concrete', 'The project delivered tangible benefits.', 3, 3),
-('urbanization', '/ˌɜːbənaɪˈzeɪʃn/', 'n. growth of cities', 'Rapid urbanization changed the region quickly.', 3, 4)
+('cohesion', '/kəʊˈhiːʒn/', 'n. 凝聚力；连贯性', 'Good cohesion makes an essay easier to follow.', 3, 4),
+('feasible', '/ˈfiːzəbl/', 'adj. 可行的；切实可行的', 'The committee discussed whether the plan was feasible.', 3, 4),
+('infrastructure', '/ˈɪnfrəstrʌktʃə(r)/', 'n. 基础设施', 'Rural infrastructure still needs investment.', 3, 4),
+('literacy', '/ˈlɪtərəsi/', 'n. 读写能力；素养', 'Digital literacy is increasingly important.', 3, 3),
+('metropolitan', '/ˌmetrəˈpɒlɪtən/', 'adj. 大都市的', 'Metropolitan transport systems are often crowded.', 3, 4),
+('sustainable', '/səˈsteɪnəbl/', 'adj. 可持续的', 'The city wants a more sustainable energy policy.', 3, 3),
+('tangible', '/ˈtændʒəbl/', 'adj. 有形的；切实的', 'The project delivered tangible benefits.', 3, 3),
+('urbanization', '/ˌɜːbənaɪˈzeɪʃn/', 'n. 城市化', 'Rapid urbanization changed the region quickly.', 3, 4)
 ON DUPLICATE KEY UPDATE `word`=VALUES(`word`);
 
 INSERT INTO `word` (`word`, `phonetic`, `translation`, `example`, `vocab_id`, `difficulty`) VALUES
-('biodiversity', '/ˌbaɪəʊdaɪˈvɜːsəti/', 'n. variety of living species', 'The island is famous for its biodiversity.', 4, 4),
-('catalyst', '/ˈkætəlɪst/', 'n. trigger for change', 'The policy became a catalyst for reform.', 4, 4),
-('erosion', '/ɪˈrəʊʒn/', 'n. gradual wearing away', 'Wind erosion damaged the farmland.', 4, 4),
-('habitat', '/ˈhæbɪtæt/', 'n. natural home of an animal or plant', 'Wetlands provide habitat for many birds.', 4, 3),
-('isotope', '/ˈaɪsətəʊp/', 'n. form of a chemical element', 'The lab measured the isotope in the sample.', 4, 5),
-('sedimentary', '/ˌsedɪˈmentri/', 'adj. formed by sediment', 'Sedimentary rocks preserve many fossils.', 4, 4),
-('terrestrial', '/təˈrestriəl/', 'adj. related to land', 'The telescope compared marine and terrestrial climates.', 4, 4),
-('turbulence', '/ˈtɜːbjələns/', 'n. violent movement or instability', 'The aircraft entered a zone of turbulence.', 4, 4)
+('biodiversity', '/ˌbaɪəʊdaɪˈvɜːsəti/', 'n. 生物多样性', 'The island is famous for its biodiversity.', 4, 4),
+('catalyst', '/ˈkætəlɪst/', 'n. 催化剂；诱因', 'The policy became a catalyst for reform.', 4, 4),
+('erosion', '/ɪˈrəʊʒn/', 'n. 侵蚀；腐蚀', 'Wind erosion damaged the farmland.', 4, 4),
+('habitat', '/ˈhæbɪtæt/', 'n. 栖息地', 'Wetlands provide habitat for many birds.', 4, 3),
+('isotope', '/ˈaɪsətəʊp/', 'n. 同位素', 'The lab measured the isotope in the sample.', 4, 5),
+('sedimentary', '/ˌsedɪˈmentri/', 'adj. 沉积的', 'Sedimentary rocks preserve many fossils.', 4, 4),
+('terrestrial', '/təˈrestriəl/', 'adj. 陆地的；地球的', 'The telescope compared marine and terrestrial climates.', 4, 4),
+('turbulence', '/ˈtɜːbjələns/', 'n. 湍流；动荡', 'The aircraft entered a zone of turbulence.', 4, 4)
 ON DUPLICATE KEY UPDATE `word`=VALUES(`word`);
 
 INSERT INTO `word` (`word`, `phonetic`, `translation`, `example`, `vocab_id`, `difficulty`) VALUES
