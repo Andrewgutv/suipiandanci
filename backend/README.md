@@ -44,6 +44,11 @@
    source D:/workspace/app/backend/src/main/resources/sql/init.sql
    ```
 
+   如果数据库已经存在，但 `IELTS` / `TOEFL` 样例词仍保留旧的英文释义或异常音标，可额外执行：
+   ```sql
+   source D:/workspace/app/backend/src/main/resources/sql/repair_sample_vocab_text.sql
+   ```
+
 3. **验证数据库**
    ```sql
    USE fragment_words;

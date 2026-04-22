@@ -120,6 +120,16 @@ $env:APP_PORT = "8081"
 Invoke-RestMethod http://localhost:8081/api/v1/vocabs
 ```
 
+### 已有数据库数据修复
+
+如果数据库不是新初始化的，而你仍看到 `IELTS` / `TOEFL` 样例词出现英文释义或异常音标，可执行：
+
+```powershell
+& 'C:\Program Files\MySQL\MySQL Server 8.0\bin\mysql.exe' -uroot -p你的真实密码 -P3307 fragment_words < .\backend\src\main\resources\sql\repair_sample_vocab_text.sql
+```
+
+这个脚本会修复当前已有库里的相关样例词数据，不需要重建整个数据库。
+
 ## 5. Android 调试包
 
 ### 构建 debug APK

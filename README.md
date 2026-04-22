@@ -147,6 +147,12 @@ $env:APP_PORT = "8081"
 set DB_PASSWORD=your_real_password && start-local.bat
 ```
 
+如果你的数据库已经初始化过，且 `IELTS` / `TOEFL` 样例词仍显示旧的英文释义或异常音标，可再执行一次修复脚本：
+
+```powershell
+& 'C:\Program Files\MySQL\MySQL Server 8.0\bin\mysql.exe' -uroot -p你的真实密码 -P3307 fragment_words < .\backend\src\main\resources\sql\repair_sample_vocab_text.sql
+```
+
 Android debug 安装并启动脚本：
 
 ```powershell
