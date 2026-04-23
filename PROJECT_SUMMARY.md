@@ -56,6 +56,7 @@ Recent backend improvements:
 - internal server errors are returned as JSON `Result`
 - current auth info endpoint requires authentication
 - auth conflicts / unauthorized / forbidden cases now use explicit domain exceptions
+- repaired sample vocab rows now return Chinese translations and normal IPA on the cleaned paths
 
 ## What Was Completed In This Pass
 
@@ -100,6 +101,7 @@ Android local tooling files:
 - `run-local-unknown-smoke.bat`
 - `run-local-unknown-smoke.cmd`
 - `run-local-unknown-smoke.ps1`
+- `app/src/debug/java/com/fragmentwords/debug/DebugWordActionActivity.kt`
 
 Backend files:
 
@@ -116,6 +118,7 @@ Backend files:
 - `backend/src/main/resources/application.yml`
 - `backend/start-local.ps1`
 - `backend/start-local.bat`
+- `backend/src/main/resources/sql/repair_sample_vocab_text.sql`
 
 Context / handoff files:
 
@@ -134,7 +137,7 @@ The following have been verified in the current repository state:
 - backend `mvn -q test` passes
 - backend `mvn -q -DskipTests compile` passes
 - local emulator integration scripts can install and launch the app
-- notification action smoke automation can exercise the `unknown` action path
+- deterministic debug smoke can exercise the `unknown` action path without relying on notification UI timing
 - `/api/v1/auth/info/{userId}` returns JSON `401`
 - authenticated access to another user's `/api/v1/auth/info/{userId}` returns JSON `403`
 - `/api/v1/vocabs`
@@ -150,6 +153,7 @@ Current meaningful open risks are:
 - full real-device Android validation is still incomplete
 - release build validation is still affected by local Gradle wrapper/cache environment issues
 - multi-device cloud sync remains unfinished
+- real notification-UI tap behavior still needs final confirmation on a device even though the deterministic debug path is stable
 
 ## Recommended Next Step
 

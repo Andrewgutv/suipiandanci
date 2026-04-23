@@ -41,6 +41,8 @@ Already improved:
 - startup now fails fast when MySQL TCP preflight fails
 - startup now fails fast when the local app port from `APP_PORT` is already in use
 - smoke scripts now respect `APP_PORT`
+- sample vocab data repair script now exists for already-initialized local databases:
+  - `backend/src/main/resources/sql/repair_sample_vocab_text.sql`
 
 ### 2. Backend Auth Semantics Cleanup
 
@@ -78,6 +80,11 @@ Still needed:
   - push toggle on/off
   - `known / unknown` notification actions
 
+Current validation note:
+
+- the repository now has a deterministic debug-only `unknown` smoke path, which is useful for repeatable app-side validation
+- this does not replace final verification of the real system-notification tap path on a device
+
 ## Validation Target
 
 The next milestone should be:
@@ -86,6 +93,7 @@ The next milestone should be:
 - auth and error responses are consistent on the current auth slice
 - Android debug smoke remains green
 - one short real-device pass is completed
+- repaired sample vocab data is reflected on device without stale local DB surprises
 
 ## Working Rule
 

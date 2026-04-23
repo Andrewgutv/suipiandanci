@@ -21,6 +21,8 @@ It is now in a release-prep integration stage:
 - backend core API routes are live and callable
 - one real Android-to-backend learning path has been verified end-to-end
 - local development smoke scripts now exist for repeated validation
+- deterministic debug smoke now exists for the `unknown` action path
+- sample vocab data cleanup has been applied to the current repository state
 
 ## Android Mainline Status
 
@@ -43,6 +45,7 @@ Working Android capabilities:
 - backend-first notebook count/list read
 - backend feedback sync for `known / unknown`
 - backend current-vocab sync
+- deterministic debug-triggered `unknown` smoke for repeatable validation
 
 Latest debug APK path:
 
@@ -79,6 +82,7 @@ Recent backend cleanup also improved response behavior:
 - internal server errors now return JSON `Result`
 - auth info endpoint is now guarded by `@RequireAuth`
 - auth conflict / unauthorized / forbidden cases now use explicit domain exceptions
+- sample `IELTS` / `TOEFL` / `CET6` / `GRE` / `GRADUATE` vocab rows now have repaired phonetics and Chinese translations
 
 Backend compile status:
 
@@ -95,9 +99,10 @@ The following are verified in the current repository state:
 - backend `mvn -q test` passes
 - backend `mvn -q -DskipTests compile` passes
 - Android emulator smoke path can install and launch through local scripts
-- notification `unknown` action automation script can reach backend and verify notebook/stats deltas
+- deterministic `unknown` smoke can trigger the app-side unknown-action chain in debug builds
 - unauthenticated `/api/v1/auth/info/{userId}` returns JSON `401`
 - authenticated cross-user `/api/v1/auth/info/{userId}` returns JSON `403`
+- backend `/api/v1/notebook` now returns repaired Chinese translations and normal IPA for cleaned sample vocab rows
 
 ## Remaining High-Priority Risk
 
@@ -107,6 +112,7 @@ These are the meaningful open risks now:
 - backend startup currently depends on correct local MySQL credentials being injected at runtime
 - release build validation is still blocked by local Gradle wrapper/cache environment issues
 - cloud sync and multi-device account behavior remain unfinished
+- the real system-notification UI tap path still needs final real-device confirmation even though the deterministic debug smoke path is now stable
 
 ## Recommended Next Step
 
@@ -129,4 +135,5 @@ If someone asks where the project stands right now, the accurate answer is:
 - Android mainline: beta-usable
 - backend mainline: core API slice is live
 - integration status: core Android-to-backend learning path is already connected and verified
+- local validation tooling: repeatable smoke path is in place, including a deterministic debug path for `unknown`
 - overall project: in release-prep integration cleanup, not prototype discovery
