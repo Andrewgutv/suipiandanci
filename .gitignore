@@ -34,3 +34,8 @@ tmp_apply_patch_check.txt
 z_patch_test.txt
 zz_medium_test.txt
 zz_small_test.java
+
+# Local docs and signing files
+ppt-materials-cn/
+*.keystore
+*.jks
