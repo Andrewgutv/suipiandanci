@@ -65,7 +65,11 @@ public class EbbinghausUtil {
                 return now + 365L * 24 * 60 * 60 * 1000;
             }
         } else {
-            // 不认识：重置回第一个复习阶段（5分钟后）
+            // 不认识：回退后的阶段决定复习间隔（保留部分进度）
+            int fallbackStage = Math.max(0, currentStage - 2);
+            if (fallbackStage < REVIEW_INTERVALS.size()) {
+                return now + REVIEW_INTERVALS.get(fallbackStage);
+            }
             return now + REVIEW_INTERVALS.get(0);
         }
     }
@@ -80,7 +84,8 @@ public class EbbinghausUtil {
         if (isKnown) {
             return Math.min(currentStage + 1, MASTERED_STAGE);
         } else {
-            return 0; // 重置回0
+            // 部分回退：最多回退2个阶段，保留已有的学习进度
+            return Math.max(0, currentStage - 2);
         }
     }
 
@@ -157,9 +162,9 @@ public class EbbinghausUtil {
             if (stage == 0) {
                 return "很好！5分钟后复习一次";
             } else if (stage == 1) {
-                return "不错！12小时后复习";
+                return "不错！30分钟后复习";
             } else if (stage == 2) {
-                return "坚持！明天复习";
+                return "坚持！12小时后复习";
             } else if (stage <= 4) {
                 return "继续加油！保持复习节奏";
             } else if (stage <= 7) {
@@ -168,7 +173,7 @@ public class EbbinghausUtil {
                 return "恭喜！这个单词已经掌握";
             }
         } else {
-            return "没关系，5分钟后会再次出现，加强记忆";
+            return "没关系，稍后会再次出现，加强记忆";
         }
     }
 

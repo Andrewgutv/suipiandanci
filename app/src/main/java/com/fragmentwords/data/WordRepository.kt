@@ -172,7 +172,8 @@ class WordRepository(context: Context) {
         excludeWord: String? = null
     ): Word? {
         val normalizedLibraries = LibrarySelection.normalize(selectedLibraries)
-        val remoteWord = fetchNextWordFromBackend(normalizedLibraries)
+        val excludeWordId = excludeWord?.let { getRemoteWordId(it) }
+        val remoteWord = fetchNextWordFromBackend(normalizedLibraries, excludeWordId)
         if (remoteWord != null && remoteWord.word != excludeWord) {
             return remoteWord
         }
@@ -366,7 +367,7 @@ class WordRepository(context: Context) {
         }
     }
 
-    private suspend fun fetchNextWordFromBackend(selectedLibraries: List<String>): Word? {
+    private suspend fun fetchNextWordFromBackend(selectedLibraries: List<String>, excludeWordId: Long? = null): Word? {
         val vocabIds = resolveRemoteVocabIds(selectedLibraries)
         if (selectedLibraries.isNotEmpty() && vocabIds.isEmpty()) {
             Log.d(TAG, "Skipping remote next-word fetch because no selected libraries map to backend vocabs")
@@ -377,7 +378,7 @@ class WordRepository(context: Context) {
             val response = apiService.getNextWord(
                 deviceId = preferencesManager.getDeviceId(),
                 authorization = authorizationHeader(),
-                request = NextWordRequest(vocabIds.ifEmpty { null })
+                request = NextWordRequest(vocabIds = vocabIds.ifEmpty { null }, excludeWordId = excludeWordId)
             )
             response.successBody()?.data?.toWord(selectedLibraries)
         }.onFailure {
@@ -502,6 +503,13 @@ class WordRepository(context: Context) {
     private fun authorizationHeader(): String? {
         val token = preferencesManager.getToken().orEmpty().trim()
         return token.takeIf { it.isNotEmpty() }?.let { "Bearer $it" }
+    }
+
+    /**
+     * 根据单词文本查找其后端 remoteId（用于 excludeWordId）
+     */
+    private fun getRemoteWordId(wordText: String): Long? {
+        return getCurrentWord()?.takeIf { it.word == wordText }?.remoteId
     }
 
     private fun LearningResponse.toWord(selectedLibraries: List<String>): Word {

@@ -82,32 +82,11 @@ class LearningManager(context: Context) {
         }
 
         // 2. 没有需要复习的单词，选择新单词
-        val newWord = if (libraries.isEmpty()) {
+        return@withContext if (libraries.isEmpty()) {
             database.getRandomWord(excludeWord)
         } else {
             database.getRandomWordByLibraries(libraries, excludeWord)
         }
-
-        // 初始化新单词的学习进度
-        if (newWord != null) {
-            val progress = database.getLearningProgress(newWord.word)
-            if (progress == null) {
-                val initialProgress = WordDatabase.LearningProgress(
-                    word = newWord.word,
-                    stage = 0,
-                    nextReviewTime = System.currentTimeMillis(), // 立即学习
-                    lastReviewTime = 0,
-                    reviewCount = 0,
-                    knownCount = 0,
-                    unknownCount = 0,
-                    createdTime = System.currentTimeMillis()
-                )
-                database.updateLearningProgress(initialProgress)
-                Log.d(tag, "New word: ${newWord.word}")
-            }
-        }
-
-        return@withContext newWord
     }
 
     /**

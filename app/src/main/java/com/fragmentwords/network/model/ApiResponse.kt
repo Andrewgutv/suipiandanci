@@ -229,7 +229,10 @@ data class LearningRequest(
  */
 data class NextWordRequest(
     @SerializedName("vocabIds")
-    val vocabIds: List<Long>? = null
+    val vocabIds: List<Long>? = null,
+
+    @SerializedName("excludeWordId")
+    val excludeWordId: Long? = null
 )
 
 /**

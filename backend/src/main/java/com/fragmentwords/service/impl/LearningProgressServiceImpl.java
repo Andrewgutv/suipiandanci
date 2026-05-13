@@ -35,52 +35,59 @@ public class LearningProgressServiceImpl implements LearningProgressService {
 
     @Override
     public LearningResponseDTO getNextWord(String deviceId, Long userId, NextWordDTO request) {
-        // 1. 优先获取需要复习的单词
+        Long excludeWordId = request != null ? request.getExcludeWordId() : null;
+
+        // 1. 获取需要复习的单词（排除当前单词）
         List<LearningProgress> reviewList = learningProgressMapper.findWordsToReview(
-            deviceId, userId, request.getVocabIds(), WORD_CANDIDATE_POOL_SIZE
+            deviceId, userId, request != null ? request.getVocabIds() : null,
+            WORD_CANDIDATE_POOL_SIZE, excludeWordId
         );
 
-        if (!reviewList.isEmpty()) {
+        // 2. 获取随机新单词（排除当前单词）
+        List<Long> newWordIds = learningProgressMapper.findRandomNewWords(
+            deviceId, userId, request != null ? request.getVocabIds() : null,
+            WORD_CANDIDATE_POOL_SIZE, excludeWordId
+        );
+
+        boolean hasReview = !reviewList.isEmpty();
+        boolean hasNew = !newWordIds.isEmpty();
+
+        // 3. 混合策略：复习词和新词按比例出现，避免复习队列垄断
+        if (hasReview && hasNew) {
+            // 70% 复习，30% 新词
+            if (ThreadLocalRandom.current().nextDouble() < 0.7) {
+                LearningProgress progress = pickRandom(reviewList);
+                Word word = getWordOrThrow(progress.getWordId());
+                return buildResponse(word, progress);
+            } else {
+                Long wordId = pickRandom(newWordIds);
+                Word word = getWordOrThrow(wordId);
+                return buildPreviewResponse(word);
+            }
+        }
+
+        if (hasReview) {
             LearningProgress progress = pickRandom(reviewList);
             Word word = getWordOrThrow(progress.getWordId());
             return buildResponse(word, progress);
         }
 
-        // 2. 获取随机新单词
-        List<Long> newWordIds = learningProgressMapper.findRandomNewWords(
-            deviceId, userId, request.getVocabIds(), WORD_CANDIDATE_POOL_SIZE
-        );
-
-        if (!newWordIds.isEmpty()) {
+        if (hasNew) {
             Long wordId = pickRandom(newWordIds);
             Word word = getWordOrThrow(wordId);
-
-            // 初始化学习进度
-            LearningProgress progress = new LearningProgress();
-            progress.setDeviceId(deviceId);
-            progress.setUserId(userId);
-            progress.setWordId(wordId);
-            progress.setStage(0);
-            progress.setKnownCount(0);
-            progress.setUnknownCount(0);
-            progress.setNextReviewTime(new Date());
-            progress.setLastReviewTime(new Date(0));
-            progress.setIsMastered(false);
-            progress.setCreateTime(new Date());
-            progress.setUpdateTime(new Date());
-
-            learningProgressMapper.insert(progress);
-
-            return buildResponse(word, progress);
+            return buildPreviewResponse(word);
         }
 
-        // 3. 没有新单词，返回随机已学单词
+        // 4. 没有复习词也没有新词，返回未掌握的已学单词
         LambdaQueryWrapper<LearningProgress> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(LearningProgress::getDeviceId, deviceId);
         if (userId != null) {
             wrapper.or().eq(LearningProgress::getUserId, userId);
         }
         wrapper.eq(LearningProgress::getIsMastered, false);
+        if (excludeWordId != null) {
+            wrapper.ne(LearningProgress::getWordId, excludeWordId);
+        }
         wrapper.orderByAsc(LearningProgress::getNextReviewTime);
         wrapper.last("LIMIT 1");
 
@@ -224,6 +231,13 @@ public class LearningProgressServiceImpl implements LearningProgressService {
         }
 
         return dto;
+    }
+
+    private LearningResponseDTO buildPreviewResponse(Word word) {
+        LearningProgress progress = new LearningProgress();
+        progress.setStage(0);
+        progress.setIsMastered(false);
+        return buildResponse(word, progress);
     }
 
     /**

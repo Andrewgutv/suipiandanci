@@ -64,8 +64,13 @@ object EbbinghausManager {
                 now + 365 * 24 * 60 * 60 * 1000L
             }
         } else {
-            // 不认识：重置回第一个复习阶段（5分钟后）
-            now + REVIEW_INTERVALS[0]
+            // 不认识：回退后的阶段决定复习间隔（保留部分进度）
+            val fallbackStage = maxOf(0, currentStage - 2)
+            if (fallbackStage < REVIEW_INTERVALS.size) {
+                now + REVIEW_INTERVALS[fallbackStage]
+            } else {
+                now + REVIEW_INTERVALS[0]
+            }
         }
     }
 
@@ -79,7 +84,8 @@ object EbbinghausManager {
         return if (isKnown) {
             minOf(currentStage + 1, 8) // 最大为8（已掌握）
         } else {
-            0 // 重置回0
+            // 部分回退：最多回退2个阶段，保留已有的学习进度
+            maxOf(0, currentStage - 2)
         }
     }
 
@@ -149,14 +155,14 @@ object EbbinghausManager {
         return if (isKnown) {
             when {
                 stage == 0 -> "很好！5分钟后复习一次"
-                stage == 1 -> "不错！12小时后复习"
-                stage == 2 -> "坚持！明天复习"
+                stage == 1 -> "不错！30分钟后复习"
+                stage == 2 -> "坚持！12小时后复习"
                 stage <= 4 -> "继续加油！保持复习节奏"
                 stage <= 7 -> "即将掌握！坚持最后几次复习"
                 else -> "恭喜！这个单词已经掌握"
             }
         } else {
-            "没关系，5分钟后会再次出现，加强记忆"
+            "没关系，稍后会再次出现，加强记忆"
         }
     }
 

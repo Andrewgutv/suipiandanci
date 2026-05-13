@@ -90,9 +90,11 @@ Stop the existing process, or set APP_PORT to a free port before starting the ba
 "@
 }
 
-$env:SPRING_DATASOURCE_URL = "jdbc:mysql://$dbHost`:$dbPort/$dbName?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai"
-$env:SPRING_DATASOURCE_USERNAME = $dbUser
-$env:SPRING_DATASOURCE_PASSWORD = $dbPassword
+$env:DB_HOST = $dbHost
+$env:DB_PORT = $dbPort
+$env:DB_NAME = $dbName
+$env:DB_USER = $dbUser
+$env:DB_PASSWORD = $dbPassword
 $env:SERVER_PORT = $appPort
 
 $process = Start-Process `

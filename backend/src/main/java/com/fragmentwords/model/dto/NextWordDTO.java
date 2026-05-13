@@ -9,4 +9,5 @@ import java.util.List;
 @Data
 public class NextWordDTO {
     private List<Long> vocabIds; // 词库ID列表（可选，为空则从所有词库获取）
+    private Long excludeWordId;  // 需要排除的单词ID（可选，避免返回刚看过的单词）
 }

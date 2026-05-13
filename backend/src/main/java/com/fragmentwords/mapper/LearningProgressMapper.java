@@ -15,11 +15,12 @@ import java.util.List;
 public interface LearningProgressMapper extends BaseMapper<LearningProgress> {
 
     /**
-     * 查询需要复习的单词（按复习时间排序）
+     * 查询需要复习的单词（按复习时间排序，可排除指定单词）
      * @param deviceId 设备ID
      * @param userId 用户ID（可选）
      * @param vocabIds 词库ID列表（可选）
      * @param limit 限制数量
+     * @param excludeWordId 需要排除的单词ID（可选）
      * @return 需要复习的学习进度列表
      */
     @Select("<script>" +
@@ -32,6 +33,9 @@ public interface LearningProgressMapper extends BaseMapper<LearningProgress> {
             "OR lp.user_id = #{userId}" +
             "</if>" +
             ") " +
+            "<if test='excludeWordId != null'>" +
+            "AND lp.word_id != #{excludeWordId} " +
+            "</if>" +
             "<if test='vocabIds != null and vocabIds.size() > 0'>" +
             "AND w.vocab_id IN " +
             "<foreach item='id' collection='vocabIds' open='(' separator=',' close=')'>" +
@@ -45,15 +49,17 @@ public interface LearningProgressMapper extends BaseMapper<LearningProgress> {
         @Param("deviceId") String deviceId,
         @Param("userId") Long userId,
         @Param("vocabIds") List<Long> vocabIds,
-        @Param("limit") int limit
+        @Param("limit") int limit,
+        @Param("excludeWordId") Long excludeWordId
     );
 
     /**
-     * 查询随机新单词（未学习过的）
+     * 查询随机新单词（未学习过的，可排除指定单词）
      * @param deviceId 设备ID
      * @param userId 用户ID（可选）
      * @param vocabIds 词库ID列表（可选）
      * @param limit 限制数量
+     * @param excludeWordId 需要排除的单词ID（可选）
      * @return 随机单词ID列表
      */
     @Select("<script>" +
@@ -65,6 +71,9 @@ public interface LearningProgressMapper extends BaseMapper<LearningProgress> {
             "  OR lp.user_id = #{userId}" +
             "</if>" +
             ") " +
+            "<if test='excludeWordId != null'>" +
+            "AND w.id != #{excludeWordId} " +
+            "</if>" +
             "<if test='vocabIds != null and vocabIds.size() > 0'>" +
             "AND w.vocab_id IN " +
             "<foreach item='id' collection='vocabIds' open='(' separator=',' close=')'>" +
@@ -78,7 +87,8 @@ public interface LearningProgressMapper extends BaseMapper<LearningProgress> {
         @Param("deviceId") String deviceId,
         @Param("userId") Long userId,
         @Param("vocabIds") List<Long> vocabIds,
-        @Param("limit") int limit
+        @Param("limit") int limit,
+        @Param("excludeWordId") Long excludeWordId
     );
 
     /**

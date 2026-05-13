@@ -19,9 +19,11 @@ if "%DB_USER%"=="" set "DB_USER=root"
 if "%APP_PORT%"=="" set "APP_PORT=8080"
 if "%SKIP_DB_PREFLIGHT%"=="" set "SKIP_DB_PREFLIGHT=0"
 
-set "SPRING_DATASOURCE_URL=jdbc:mysql://%DB_HOST%:%DB_PORT%/%DB_NAME%?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai"
-set "SPRING_DATASOURCE_USERNAME=%DB_USER%"
-set "SPRING_DATASOURCE_PASSWORD=%DB_PASSWORD%"
+set "DB_HOST=%DB_HOST%"
+set "DB_PORT=%DB_PORT%"
+set "DB_NAME=%DB_NAME%"
+set "DB_USER=%DB_USER%"
+set "DB_PASSWORD=%DB_PASSWORD%"
 set "SERVER_PORT=%APP_PORT%"
 
 echo Expected local services:

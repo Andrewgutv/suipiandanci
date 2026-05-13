@@ -1,4 +1,4 @@
-# 锁屏背单词 - 开发进度文档
+﻿# 锁屏背单词 - 开发进度文档
 
 > 📅 **项目周期**：10周
 > 🎯 **目标奖项**：省级创新创业大赛金奖
@@ -101,7 +101,7 @@
 
 **核心文件**：
 - `app/src/main/assets/data/cet4_words.json` ✅
-- `词库扩展指南.md` ✅
+- `VOCABULARY-EXPANSION-GUIDE.md` ✅
 - `app/src/main/java/com/fragmentwords/data/WordRepository.kt` ✅
 
 ---
@@ -773,3 +773,4 @@ learning_progress (学习进度) ⭐新增
 3. 开始内测获取真实用户数据
 
 加油！💪
+
